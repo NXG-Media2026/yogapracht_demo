@@ -32,7 +32,7 @@ const testimonials = defineCollection({
 });
 
 const settings = defineCollection({
-  loader: glob({ pattern: '**/*.{yaml,md}', base: 'src/content/settings' }),
+  loader: glob({ pattern: '**/*.{yaml,md,mdx}', base: 'src/content/settings' }),
 });
 
 export const collections = { blog, faqs, testimonials, settings };

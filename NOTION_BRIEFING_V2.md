@@ -6,7 +6,7 @@
 
 ## Overzicht
 
-**Wat we bouwen:** Een Astro 5 + Tailwind + Keystatic template die we per klant clonen. Elke klant-site heeft hetzelfde technische fundament maar eigen branding en content.
+**Wat we bouwen:** Een Astro 6 + Tailwind + Keystatic template die we per klant clonen. Elke klant-site heeft hetzelfde technische fundament maar eigen branding en content.
 
 **Template repo:** `NXG-Media2026/nxg-client-template`  
 **Referentie-implementatie:** `NXG-Media2026/yogapracht_demo`
@@ -33,7 +33,7 @@
 | CSS | Tailwind 3.4 + `@tailwindcss/typography` | Semantische kleurnamen |
 | CMS | Keystatic | `storage: { kind: 'local' }` voor dev |
 | Blog | `@astrojs/mdx@5` | **NIET markdoc** — incompatibel met Astro |
-| Content | Astro Content Collections | ALLE collections gebruiken `glob` loader (geen `type: 'data'`) |
+| Content | Astro Content Collections | ALLE collections gebruiken `glob` loader (geen `type: 'data'`). Settings glob: `**/*.{yaml,md,mdx}` |
 | Fonts | Self-hosted via fontsource | woff2 in `public/fonts/` |
 | Afbeeldingen | Astro `<Image>` component | Auto WebP, responsive sizes |
 
@@ -41,7 +41,7 @@
 - `npm audit fix` → **NOOIT** uitvoeren, breekt Astro
 - `npm install` → Gebruik `--legacy-peer-deps` als er peer dependency conflicts zijn
 - `trailingSlash: 'never'` → Alle interne links zonder trailing slash
-- `fields.mdx()` in Keystatic, **niet** `fields.markdoc()`
+- `fields.mdx()` in Keystatic, **nooit** `fields.markdoc()` (ook voor singletons met content veld zoals about-bio)
 
 ---
 
@@ -357,13 +357,13 @@ Deze features zijn verplicht bij elke klant-build. Ze zijn essentieel voor vindb
 | Fout | Gevolg | Oplossing |
 |---|---|---|
 | `npm audit fix --force` | Breekt Astro volledig | **Nooit doen** |
-| `fields.markdoc()` in Keystatic | Incompatibel met Astro 5 | Gebruik `fields.mdx()` |
-| `output: 'hybrid'` | Niet nodig, veroorzaakt build issues | Gebruik `output: 'static'` + node adapter |
+| `fields.markdoc()` in Keystatic | Incompatibel met Astro, ook in singletons | Altijd `fields.mdx()`, ook voor about-bio |
+| `output: 'hybrid'` hardcoded | Build faalt op Cloudflare | Alleen bij dev via `isDev` check, build is `'static'` |
 | Afbeeldingen als `<img>` tag | Geen WebP conversie, geen optimalisatie | Altijd `<Image>` uit `astro:assets` |
 | Alt-tekst zonder plaatsnaam | Mist GEO-signaal voor local SEO | Altijd bedrijfsnaam + plaatsnaam in alt |
 | Testimonial veld `quote:` | Schema verwacht `text:` | Veldnaam is **altijd** `text:` |
 | FAQ antwoord begint met "Ja"/"Nee" | AI kan het niet standalone citeren | Eerste zin moet op zichzelf staan |
-| Blog content als .mdoc | Astro 5 kan geen .mdoc renderen | Gebruik .md of .mdx |
+| `.mdoc` bestanden gebruiken | Niet supported zonder markdoc | Gebruik .md, .mdx of .yaml |
 | Content direct pushen zonder build | Broken deploy | Altijd eerst `npm run build` lokaal |
 | Geen `--legacy-peer-deps` bij install | npm install faalt met peer conflicts | Altijd `--legacy-peer-deps` meegeven |
 | Favicon niet aangepast | Oude template letter/kleur zichtbaar | Update letter + primary kleur in favicon.svg |

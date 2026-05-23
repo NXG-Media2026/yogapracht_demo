@@ -112,7 +112,7 @@ export default config({
       schema: {
         headline: fields.text({ label: 'Koptekst' }),
         subheadline: fields.text({ label: 'Onderkop' }),
-        bio: fields.markdoc({ label: 'Biografie' }),
+        bio: fields.mdx({ label: 'Biografie' }),
         profileImage: fields.image({
           label: 'Profielfoto',
           directory: 'src/assets/images',

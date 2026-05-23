@@ -62,14 +62,13 @@ Deze features moeten ALTIJD mee — ze zijn essentieel voor vindbaarheid:
 
 ### Nooit doen
 - `npm audit fix` of `npm audit fix --force` — **NOOIT**, breekt Astro
-- `fields.markdoc()` in Keystatic — **incompatibel met Astro**, gebruik `fields.mdx()`
+- `fields.markdoc()` in Keystatic — **incompatibel met Astro**, altijd `fields.mdx()` (ook voor singletons met content veld)
 - `output: 'hybrid'` hardcoded — **alleen bij dev** via `isDev` check, build is altijd `'static'`
 - `type: 'data'` in content collections — **verouderd in Astro 6**, gebruik altijd `glob` loader
 - `@astrojs/cloudflare` adapter — **niet nodig** voor Cloudflare Pages static deploy
 - Afbeeldingen als `<img>` tag — **altijd `<Image>` uit `astro:assets`**
-- Blog content als .mdoc — **Astro 5 kan geen .mdoc renderen**, gebruik .md of .mdx
+- `.mdoc` bestanden gebruiken — **niet supported zonder markdoc**, gebruik `.md`, `.mdx` of `.yaml`
 - Trailing slashes in links — `trailingSlash: 'never'` staat in de config
-- `.mdoc` bestanden gebruiken — **niet supported zonder markdoc**, gebruik `.md` of `.yaml`
 
 ### Altijd doen
 - `--legacy-peer-deps` bij npm install (staat ook in `.npmrc` voor Cloudflare builds)
@@ -78,6 +77,7 @@ Deze features moeten ALTIJD mee — ze zijn essentieel voor vindbaarheid:
 - Alt-teksten: bevatten bedrijfsnaam + plaatsnaam + beroep/dienst
 - Testimonial veldnaam is `text:` in YAML, **niet** `quote:`
 - ALLE collections gebruiken `glob` loader, bijv: `loader: glob({ pattern: '**/*.yaml', base: 'src/content/testimonials' })`
+- Settings collection glob: `**/*.{yaml,md,mdx}` — moet `.mdx` bevatten voor singletons met `fields.mdx()` content
 - Keystatic blog: `format: { contentField: 'content', data: 'yaml' }` + `entryLayout: 'content'`
 - Test altijd met `npm run build` voordat je iets als klaar beschouwt
 - Alle tracking scripts alleen laden na cookie consent
@@ -131,7 +131,7 @@ collections: {
 }
 singletons: {
   contact: singleton({ /* businessName, phone, email, address, openingHours */ }),
-  about: singleton({ /* headline, subheadline, bio (markdoc), profileImage */ }),
+  about: singleton({ /* headline, subheadline, bio (fields.mdx), profileImage */ }),
 }
 ```
 
