@@ -1,0 +1,16 @@
+---
+interface Props {
+  items: Array<{ value: string; label: string }>;
+}
+
+const { items } = Astro.props;
+---
+
+<div class="flex flex-wrap items-center justify-center gap-8 md:gap-14 py-8">
+  {items.map((item) => (
+    <div class="text-center">
+      <p class="text-3xl font-bold text-accent">{item.value}</p>
+      <p class="text-sm text-text-muted mt-1">{item.label}</p>
+    </div>
+  ))}
+</div>

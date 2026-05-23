@@ -1,0 +1,106 @@
+---
+import { siteConfig } from '../data/site';
+
+interface Props {
+  locale?: string;
+}
+
+const l = {
+  text: 'Wij gebruiken cookies voor statistieken en marketing. Functionele cookies zijn altijd actief.',
+  accept: 'Alles accepteren',
+  necessary: 'Alleen noodzakelijk',
+  privacy: 'Privacyverklaring',
+};
+const ga4Id = siteConfig.analytics.ga4MeasurementId;
+const metaPixelId = siteConfig.analytics.metaPixelId;
+---
+
+<div
+  id="cookie-consent"
+  class="fixed bottom-0 left-0 right-0 z-50 hidden"
+  role="dialog"
+  aria-label={l.text}
+  data-ga4-id={ga4Id}
+  data-meta-pixel-id={metaPixelId}
+>
+  <div class="bg-white border-t border-border shadow-lg px-4 py-4 md:py-3">
+    <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
+      <p class="text-sm text-text-muted flex-1 leading-relaxed">
+        {l.text}{' '}
+        <a href="/privacy" class="underline text-accent hover:text-accent-dark">{l.privacy}</a>
+      </p>
+      <div class="flex items-center gap-2 shrink-0">
+        <button
+          id="cookie-necessary"
+          class="px-4 py-2 text-sm font-medium text-text-muted border border-border rounded-button hover:bg-bg-alt transition-colors"
+        >
+          {l.necessary}
+        </button>
+        <button
+          id="cookie-accept"
+          class="px-4 py-2 text-sm font-medium text-text-inverse bg-primary hover:bg-primary-dark rounded-button transition-colors"
+        >
+          {l.accept}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+(function() {
+  var CONSENT_KEY = 'nxg_cookie_consent';
+  var banner = document.getElementById('cookie-consent');
+  if (!banner) return;
+
+  var stored = localStorage.getItem(CONSENT_KEY);
+  if (stored) {
+    var consent = JSON.parse(stored);
+    if (consent.analytics || consent.marketing) loadScripts(consent);
+    return;
+  }
+
+  banner.classList.remove('hidden');
+
+  document.getElementById('cookie-accept').addEventListener('click', function() {
+    var consent = { necessary: true, analytics: true, marketing: true, ts: Date.now() };
+    localStorage.setItem(CONSENT_KEY, JSON.stringify(consent));
+    banner.classList.add('hidden');
+    loadScripts(consent);
+  });
+
+  document.getElementById('cookie-necessary').addEventListener('click', function() {
+    var consent = { necessary: true, analytics: false, marketing: false, ts: Date.now() };
+    localStorage.setItem(CONSENT_KEY, JSON.stringify(consent));
+    banner.classList.add('hidden');
+  });
+
+  function loadScripts(consent) {
+    var ga4Id = banner.dataset.ga4Id;
+    var metaPixelId = banner.dataset.metaPixelId;
+
+    if (consent.analytics && ga4Id) {
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + ga4Id;
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', ga4Id);
+    }
+
+    if (consent.marketing && metaPixelId) {
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function()
+      {n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];
+      t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window,document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', metaPixelId);
+      fbq('track', 'PageView');
+    }
+  }
+})();
+</script>

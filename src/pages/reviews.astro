@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TestimonialCard from '../components/TestimonialCard.astro';
+import { siteConfig } from '../data/site';
+import { getCollection } from 'astro:content';
+import { generateBreadcrumbs, generateReviewSnippets, generateAggregateRating } from '../data/schema';
+
+const testimonials = await getCollection('testimonials');
+const reviewData = testimonials.map(t => ({
+  name: t.data.name,
+  text: t.data.text,
+  rating: t.data.rating ?? 5,
+}));
+---
+
+<BaseLayout
+  title={`Reviews | ${siteConfig.name}`}
+  description={`Lees wat deelnemers zeggen over de yogalessen bij ${siteConfig.name} in ${siteConfig.contact.address.city}. Bekijk ervaringen met hatha-rajayoga, privélessen en bedrijfsyoga.`}
+  schemas={[
+    generateBreadcrumbs([{ name: 'Reviews', url: '/reviews' }]),
+    generateReviewSnippets(reviewData),
+    generateAggregateRating(reviewData),
+  ].filter(Boolean)}
+>
+  <section class="py-12 md:py-16 lg:py-20">
+    <div class="max-w-4xl mx-auto px-4 md:px-6">
+      <h1 class="font-heading text-3xl md:text-4xl text-primary mb-4">Reviews</h1>
+      <p class="text-lg text-text-muted leading-relaxed mb-10">
+        Wat deelnemers zeggen over hun ervaring bij Yogapracht.
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {testimonials.map((t) => (
+          <TestimonialCard
+            name={t.data.name}
+            role={t.data.role}
+            text={t.data.text}
+            rating={t.data.rating}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

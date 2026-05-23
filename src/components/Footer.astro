@@ -1,0 +1,173 @@
+---
+import { Image } from 'astro:assets';
+import { siteConfig } from '../data/site';
+import { t } from '../i18n/utils';
+import logoFooter from '../assets/logos/yogapracht_logo_footer.png';
+import logoEYU from '../assets/logos/Europeseyogaunie_logo_footer.jpg';
+import logoVYN from '../assets/logos/verenigingyogadocenten_logo_footer.jpg';
+
+interface Props {
+  locale?: string;
+}
+
+const { locale = 'nl' } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-primary-dark text-white/90">
+  <div class="max-w-7xl mx-auto px-4 md:px-6 pt-16 md:pt-24 pb-10">
+    <div class="max-w-xl mx-auto text-center mb-14">
+      <h3 class="font-heading text-xl text-white mb-2">{t('newsletter.heading')}</h3>
+      <p class="text-sm text-white/60 mb-5">{t('newsletter.subtitle')}</p>
+      <form
+        id="footer-newsletter"
+        class="flex flex-col sm:flex-row gap-3"
+        data-sending-text={t('newsletter.sending')}
+      >
+        <label for="footer-newsletter-email" class="sr-only">{t('newsletter.placeholder')}</label>
+        <input
+          id="footer-newsletter-email"
+          type="email"
+          name="email"
+          required
+          placeholder={t('newsletter.placeholder')}
+          class="flex-1 px-4 py-3 rounded-button text-sm text-text bg-white border border-white/20 focus:outline-none focus:ring-2 focus:ring-accent"
+        />
+        <button
+          type="submit"
+          class="px-6 py-3 text-sm font-medium text-primary bg-white hover:bg-bg-alt rounded-button transition-colors"
+        >
+          {t('newsletter.button')}
+        </button>
+      </form>
+      <p class="newsletter-success hidden mt-4 text-white/90 text-sm" aria-live="polite">
+        {t('newsletter.success')}
+      </p>
+      <p class="newsletter-error hidden mt-4 text-red-300 text-sm" role="alert">
+        {t('newsletter.error')}
+      </p>
+    </div>
+  </div>
+
+  <div class="border-t border-white/10">
+  <div class="max-w-7xl mx-auto px-4 md:px-6 py-16 md:py-20">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-8">
+
+      <div>
+        <a href="/" class="inline-block">
+          <Image
+            src={logoFooter}
+            alt={`${siteConfig.name} — yogalessen in ${siteConfig.contact.address.city}`}
+            height={48}
+            class="h-12 w-auto brightness-0 invert opacity-90"
+            loading="lazy"
+          />
+        </a>
+        <p class="mt-3 text-sm text-white/60 leading-relaxed">
+          {siteConfig.tagline}
+        </p>
+
+        {(siteConfig.socials.instagram || siteConfig.socials.linkedin || siteConfig.socials.facebook) && (
+          <ul class="mt-6 flex items-center gap-3" aria-label="Social Media">
+            {siteConfig.socials.instagram && (
+              <li>
+                <a href={siteConfig.socials.instagram} target="_blank" rel="noopener noreferrer me" aria-label="Instagram"
+                  class="inline-flex w-9 h-9 items-center justify-center rounded-full bg-white/5 text-white/70 hover:bg-primary-light hover:text-white transition-colors">
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.5.2.9.5 1.3.9.4.4.6.8.9 1.3.2.4.4 1 .4 2.2.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.5-.5.9-.9 1.3-.4.4-.8.6-1.3.9-.4.2-1 .4-2.2.4-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.5-.2-.9-.5-1.3-.9-.4-.4-.6-.8-.9-1.3-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.5.5-.9.9-1.3.4-.4.8-.6 1.3-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 1.8c-3.1 0-3.5 0-4.7.1-1.1.1-1.7.2-2.1.4-.5.2-.9.5-1.3.9-.3.3-.6.7-.8 1.3-.2.4-.3 1-.4 2.1-.1 1.2-.1 1.6-.1 4.7s0 3.5.1 4.7c.1 1.1.2 1.7.4 2.1.2.5.5.9.9 1.3.3.3.7.6 1.3.8.4.2 1 .3 2.1.4 1.2.1 1.6.1 4.7.1s3.5 0 4.7-.1c1.1-.1 1.7-.2 2.1-.4.5-.2.9-.5 1.3-.9.3-.3.6-.7.8-1.3.2-.4.3-1 .4-2.1.1-1.2.1-1.6.1-4.7s0-3.5-.1-4.7c-.1-1.1-.2-1.7-.4-2.1-.2-.5-.5-.9-.9-1.3-.3-.3-.7-.6-1.3-.8-.4-.2-1-.3-2.1-.4-1.2-.1-1.6-.1-4.7-.1zm0 3.1a4.9 4.9 0 110 9.8 4.9 4.9 0 010-9.8zm0 8.1a3.2 3.2 0 100-6.4 3.2 3.2 0 000 6.4zm6.3-8.3a1.1 1.1 0 11-2.3 0 1.1 1.1 0 012.3 0z"/>
+                  </svg>
+                </a>
+              </li>
+            )}
+            {siteConfig.socials.linkedin && (
+              <li>
+                <a href={siteConfig.socials.linkedin} target="_blank" rel="noopener noreferrer me" aria-label="LinkedIn"
+                  class="inline-flex w-9 h-9 items-center justify-center rounded-full bg-white/5 text-white/70 hover:bg-primary-light hover:text-white transition-colors">
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 11.01-4.12 2.06 2.06 0 01-.01 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/>
+                  </svg>
+                </a>
+              </li>
+            )}
+            {siteConfig.socials.facebook && (
+              <li>
+                <a href={siteConfig.socials.facebook} target="_blank" rel="noopener noreferrer me" aria-label="Facebook"
+                  class="inline-flex w-9 h-9 items-center justify-center rounded-full bg-white/5 text-white/70 hover:bg-primary-light hover:text-white transition-colors">
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.41 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.79-4.7 4.53-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.95.93-1.95 1.89v2.26h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07z"/>
+                  </svg>
+                </a>
+              </li>
+            )}
+          </ul>
+        )}
+      </div>
+
+      <div>
+        <h3 class="text-sm font-semibold uppercase tracking-wider text-white/60 mb-4">Pagina's</h3>
+        <ul class="space-y-2.5">
+          <li><a href="/over" class="text-sm text-white/70 hover:text-primary-light transition-colors">Over Mij</a></li>
+          <li><a href="/reviews" class="text-sm text-white/70 hover:text-primary-light transition-colors">Reviews</a></li>
+          <li><a href="/blog" class="text-sm text-white/70 hover:text-primary-light transition-colors">Blog</a></li>
+          <li><a href="/contact" class="text-sm text-white/70 hover:text-primary-light transition-colors">Contact</a></li>
+        </ul>
+
+        <h3 class="text-sm font-semibold uppercase tracking-wider text-white/60 mb-4 mt-8">Contact</h3>
+        <ul class="space-y-3">
+          <li>
+            <a href={`mailto:${siteConfig.contact.email}`} class="flex items-center gap-3 text-sm text-white/70 hover:text-primary-light transition-colors">
+              <svg class="w-5 h-5 text-white/40 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+              </svg>
+              {siteConfig.contact.email}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <div class="border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 py-6">
+      <div class="flex items-center justify-center gap-6 mb-4">
+        <Image src={logoEYU} alt="Europese Yoga Unie — keurmerk yogadocent Yogapracht Hilvarenbeek" height={40} class="h-10 w-auto rounded opacity-80" loading="lazy" />
+        <Image src={logoVYN} alt="Vereniging Yogadocenten Nederland — aangesloten yogadocent Hilvarenbeek" height={40} class="h-10 w-auto rounded opacity-80" loading="lazy" />
+      </div>
+    </div>
+  </div>
+
+  <div class="border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 py-5 flex flex-col md:flex-row items-center justify-between gap-3">
+      <p class="text-xs text-white/70">
+        &copy; {year} {siteConfig.name}. {t('footer.rights')}.
+      </p>
+      <div class="flex items-center gap-4">
+        <a href="/privacy" class="text-xs text-white/70 hover:text-white transition-colors">{t('footer.privacy')}</a>
+        <a href="/voorwaarden" class="text-xs text-white/70 hover:text-white transition-colors">{t('footer.voorwaarden')}</a>
+      </div>
+    </div>
+  </div>
+
+  <script is:inline>
+  (function() {
+    var form = document.getElementById('footer-newsletter');
+    if (!form || form.dataset.bound) return;
+    form.dataset.bound = '1';
+    var btn = form.querySelector('button[type="submit"]');
+    var btnText = btn ? btn.textContent : '';
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var email = form.querySelector('input[type="email"]').value;
+      if (!email) return;
+      btn.disabled = true;
+      btn.textContent = form.dataset.sendingText || 'Even geduld…';
+      console.log('[newsletter] signup:', email);
+      form.style.display = 'none';
+      var msg = form.parentElement.querySelector('.newsletter-success');
+      if (msg) msg.classList.remove('hidden');
+    });
+  })();
+  </script>
+</footer>

@@ -1,0 +1,30 @@
+---
+interface Props {
+  locale?: string;
+}
+---
+
+<div
+  class="fixed bottom-0 inset-x-0 z-50 md:hidden animate-slide-up-cta"
+  role="complementary"
+  aria-label="Contact"
+>
+  <div class="h-4 bg-gradient-to-t from-bg-white to-transparent pointer-events-none"></div>
+  <div class="bg-bg-white border-t border-border px-4 py-3 flex gap-3 safe-bottom">
+    <a
+      href="/contact"
+      class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 text-sm font-medium text-text-inverse bg-primary rounded-button transition-colors active:bg-primary-dark"
+    >
+      Gratis proefles
+    </a>
+  </div>
+</div>
+
+<style>
+  @keyframes slideUpCTA {
+    from { opacity: 0; transform: translateY(100%); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-slide-up-cta { animation: slideUpCTA 0.4s ease-out 1s both; }
+  .safe-bottom { padding-bottom: max(0.75rem, env(safe-area-inset-bottom)); }
+</style>

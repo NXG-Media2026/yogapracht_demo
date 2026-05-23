@@ -1,0 +1,67 @@
+---
+import { siteConfig } from '../data/site';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical: string;
+  ogImage?: string;
+  ogType?: string;
+  hreflang?: Array<{ lang: string; href: string }>;
+  noindex?: boolean;
+  schemas?: string[];
+  locale?: string;
+}
+
+const {
+  title,
+  description,
+  canonical,
+  ogImage,
+  ogType = 'website',
+  noindex = false,
+  schemas = [],
+} = Astro.props;
+
+const resolvedOgImage = ogImage || '/images/og-default.jpg';
+const fullOgImage = resolvedOgImage.startsWith('http')
+  ? resolvedOgImage
+  : `${siteConfig.url}${resolvedOgImage}`;
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+<link rel="preload" href="/fonts/cormorant-garamond-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/fonts/poppins-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+{siteConfig.analytics.gscVerificationId && (
+  <meta name="google-site-verification" content={siteConfig.analytics.gscVerificationId} />
+)}
+
+<!-- Open Graph -->
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:type" content={ogType} />
+<meta property="og:image" content={fullOgImage} />
+<meta property="og:site_name" content={siteConfig.name} />
+<meta property="og:locale" content="nl_NL" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={fullOgImage} />
+
+<!-- JSON-LD Structured Data -->
+{schemas.map((schema) => (
+  <script type="application/ld+json" set:html={schema} />
+))}

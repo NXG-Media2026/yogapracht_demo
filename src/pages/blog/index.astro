@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { siteConfig } from '../../data/site';
+import { getCollection } from 'astro:content';
+import { generateBreadcrumbs } from '../../data/schema';
+
+const posts = (await getCollection('blog'))
+  .sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime());
+---
+
+<BaseLayout
+  title={`Blog | ${siteConfig.name}`}
+  description={`Blog van ${siteConfig.name} — artikelen over yoga, ademhaling, meditatie en welzijn door Mariëlle van der Geest.`}
+  schemas={[generateBreadcrumbs([{ name: 'Blog', url: '/blog' }])]}
+>
+  <section class="py-12 md:py-16 lg:py-20">
+    <div class="max-w-4xl mx-auto px-4 md:px-6">
+      <h1 class="font-heading text-3xl md:text-4xl text-primary mb-4">Blog</h1>
+      <p class="text-lg text-text-muted leading-relaxed mb-10">
+        Artikelen over yoga, ademhaling, meditatie en meer.
+      </p>
+
+      {posts.length === 0 ? (
+        <div class="text-center py-16">
+          <p class="text-text-muted">Binnenkort verschijnen hier de eerste artikelen.</p>
+        </div>
+      ) : (
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {posts.map((post) => (
+            <article class="bg-white rounded-card border border-border overflow-hidden hover:shadow-md transition-shadow">
+              {post.data.coverImage && (
+                <img
+                  src={post.data.coverImage}
+                  alt={post.data.title}
+                  class="w-full h-48 object-cover"
+                  loading="lazy"
+                />
+              )}
+              <div class="p-6">
+                <time class="text-xs text-text-muted uppercase tracking-wider" datetime={post.data.publishDate}>
+                  {new Date(post.data.publishDate).toLocaleDateString('nl-NL', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  })}
+                </time>
+                <h2 class="font-heading text-xl text-text mt-2 mb-3">
+                  <a href={`/blog/${post.id}`} class="hover:text-primary transition-colors">
+                    {post.data.title}
+                  </a>
+                </h2>
+                <p class="text-sm text-text-muted leading-relaxed mb-4">{post.data.summary}</p>
+                <a
+                  href={`/blog/${post.id}`}
+                  class="inline-flex items-center text-sm text-accent hover:text-accent-dark transition-colors font-medium"
+                >
+                  Lees meer
+                  <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>

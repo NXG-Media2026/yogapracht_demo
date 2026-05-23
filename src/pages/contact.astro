@@ -1,0 +1,61 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../data/site';
+import { generateBreadcrumbs } from '../data/schema';
+import contactImage from '../assets/marielle/marielle_yogapose_attributes.jpg';
+---
+
+<BaseLayout
+  title={`Contact | ${siteConfig.name}`}
+  description="Neem contact op met Yogapracht voor een gratis proefles, privéles of meer informatie over hatha-rajayoga in Hilvarenbeek."
+  schemas={[generateBreadcrumbs([{ name: 'Contact', url: '/contact' }])]}
+>
+  <section class="py-12 md:py-16 lg:py-20">
+    <div class="max-w-3xl mx-auto px-4 md:px-6">
+      <h1 class="font-heading text-3xl md:text-4xl text-primary mb-6">Contact</h1>
+      <p class="text-lg text-text-muted leading-relaxed mb-8">
+        Wil je een gratis proefles boeken, meer weten over de mogelijkheden of heb je een andere vraag? Neem gerust contact op via telefoon, e-mail of WhatsApp.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+        <div class="bg-white rounded-card p-6 border border-border">
+          <h2 class="font-heading text-lg text-text mb-4">Contactgegevens</h2>
+          <ul class="space-y-3 text-text-muted">
+            <li>
+              <strong class="text-text">E-mail:</strong>
+              <a href={`mailto:${siteConfig.contact.email}`} class="text-accent hover:text-accent-dark ml-1">{siteConfig.contact.email}</a>
+            </li>
+            <li>
+              <strong class="text-text">Telefoon:</strong>
+              <a href={`tel:${siteConfig.contact.phone}`} class="text-accent hover:text-accent-dark ml-1">{siteConfig.contact.phone}</a>
+            </li>
+            <li>
+              <strong class="text-text">Adres:</strong>
+              <span class="ml-1">{siteConfig.contact.address.street}, {siteConfig.contact.address.postalCode} {siteConfig.contact.address.city}</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="bg-white rounded-card p-6 border border-border">
+          <h2 class="font-heading text-lg text-text mb-4">Lestijden</h2>
+          <ul class="space-y-2 text-text-muted">
+            <li><strong class="text-text">Maandag:</strong> 09:00 — Morgenstond Yoga</li>
+          </ul>
+          <p class="text-sm text-text-muted mt-4">Privélessen op afspraak, zowel in de studio als bij jou thuis.</p>
+        </div>
+      </div>
+
+      <div class="rounded-card overflow-hidden">
+        <Image
+          src={contactImage}
+          alt="Yogabenodigdheden en sfeer bij Yogapracht — yogastudio Hilvarenbeek"
+          widths={[480, 768, 1024]}
+          sizes="(max-width: 768px) 100vw, 768px"
+          class="w-full h-auto"
+          loading="lazy"
+        />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

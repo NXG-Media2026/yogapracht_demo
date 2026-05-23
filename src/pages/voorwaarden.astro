@@ -1,0 +1,145 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../data/site';
+import { generateBreadcrumbs } from '../data/schema';
+---
+
+<BaseLayout
+  title={`Algemene Voorwaarden | ${siteConfig.name}`}
+  description={`Algemene voorwaarden van ${siteConfig.name} — yogalessen en programma's in ${siteConfig.contact.address.city}. Lees over overeenkomst, betaling, annulering en aansprakelijkheid.`}
+  noindex={true}
+  schemas={[generateBreadcrumbs([{ name: 'Algemene Voorwaarden', url: '/voorwaarden' }])]}
+>
+  <article class="py-12 md:py-16 lg:py-20">
+    <div class="max-w-3xl mx-auto px-4 md:px-6 prose prose-lg">
+      <h1>Algemene Voorwaarden</h1>
+
+      <p>
+        Onderstaande algemene voorwaarden zijn van toepassing op alle producten en diensten verzorgd door {siteConfig.name} en zijn geldig voor alle klanten. Waar "mij" of "ik" staat wordt het bedrijf {siteConfig.name} bedoeld. Onder "schriftelijk" wordt zowel fysieke post als e-mail verstaan.
+      </p>
+      <p>
+        {siteConfig.name}, inschrijfnummer {siteConfig.legal.registerNumber.replace('KVK ', '')} bij de Kamer van Koophandel
+      </p>
+      <p>
+        Afspraken met- en toezeggingen van ingehuurde medewerkers of ingeschakelde derden binden mij niet tenzij deze uitdrukkelijk door {siteConfig.name} schriftelijk zijn bevestigd. {siteConfig.name} is uitsluitend gebonden aan afspraken welke door {siteConfig.name} zelf zijn gemaakt met de wederpartij. Alle afspraken met agenten, vertegenwoordigers van klanten of andere tussenpersonen die afwijken van deze voorwaarden binden {siteConfig.name} slechts indien deze door {siteConfig.name} zelf uitdrukkelijk schriftelijk zijn bevestigd.
+      </p>
+
+      <h2>1. Overeenkomst</h2>
+      <p>
+        Een overeenkomst komt schriftelijk of door een online inschrijving tot stand. Als datum van totstandkoming geldt de datum van ondertekening c.q. de datum van afronding van de online inschrijving. Een inschrijving is pas definitief als zowel de overeenkomst schriftelijk of online is ondertekend of anderszins door de klant is gevalideerd en als de verschuldigde inschrijfgelden, lesgelden en/of andere uit de overeenkomst voortvloeiende kosten en gelden zijn ontvangen. Inschrijving geschiedt op volgorde van ontvangst. Na het definitief worden van de inschrijving stuurt {siteConfig.name} daarvan een bevestiging.
+      </p>
+
+      <h2>2. Betaling</h2>
+      <p>
+        2.1) De klant dient aan {siteConfig.name} verschuldigde gelden binnen 14 dagen na factuurdatum te betalen, met dien verstande dat een betaling te allen tijde uiterlijk één werkdag voordat de prestatie waarvoor de gelden zijn bestemd zal plaatsvinden door {siteConfig.name} dient te zijn ontvangen. Indien is overeengekomen dat gelden in meerdere termijnen mogen worden betaald dient iedere termijn uiterlijk op de laatste vervaldag van die termijn te zijn voldaan.
+      </p>
+      <p>
+        2.2) Indien een deelnemer op een wachtlijst wordt geplaatst behoeven er nog geen gelden te worden betaald. {siteConfig.name} zal de deelnemer daarvan tijdig in kennis stellen.
+      </p>
+      <p>
+        2.3) Alle betalingen geschieden op een door {siteConfig.name} aangegeven bankrekening.
+      </p>
+
+      <h2>3. Annulering</h2>
+      <p>
+        3.1) Na tot stand komen van een overeenkomst geldt een herroepingstermijn van veertien dagen uitsluitend voor particuliere klanten waarbinnen de deelnemer kosteloos zonder opgave van redenen schriftelijk kan ontbinden. Deze termijn gaat in op de kalenderdag die volgt op het sluiten van de overeenkomst.
+      </p>
+      <p>
+        3.2) Tot één maand voor aanvang kan de klant kosteloos annuleren. Bij annulering tot twee weken voor de start wordt vijftig procent van de gelden in rekening gebracht. Bij annulering in de periode van twee weken voorafgaand aan de start wordt 100% van de gelden in rekening gebracht. Indien er een wachtlijst is en de plek kan, na toestemming van {siteConfig.name}, worden overgenomen door een andere deelnemer dan zal er nul procent in rekening worden gebracht.
+      </p>
+      <p>
+        3.3) Indien een deelnemer tijdens een les of programma besluit te stoppen volgt er geen restitutie.
+      </p>
+      <p>
+        3.4) Indien {siteConfig.name} besluit een programma te annuleren volgt een (gedeeltelijke) restitutie afhankelijk van de reeds genoten onderdelen. Indien {siteConfig.name} besluit een les te annuleren kan restitutie volgen of de deelnemer kan in staat worden gesteld een fysieke les te volgen op een ander moment of de deelnemer kan kiezen voor een online yogales.
+      </p>
+
+      <h2>4. Aansprakelijkheid</h2>
+      <p>
+        4.1) {siteConfig.name} is niet aansprakelijk voor enig, voor haar niet voorzienbaar, letsel voor, tijdens en na een les c.q. programma en dit geldt zowel voor online als offline. Indien de klant om medische redenen mogelijk niet in staat is zonder beperkingen of aanpassingen een les te volgen, oefeningen te doen of anderszins aan een les of programma deel te nemen dan is hij verplicht {siteConfig.name} daarvan voorafgaand aan de les, oefening of ander onderdeel op de hoogte te stellen. {siteConfig.name} is in dat geval gerechtigd de klant van deelname uit te sluiten.
+      </p>
+      <p>
+        4.2) {siteConfig.name} is niet aansprakelijk voor schade aan en/of verlies van eigendommen van de klant voor, tijdens of na een les c.q. programma.
+      </p>
+      <p>
+        4.3) {siteConfig.name} is nimmer aansprakelijk voor indirecte schade of gevolgschade, hoe ook genaamd.
+      </p>
+      <p>
+        4.4) De aansprakelijkheid van {siteConfig.name} is te allen tijde beperkt tot het totaal van door de klant aan haar in het desbetreffende kalenderjaar betaalde gelden en in ieder geval tot het bedrag dat haar aansprakelijkheidsverzekering in een voorkomend geval zal uitkeren.
+      </p>
+      <p>
+        4.5) In een programma wordt kennis, ervaring en tips aangereikt. De klant ontvangt bouwstenen en door te doen wordt de vergaarde kennis omgezet in de praktijk. De klant zelf wordt geacht tijd te reserveren om de bijbehorende opdrachten te doen en om zaken helder te krijgen. Ook dient de klant zelf de activiteiten voor een periode van minimaal dertig kalender dagen te doen zodat het aangereikte ook geborgd wordt en zorgt voor een structurele aanpassing. {siteConfig.name} kan derhalve niet garanderen dat het enkel door middel van het volgen van een programma een succes wordt.
+      </p>
+      <p>
+        4.6) In een yogales worden kennis, ervaringen en tips aangereikt om lichaam en geest met elkaar in balans te brengen. De klant zelf wordt geacht tijd te reserveren om de yogales te volgen, de tips en de opdrachten te doen. {siteConfig.name} kan niet garanderen dat het voor de klant een goede balans geeft omdat het afhankelijk is van betrokkenheid en deelname. {siteConfig.name} zal zich wel inspannen om de juiste handvaten aan te bieden.
+      </p>
+
+      <h2>5. Huisregels</h2>
+      <p>
+        De klant dient zich te allen tijde te houden aan de voor hem kenbare huisregels van {siteConfig.name}. Het niet naleven van de huisregels kan leiden tot uitsluiting van deelname aan een les, oefening of ander programmaonderdeel. Bij uitsluiting op deze grond bestaat er nimmer aanspraak op restitutie van betaalde gelden.
+      </p>
+
+      <h2>6. Deelname</h2>
+      <p>
+        6.1) Deelname aan een dienst c.q. de afname van een product geschiedt altijd op deze algemene voorwaarden, ook indien deze niet bij elke deelname of bij elke vervolg koop ter hand zijn gesteld.
+      </p>
+      <p>
+        6.2) Alle deelname geschiedt geheel op eigen risico van de deelnemer.
+      </p>
+      <p>
+        6.3) De deelnemer blijft te allen tijde verantwoordelijk voor de eigen (financiële) gezondheid, keuzes en consequenties.
+      </p>
+      <p>
+        6.4) De lichamelijke en geestelijke conditie dient zodanig te zijn dat de lessen c.q. het programma door de deelnemer gevolgd kan worden. Het is verplicht om lichamelijke en mentale klachten, blessures en/of zwangerschap minimaal 24 uur vooraf te melden aan de docent. Bij twijfel of deelname mogelijk is dient de deelnemer bijtijds een (huis)arts te raadplegen waarbij vereist is dat de betreffende arts toestemming verleent. {siteConfig.name} kan hierna alsnog besluiten om deelname niet toe te staan.
+      </p>
+      <p>
+        6.5) Deelname aan een programma c.q. yogales is persoonsgebonden en kan niet overgedragen worden aan anderen zonder toestemming van {siteConfig.name}.
+      </p>
+      <p>
+        6.6) {siteConfig.name} behoudt zich het recht voor om te allen tijde onder opgave van redenen een klant te weigeren voor deelname indien zij dit noodzakelijk vindt.
+      </p>
+
+      <h2>7. Vertrouwelijkheid</h2>
+      <p>
+        7.1) {siteConfig.name} verplicht zich vertrouwelijk om te gaan met persoonsgegevens en overige informatie. Indien een deelnemer kennisneemt van vertrouwelijke informatie van de docent c.q. een andere deelnemer of deelnemers die vrijwillig wordt gedeeld dan dient de deelnemer deze vertrouwelijkheid te allen tijde te respecteren.
+      </p>
+      <p>7.2) {siteConfig.name} verzamelt en verwerkt klantgegevens met als doel:</p>
+      <ul>
+        <li>totstandkoming en wat voor de uitvoering van een overeenkomst noodzakelijk is;</li>
+        <li>continu verbetering, onderhoud en optimalisatie van producten en diensten alsmede de beveiliging ervan;</li>
+        <li>personaliseren van de aan de klant te leveren producten en/of diensten en bijbehorende ondersteunende diensten of gebruiksinformatie.</li>
+      </ul>
+      <p>
+        7.3) De deelnemer heeft recht op inzage in, verbetering, beperking en verwijdering van persoonsgegevens die {siteConfig.name} verwerkt. Tevens kan deelnemer op elk moment de verstrekte toestemming intrekken en bezwaar maken om ernstige en legitieme redenen.
+      </p>
+
+      <h2>8. Auteursrecht</h2>
+      <p>
+        8.1) Niets uit door {siteConfig.name} vervaardigd materiaal of informatie mag op enigerlei wijze worden gekopieerd, openbaar gemaakt of vermenigvuldigd zonder voorafgaande schriftelijke toestemming van {siteConfig.name}.
+      </p>
+
+      <h2>9. Klachten</h2>
+      <p>
+        9.1) Klachten over {siteConfig.name} dienen zo spoedig mogelijk en met een duidelijke beschrijving van de vermeende tekortkomingen te worden gemeld bij {siteConfig.name} door het sturen van een brief of mail. De directie van {siteConfig.name} zal de klacht in behandeling nemen en binnen 14 dagen reageren. Mocht de klacht niet naar tevredenheid zijn afgewikkeld dan kan de klant gebruik maken van de klachtenprocedure van Vereniging Yogadocenten Nederland.
+      </p>
+
+      <h2>10. Wijziging van de algemene voorwaarden</h2>
+      <p>
+        {siteConfig.name} behoudt zich het recht voor deze algemene voorwaarden eenzijdig aan te passen. De aanpassing zal ingaan 30 dagen nadat de klant door {siteConfig.name} daarvan op de hoogte is gesteld. Indien de klant niet met de aanpassing wil instemmen kan hij de overeenkomst binnen deze termijn opzeggen. {siteConfig.name} zal in dat geval gelden bestemd voor nog niet afgenomen producten of diensten naar rato restitueren.
+      </p>
+
+      <hr />
+
+      <div class="not-prose text-sm text-text-muted space-y-1 mt-8">
+        <p class="font-semibold text-text">{siteConfig.name}</p>
+        <p>{siteConfig.legal.responsiblePerson}</p>
+        <p>{siteConfig.legal.street}</p>
+        <p>{siteConfig.legal.postalCode} {siteConfig.legal.city}</p>
+        <p>{siteConfig.legal.phone}</p>
+        <p>{siteConfig.legal.registerNumber}</p>
+        <p>{siteConfig.legal.taxId}</p>
+        <p><a href={`mailto:${siteConfig.legal.email}`} class="text-accent hover:text-accent-dark">{siteConfig.legal.email}</a></p>
+      </div>
+    </div>
+  </article>
+</BaseLayout>

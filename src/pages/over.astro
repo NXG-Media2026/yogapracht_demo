@@ -1,0 +1,101 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../data/site';
+import { generateProfilePage, generateBreadcrumbs } from '../data/schema';
+import profileImage from '../assets/marielle/marielle_profile_image.jpg';
+import yogaPose from '../assets/marielle/marielle_yogapose_sideways.jpg';
+---
+
+<BaseLayout
+  title={`Over Mariëlle | ${siteConfig.name}`}
+  description="Maak kennis met Mariëlle van der Geest, gediplomeerd hatha-rajayoga docent bij Yogapracht in Hilvarenbeek. Lees over haar achtergrond en opleidingen."
+  schemas={[generateProfilePage(), generateBreadcrumbs([{ name: 'Over', url: '/over' }])]}
+>
+  <section class="py-12 md:py-16 lg:py-20">
+    <div class="max-w-3xl mx-auto px-4 md:px-6">
+      <div class="flex flex-col sm:flex-row items-center sm:items-start gap-8 mb-10">
+        <div class="w-40 h-40 sm:w-48 sm:h-48 shrink-0 rounded-full overflow-hidden border-4 border-primary-light/30">
+          <Image
+            src={profileImage}
+            alt="Mariëlle van der Geest — gediplomeerd hatha-rajayoga docent bij Yogapracht in Hilvarenbeek"
+            width={192}
+            height={192}
+            class="w-full h-full object-cover"
+            loading="eager"
+          />
+        </div>
+        <div>
+          <h1 class="font-heading text-3xl md:text-4xl text-primary mb-2">Over Mariëlle</h1>
+          <p class="text-text-muted">{siteConfig.founder.role}</p>
+        </div>
+      </div>
+
+      <div class="prose prose-lg">
+        <p>
+          Sinds 2011 beoefen ik hatha-rajayoga gebaseerd op de wetenschap van Patanjali. Niet lang daarna volgde de roep vanuit mijn diepste kern om de yogadocentopleiding te gaan doen bij opleidingsinstituut de Blikopener.
+        </p>
+        <p>
+          Mijn verwondering over de pracht van yoga drijft mij enorm om mij hierin continu te blijven verdiepen. Deze kennis wil ik, als gediplomeerd yogadocent, heel graag met je delen.
+        </p>
+        <p>
+          Het is mijn zielsmissie om je vanuit plezier, vrijheid en intuïtie yoga te laten beoefenen. Het werkt bevrijdend om lichaam en geest te laten balanceren zodat je vanuit dit punt weer regie kunt houden in de drukte van alledag.
+        </p>
+
+        <h2>Voordelen van yoga</h2>
+        <ul>
+          <li>Meer mentale rust</li>
+          <li>Diepere ademhaling</li>
+          <li>Makkelijker ontspannen</li>
+          <li>Meer comfort in je lichaam</li>
+          <li>Betere concentratie</li>
+          <li>Sneller energie herstellen</li>
+        </ul>
+
+        <h2>Wat is hatha-rajayoga?</h2>
+        <p>
+          Yoga is een wetenschap gericht op bewustzijnsontwikkeling. Hathayoga wordt gezien als traditionele yoga, de basis van vele andere yogavormen. Het richt zich op het fysieke aspect van yoga, waarbij rajayoga zich richt op de geest. Yoga staat voor verbinding.
+        </p>
+        <p>
+          De lessen zijn gebaseerd op de wetenschap zoals de Indiase filosoof Patanjali die vele jaren geleden heeft vastgelegd in de yogasutra's.
+        </p>
+
+        <h2>Wat doen we tijdens een les?</h2>
+        <p>
+          Door het doen van houdingen (asana's) reis je als het ware naar binnen. In de lessen zitten altijd ademhalingsoefeningen. De adem wordt gezien als de brug tussen lichaam en geest. Hierna volgt meditatie: het onafgebroken vasthouden van het object van je concentratie. Elke les wordt afgesloten met een diepe ontspanning.
+        </p>
+      </div>
+
+      <div class="my-12 rounded-card overflow-hidden">
+        <Image
+          src={yogaPose}
+          alt="Hatha-rajayoga houding door Mariëlle van der Geest — yogales in Hilvarenbeek"
+          widths={[480, 768, 1024]}
+          sizes="(max-width: 768px) 100vw, 768px"
+          class="w-full h-auto"
+          loading="lazy"
+        />
+      </div>
+
+      <div class="prose prose-lg">
+        <h2>Diploma's en opleidingen</h2>
+        <ul>
+          <li>2016–2020: Hatha en Raja yogadocentopleiding</li>
+          <li>2021: Hatha en Raja yogadocent vervolgopleiding</li>
+          <li>2021: Yoga, ziektebeelden en intervisie</li>
+          <li>2021: Elementen en meridianen</li>
+          <li>2021: Yoga en zwangeren</li>
+          <li>2022: Yoga met (chronische) pijn</li>
+          <li>2022: Shavasana</li>
+          <li>2023: De kracht van taal</li>
+          <li>2023: Stoelyoga</li>
+          <li>2023: Yoga en preventie van overprikkeling</li>
+          <li>2024: Creatieve lessen met Patanjali als inspiratiebron</li>
+          <li>2024: Handmudra's</li>
+          <li>2025: Do-In yoga, psoas en Oosterse geneeswijzen</li>
+          <li>2025: Yoga bij depressie</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { siteConfig } from '../../data/site';
+import { getCollection, render } from 'astro:content';
+import { generateArticle, generateBreadcrumbs } from '../../data/schema';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const articleSchema = generateArticle({
+  title: post.data.title,
+  description: post.data.summary,
+  url: `${siteConfig.url}/blog/${post.id}`,
+  datePublished: post.data.publishDate,
+  image: post.data.coverImage,
+});
+---
+
+<BaseLayout
+  title={`${post.data.title} | ${siteConfig.name}`}
+  description={post.data.summary}
+  schemas={[
+    articleSchema,
+    generateBreadcrumbs([
+      { name: 'Blog', url: '/blog' },
+      { name: post.data.title, url: `/blog/${post.id}` },
+    ]),
+  ]}
+>
+  <article class="py-12 md:py-16 lg:py-20">
+    <div class="max-w-3xl mx-auto px-4 md:px-6">
+      <div class="mb-8">
+        <a href="/blog" class="text-sm text-accent hover:text-accent-dark transition-colors">&larr; Terug naar blog</a>
+      </div>
+
+      {post.data.coverImage && (
+        <img
+          src={post.data.coverImage}
+          alt={post.data.title}
+          class="w-full rounded-image mb-8"
+        />
+      )}
+
+      <header class="mb-10">
+        <time class="text-sm text-text-muted uppercase tracking-wider" datetime={post.data.publishDate}>
+          {new Date(post.data.publishDate).toLocaleDateString('nl-NL', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          })}
+        </time>
+        <h1 class="font-heading text-3xl md:text-4xl text-primary mt-3 leading-tight">{post.data.title}</h1>
+        <p class="text-lg text-text-muted mt-4">{post.data.summary}</p>
+      </header>
+
+      <div class="prose prose-lg">
+        <Content />
+      </div>
+    </div>
+  </article>
+</BaseLayout>

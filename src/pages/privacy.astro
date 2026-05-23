@@ -1,0 +1,106 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../data/site';
+import { generateBreadcrumbs } from '../data/schema';
+---
+
+<BaseLayout
+  title={`Privacyverklaring | ${siteConfig.name}`}
+  description={`Privacyverklaring van ${siteConfig.name} — hoe wij omgaan met je persoonsgegevens conform de AVG.`}
+  noindex={true}
+  schemas={[generateBreadcrumbs([{ name: 'Privacyverklaring', url: '/privacy' }])]}
+>
+  <article class="py-12 md:py-16 lg:py-20">
+    <div class="max-w-3xl mx-auto px-4 md:px-6 prose prose-lg">
+      <h1>Privacyverklaring</h1>
+
+      <h2>Wie zijn wij?</h2>
+      <p>
+        Deze privacyverklaring is van toepassing op {siteConfig.legal.businessName}, gevestigd aan {siteConfig.legal.street}, {siteConfig.legal.postalCode} {siteConfig.legal.city}. {siteConfig.name} is verantwoordelijk voor de verwerking van persoonsgegevens zoals weergegeven in deze privacyverklaring.
+      </p>
+      <ul>
+        <li>Verantwoordelijke: {siteConfig.legal.responsiblePerson}</li>
+        <li>KVK-nummer: {siteConfig.legal.registerNumber}</li>
+        <li>E-mail: <a href={`mailto:${siteConfig.legal.email}`}>{siteConfig.legal.email}</a></li>
+        <li>Telefoon: {siteConfig.legal.phone}</li>
+      </ul>
+
+      <h2>Welke persoonsgegevens verwerken wij?</h2>
+      <p>
+        {siteConfig.name} verwerkt persoonsgegevens doordat je gebruik maakt van onze diensten en/of omdat je deze gegevens zelf aan ons verstrekt. Hieronder een overzicht van de persoonsgegevens die wij verwerken:
+      </p>
+      <ul>
+        <li>Voor- en achternaam</li>
+        <li>E-mailadres</li>
+        <li>Telefoonnummer</li>
+        <li>Adresgegevens (indien relevant voor huisbezoek of facturatie)</li>
+        <li>Gegevens over gezondheid (uitsluitend indien vrijwillig verstrekt ten behoeve van een veilige yogales)</li>
+      </ul>
+
+      <h2>Waarvoor verwerken wij persoonsgegevens?</h2>
+      <p>{siteConfig.name} verwerkt jouw persoonsgegevens voor de volgende doelen:</p>
+      <ul>
+        <li>Het uitvoeren van de overeenkomst: inschrijving, planning en uitvoering van yogalessen en programma's</li>
+        <li>Het versturen van facturen en het afhandelen van betalingen</li>
+        <li>Het kunnen bellen of e-mailen indien dit nodig is om onze dienstverlening uit te voeren</li>
+        <li>Het informeren over wijzigingen in lestijden, roosters of diensten</li>
+        <li>Het verzenden van de nieuwsbrief (uitsluitend na toestemming)</li>
+      </ul>
+
+      <h2>Bewaartermijnen</h2>
+      <p>
+        {siteConfig.name} bewaart je persoonsgegevens niet langer dan strikt noodzakelijk is om de doelen te realiseren waarvoor je gegevens worden verzameld. Wij hanteren de volgende bewaartermijnen:
+      </p>
+      <ul>
+        <li>Klantgegevens: gedurende de looptijd van de overeenkomst en maximaal 2 jaar na afloop</li>
+        <li>Factuurgegevens: 7 jaar (wettelijke bewaarplicht)</li>
+        <li>Nieuwsbriefgegevens: tot het moment van uitschrijving</li>
+      </ul>
+
+      <h2>Delen van persoonsgegevens met derden</h2>
+      <p>
+        {siteConfig.name} verstrekt jouw persoonsgegevens niet aan derden, tenzij dit noodzakelijk is voor de uitvoering van de overeenkomst of om te voldoen aan een wettelijke verplichting. Met bedrijven die jouw gegevens verwerken in onze opdracht sluiten wij een verwerkersovereenkomst om eenzelfde niveau van beveiliging en vertrouwelijkheid te waarborgen.
+      </p>
+
+      <h2>Cookies</h2>
+      <p>
+        {siteConfig.name} maakt gebruik van cookies op deze website. Een cookie is een klein tekstbestand dat bij het eerste bezoek aan deze website wordt opgeslagen in de browser van je computer, tablet of smartphone. Wij gebruiken de volgende soorten cookies:
+      </p>
+      <ul>
+        <li><strong>Functionele cookies:</strong> noodzakelijk voor het goed functioneren van de website</li>
+        <li><strong>Analytische cookies:</strong> voor het meten van websitebezoek (Google Analytics). Deze cookies worden alleen geplaatst na jouw toestemming via de cookiebanner.</li>
+        <li><strong>Marketing cookies:</strong> voor het tonen van relevante advertenties (Meta Pixel). Deze cookies worden alleen geplaatst na jouw toestemming via de cookiebanner.</li>
+      </ul>
+      <p>
+        Bij je eerste bezoek aan onze website wordt je gevraagd om toestemming te geven voor het plaatsen van analytische en marketing cookies. Je kunt je toestemming op elk moment intrekken door je cookies te verwijderen via de browserinstellingen.
+      </p>
+
+      <h2>Gegevens inzien, aanpassen of verwijderen</h2>
+      <p>
+        Je hebt het recht om je persoonsgegevens in te zien, te corrigeren of te verwijderen. Daarnaast heb je het recht om je eventuele toestemming voor de gegevensverwerking in te trekken of bezwaar te maken tegen de verwerking van jouw persoonsgegevens door {siteConfig.name}. Je hebt ook het recht op gegevensoverdraagbaarheid.
+      </p>
+      <p>
+        Je kunt een verzoek tot inzage, correctie, verwijdering of gegevensoverdracht van je persoonsgegevens sturen naar <a href={`mailto:${siteConfig.legal.email}`}>{siteConfig.legal.email}</a>. We reageren zo snel mogelijk, maar uiterlijk binnen vier weken, op jouw verzoek.
+      </p>
+
+      <h2>Beveiliging</h2>
+      <p>
+        {siteConfig.name} neemt de bescherming van jouw gegevens serieus en neemt passende maatregelen om misbruik, verlies, onbevoegde toegang, ongewenste openbaarmaking en ongeoorloofde wijziging tegen te gaan. Als jij het idee hebt dat jouw gegevens toch niet goed beveiligd zijn of er aanwijzingen zijn van misbruik, neem dan contact op via <a href={`mailto:${siteConfig.legal.email}`}>{siteConfig.legal.email}</a>.
+      </p>
+
+      <h2>Klacht indienen</h2>
+      <p>
+        Wij willen je er tevens op wijzen dat je de mogelijkheid hebt om een klacht in te dienen bij de nationale toezichthouder, de Autoriteit Persoonsgegevens. Dat kan via de volgende link: <a href="https://autoriteitpersoonsgegevens.nl/een-tip-of-klacht-indienen" target="_blank" rel="noopener noreferrer">autoriteitpersoonsgegevens.nl</a>.
+      </p>
+
+      <hr />
+
+      <div class="not-prose text-sm text-text-muted space-y-1 mt-8">
+        <p class="font-semibold text-text">{siteConfig.name}</p>
+        <p>{siteConfig.legal.responsiblePerson}</p>
+        <p>{siteConfig.legal.street}, {siteConfig.legal.postalCode} {siteConfig.legal.city}</p>
+        <p><a href={`mailto:${siteConfig.legal.email}`} class="text-accent hover:text-accent-dark">{siteConfig.legal.email}</a></p>
+      </div>
+    </div>
+  </article>
+</BaseLayout>

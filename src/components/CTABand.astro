@@ -1,0 +1,122 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import type { EventName, CTALocation, PageType } from '../lib/analytics';
+import { trackOnClick } from '../lib/analytics';
+import type { Locale } from '../data/site';
+
+interface Props {
+  title: string;
+  subtitle?: string;
+  ctaText: string;
+  ctaHref: string;
+  backgroundImage?: ImageMetadata | string;
+  backgroundAlt?: string;
+  eventName?: EventName;
+  ctaLocation?: CTALocation;
+  locale?: Locale;
+  pageType?: PageType;
+  pageSlug?: string;
+}
+
+const {
+  title,
+  subtitle,
+  ctaText,
+  ctaHref,
+  backgroundImage,
+  backgroundAlt = '',
+  eventName = 'product_cta_click',
+  ctaLocation = 'inline',
+  locale = 'nl',
+  pageType = 'homepage',
+  pageSlug = '/',
+} = Astro.props;
+---
+
+<section class="relative overflow-hidden">
+  {backgroundImage ? (
+    <>
+      {/* Background image */}
+      <div class="absolute inset-0">
+        {typeof backgroundImage === 'string' ? (
+          <img
+            src={backgroundImage}
+            alt={backgroundAlt}
+            width="1400"
+            height="1735"
+            class="w-full h-full object-cover"
+            loading="lazy"
+            decoding="async"
+          />
+        ) : (
+          <Image
+            src={backgroundImage}
+            alt={backgroundAlt}
+            widths={[768, 1280, 1400]}
+            sizes="100vw"
+            class="w-full h-full object-cover"
+            loading="lazy"
+            decoding="async"
+          />
+        )}
+        <div class="absolute inset-0 bg-[#2D2A26]/80"></div>
+      </div>
+      <div class="relative py-20 md:py-28">
+        <div class="max-w-4xl mx-auto px-4 md:px-6 text-center">
+          <h2 class="font-heading text-3xl md:text-4xl text-white mb-4">
+            {title}
+          </h2>
+          {subtitle && (
+            <p class="text-lg text-white/80 mb-8 max-w-2xl mx-auto">
+              {subtitle}
+            </p>
+          )}
+          <a
+            href={ctaHref}
+            class="inline-flex items-center px-8 py-4 text-base font-medium bg-accent hover:bg-accent-dark text-white transition-all duration-300 rounded-button shadow-lg shadow-accent/25 hover:shadow-xl"
+            onclick={trackOnClick(eventName, {
+              page_type: pageType,
+              page_slug: pageSlug,
+              locale,
+              cta_location: ctaLocation,
+            })}
+          >
+            {ctaText}
+            <svg class="ml-2 w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </>
+  ) : (
+    <div class="py-16 md:py-20 bg-accent">
+      <div class="max-w-4xl mx-auto px-4 md:px-6 text-center">
+        <h2 class="font-heading text-3xl md:text-4xl text-white mb-4">
+          {title}
+        </h2>
+        {subtitle && (
+          <p class="text-lg text-white/80 mb-8 max-w-2xl mx-auto">
+            {subtitle}
+          </p>
+        )}
+        <a
+          href={ctaHref}
+          class="inline-flex items-center px-8 py-4 text-base font-medium bg-white text-accent hover:bg-bg-alt transition-colors rounded-button"
+          onclick={trackOnClick(eventName, {
+            page_type: pageType,
+            page_slug: pageSlug,
+            locale,
+            cta_location: ctaLocation,
+          })}
+        >
+          {ctaText}
+          <svg class="ml-2 w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  )}
+</section>

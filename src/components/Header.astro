@@ -1,0 +1,122 @@
+---
+import { Image } from 'astro:assets';
+import { navigation } from '../data/navigation';
+import { siteConfig } from '../data/site';
+import { t } from '../i18n/utils';
+import logoHeader from '../assets/logos/yogapracht_logo_header.png';
+
+interface Props {
+  locale?: string;
+  currentPath?: string;
+  hreflang?: Array<{ lang: string; href: string }>;
+}
+
+const { locale = 'nl', currentPath = '/' } = Astro.props;
+const navItems = navigation;
+const buttonItem = navItems.find((item) => item.isButton);
+const linkItems = navItems.filter((item) => !item.isButton);
+
+function isActive(href: string): boolean {
+  if (href === '/') return currentPath === href;
+  return currentPath.startsWith(href);
+}
+---
+
+<header class="sticky top-0 z-50 bg-bg/95 backdrop-blur-sm border-b border-border">
+  <div class="max-w-7xl mx-auto px-4 md:px-6">
+    <div class="flex items-center justify-between h-16 md:h-20">
+
+      <a href="/" class="py-2 -my-1 inline-flex items-center">
+        <Image
+          src={logoHeader}
+          alt={`${siteConfig.name} — hatha-rajayoga in ${siteConfig.contact.address.city}`}
+          height={44}
+          class="h-10 md:h-11 w-auto"
+          loading="eager"
+        />
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-1" aria-label="Hoofdnavigatie">
+        {linkItems.map((item) => (
+          <a
+            href={item.href}
+            class:list={[
+              'inline-flex items-center px-3 py-3 min-h-[44px] text-sm font-medium transition-colors rounded-button',
+              isActive(item.href) ? 'text-primary' : 'text-text hover:text-primary',
+            ]}
+          >
+            {item.label}
+          </a>
+        ))}
+
+        {buttonItem && (
+          <a
+            href={buttonItem.href}
+            class="ml-3 inline-flex items-center px-4 py-2 text-sm font-medium text-text-inverse bg-primary hover:bg-primary-dark transition-colors rounded-button"
+          >
+            {buttonItem.label}
+          </a>
+        )}
+      </nav>
+
+      <button
+        id="menu-btn"
+        class="lg:hidden p-3 -mr-2 min-h-[44px] min-w-[44px] inline-flex items-center justify-center text-text hover:text-primary transition-colors rounded-button"
+        aria-label={t('general.menu')}
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+      >
+        <svg class="menu-icon-open w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg class="menu-icon-close w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <nav
+    id="mobile-nav"
+    class="hidden lg:hidden fixed top-16 left-0 w-full h-[calc(100dvh-4rem)] z-40 bg-bg overflow-y-auto"
+    aria-label="Mobiele navigatie"
+  >
+    <div class="px-4 py-6 space-y-1">
+      {linkItems.map((item) => (
+        <a
+          href={item.href}
+          class:list={[
+            'block py-3 text-lg font-medium transition-colors',
+            isActive(item.href) ? 'text-primary' : 'text-text hover:text-primary',
+          ]}
+        >
+          {item.label}
+        </a>
+      ))}
+
+      {buttonItem && (
+        <a
+          href={buttonItem.href}
+          class="block w-full mt-4 py-3 text-center text-base font-medium text-text-inverse bg-primary hover:bg-primary-dark transition-colors rounded-button"
+        >
+          {buttonItem.label}
+        </a>
+      )}
+    </div>
+  </nav>
+</header>
+
+<script is:inline>
+  (function() {
+    var btn = document.getElementById('menu-btn');
+    var nav = document.getElementById('mobile-nav');
+    if (!btn || !nav) return;
+    btn.addEventListener('click', function() {
+      var open = nav.classList.contains('hidden');
+      nav.classList.toggle('hidden');
+      btn.setAttribute('aria-expanded', String(open));
+      btn.querySelector('.menu-icon-open').classList.toggle('hidden');
+      btn.querySelector('.menu-icon-close').classList.toggle('hidden');
+    });
+  })();
+</script>
