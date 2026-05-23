@@ -22,12 +22,12 @@ Per nieuwe klant: clone de template, vul klantgegevens in, pas branding aan, sch
 
 | Component | Keuze | Let op |
 |---|---|---|
-| Framework | Astro 5.x | `output: 'static'` voor build, `'hybrid'` bij dev (Keystatic) |
+| Framework | Astro 6.x | `output: 'static'` voor build, `'hybrid'` bij dev (Keystatic) |
 | Adapter | `@astrojs/node@9` (alleen dev) | Geen adapter nodig voor Cloudflare Pages static deploy |
 | CSS | Tailwind 3.4 + `@tailwindcss/typography` | Semantische kleurnamen (primary, accent, bg, etc.) |
 | CMS | Keystatic | `storage: { kind: 'local' }` voor dev |
-| Blog content | `@astrojs/mdx` | **NIET markdoc** — incompatibel met Astro 5 |
-| Content | Astro Content Collections | Blog gebruikt `glob` loader uit `astro/loaders` |
+| Blog content | `@astrojs/mdx@5` | **NIET markdoc** — incompatibel met Astro |
+| Content | Astro Content Collections | ALLE collections gebruiken `glob` loader uit `astro/loaders` (geen `type: 'data'`) |
 | Fonts | Self-hosted via fontsource | woff2 in `public/fonts/` |
 | Afbeeldingen | Astro `<Image>` component | Auto WebP, responsive sizes |
 | Analytics | GA4 + Meta Pixel | Alleen laden na cookie consent |
@@ -62,13 +62,14 @@ Deze features moeten ALTIJD mee — ze zijn essentieel voor vindbaarheid:
 
 ### Nooit doen
 - `npm audit fix` of `npm audit fix --force` — **NOOIT**, breekt Astro
-- `fields.markdoc()` in Keystatic — **incompatibel met Astro 5**, gebruik `fields.mdx()`
+- `fields.markdoc()` in Keystatic — **incompatibel met Astro**, gebruik `fields.mdx()`
 - `output: 'hybrid'` hardcoded — **alleen bij dev** via `isDev` check, build is altijd `'static'`
+- `type: 'data'` in content collections — **verouderd in Astro 6**, gebruik altijd `glob` loader
 - `@astrojs/cloudflare` adapter — **niet nodig** voor Cloudflare Pages static deploy
 - Afbeeldingen als `<img>` tag — **altijd `<Image>` uit `astro:assets`**
 - Blog content als .mdoc — **Astro 5 kan geen .mdoc renderen**, gebruik .md of .mdx
 - Trailing slashes in links — `trailingSlash: 'never'` staat in de config
-- `@astrojs/mdx@5` installeren — **vereist Astro 6**, gebruik `@astrojs/mdx@4` voor Astro 5
+- `.mdoc` bestanden gebruiken — **niet supported zonder markdoc**, gebruik `.md` of `.yaml`
 
 ### Altijd doen
 - `--legacy-peer-deps` bij npm install (staat ook in `.npmrc` voor Cloudflare builds)
@@ -76,7 +77,7 @@ Deze features moeten ALTIJD mee — ze zijn essentieel voor vindbaarheid:
 - H2 koppen: beginnen met een topic noun
 - Alt-teksten: bevatten bedrijfsnaam + plaatsnaam + beroep/dienst
 - Testimonial veldnaam is `text:` in YAML, **niet** `quote:`
-- Blog collection gebruikt `glob` loader: `loader: glob({ pattern: '**/*.{md,mdx}', base: 'src/content/blog' })`
+- ALLE collections gebruiken `glob` loader, bijv: `loader: glob({ pattern: '**/*.yaml', base: 'src/content/testimonials' })`
 - Keystatic blog: `format: { contentField: 'content', data: 'yaml' }` + `entryLayout: 'content'`
 - Test altijd met `npm run build` voordat je iets als klaar beschouwt
 - Alle tracking scripts alleen laden na cookie consent

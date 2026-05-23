@@ -28,12 +28,12 @@
 
 | Component | Versie/keuze | Notities |
 |---|---|---|
-| Framework | Astro 5.x | `output: 'static'` |
+| Framework | Astro 6.x | `output: 'static'` voor build, `'hybrid'` bij dev (Keystatic) |
 | Adapter | `@astrojs/node@9` (alleen dev) | Geen adapter nodig voor Cloudflare Pages. Node adapter is alleen voor lokaal dev met Keystatic. |
 | CSS | Tailwind 3.4 + `@tailwindcss/typography` | Semantische kleurnamen |
 | CMS | Keystatic | `storage: { kind: 'local' }` voor dev |
-| Blog | `@astrojs/mdx` | **NIET markdoc** — incompatibel met Astro 5 |
-| Content | Astro Content Collections | Blog gebruikt `glob` loader uit `astro/loaders` |
+| Blog | `@astrojs/mdx@5` | **NIET markdoc** — incompatibel met Astro |
+| Content | Astro Content Collections | ALLE collections gebruiken `glob` loader (geen `type: 'data'`) |
 | Fonts | Self-hosted via fontsource | woff2 in `public/fonts/` |
 | Afbeeldingen | Astro `<Image>` component | Auto WebP, responsive sizes |
 
