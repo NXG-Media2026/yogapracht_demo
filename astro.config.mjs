@@ -3,19 +3,26 @@ import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 import react from '@astrojs/react';
 import mdx from '@astrojs/mdx';
-import keystatic from '@keystatic/astro';
-import node from '@astrojs/node';
+
+// Keystatic CMS alleen in dev-mode (lokaal content beheren)
+const isDev = process.argv.includes('dev');
+
+let keystatic, nodeAdapter;
+if (isDev) {
+  keystatic = (await import('@keystatic/astro')).default;
+  nodeAdapter = (await import('@astrojs/node')).default;
+}
 
 export default defineConfig({
   site: 'https://www.yogapracht.com',
-  output: 'static',
+  output: isDev ? 'hybrid' : 'static',
   trailingSlash: 'never',
-  adapter: node({ mode: 'standalone' }),
+  ...(isDev ? { adapter: nodeAdapter({ mode: 'standalone' }) } : {}),
   integrations: [
     tailwind({ applyBaseStyles: false }),
     react(),
     mdx(),
-    keystatic(),
+    ...(isDev ? [keystatic()] : []),
     sitemap({
       filter: (page) => !page.includes('/keystatic'),
     }),
