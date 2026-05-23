@@ -48,11 +48,22 @@ Deze features moeten ALTIJD mee — ze zijn essentieel voor vindbaarheid:
 
 ### Copywriting regels voor diensten en content
 
-- **Homepage** moet altijd bevatten: hero met CTA, intro-sectie, diensten-kaarten (clickable), voordelen-lijst, founder-sectie, reviews, CTA-band, FAQ
+- **Homepage** moet altijd bevatten: hero met CTA, intro-sectie, uitleg-sectie (wat is de methode), diensten-kaarten (clickable), voor-wie sectie, voordelen-lijst, founder-sectie, reviews, CTA-band, FAQ
 - **Dienstenpagina's** bevatten: hero/kop, uitgebreide beschrijving, voor-wie lijst, praktische info, relevante testimonial, CTA
 - **H2 koppen** beginnen altijd met een topic noun (niet "Waarom..." of "Hoe...")
 - **Alt-teksten** bevatten bedrijfsnaam + plaatsnaam + dienst/context
 - **FAQ antwoorden** eerste zin moet standalone werken, NOOIT beginnen met "Ja"/"Nee"
+
+### AI-vindbaarheid (verplicht bij elke klant)
+
+- **Person schema op homepage** — met `hasCredential`, `alumniOf`, `sameAs` (persoonlijke profielen), `knowsAbout`
+- **dateModified** in LocalBusiness + WebSite schema (automatisch: build-datum)
+- **lastmod** in sitemap — `sitemap({ lastmod: new Date() })` in astro.config.mjs
+- **Individuele Review objecten** — `generateReviewSnippets()` op homepage naast `generateAggregateRating()`
+- **Quotable content** — minimaal 3 paragrafen van 60-80 woorden op homepage met explanation markers ("omdat", "dat betekent dat", "bijvoorbeeld")
+- **Nichepagina's** — 1+ lange content pagina's per specialisatie (bijv. `/yoga-bij-overprikkeling`) met FAQPage schema
+- **robots.txt** — expliciete `Allow` voor GPTBot, ClaudeBot, PerplexityBot
+- **llms.txt** — in public/ root met overzicht van site-structuur en specialisaties
 - **Testimonials** koppelen aan de juiste dienstenpagina waar mogelijk
 - **Navigatie** bevat "Diensten" als vast item
 

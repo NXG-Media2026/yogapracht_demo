@@ -77,14 +77,18 @@ export function generateWebSite(locale: string = 'nl') {
 }
 
 export function generateBreadcrumbs(items: Array<{ name: string; url: string }>) {
+  const allItems = [
+    { name: 'Home', url: '/' },
+    ...items,
+  ];
   return JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
-    itemListElement: items.map((item, index) => ({
+    itemListElement: allItems.map((item, index) => ({
       '@type': 'ListItem',
       position: index + 1,
       name: item.name,
-      item: item.url,
+      item: `${siteConfig.url}${item.url}`,
     })),
   });
 }
@@ -108,14 +112,20 @@ export function generateService(service: {
   name: string;
   description: string;
   url: string;
+  serviceType?: string;
 }) {
   return JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'Service',
     name: service.name,
     description: service.description,
-    url: service.url,
+    url: `${siteConfig.url}${service.url}`,
     provider: { '@id': orgId },
+    ...(service.serviceType && { serviceType: service.serviceType }),
+    areaServed: {
+      '@type': 'City',
+      name: siteConfig.contact.address.city,
+    },
   });
 }
 
@@ -164,6 +174,11 @@ export function generateLocalBusiness() {
     url: siteConfig.url,
     telephone: siteConfig.contact.phone,
     email: siteConfig.contact.email,
+    image: `${siteConfig.url}/images/marielle-portrait.jpg`,
+    logo: `${siteConfig.url}/images/og-default.jpg`,
+    priceRange: '€',
+    currenciesAccepted: 'EUR',
+    paymentAccepted: 'Cash, Bank Transfer',
     address: {
       '@type': 'PostalAddress',
       streetAddress: siteConfig.contact.address.street,
@@ -176,6 +191,19 @@ export function generateLocalBusiness() {
       latitude: 51.4872,
       longitude: 5.1386,
     },
+    hasMap: 'https://www.google.com/maps?q=Hakvoortseweg+12,+Hilvarenbeek',
+    areaServed: {
+      '@type': 'City',
+      name: siteConfig.contact.address.city,
+    },
+    openingHoursSpecification: [
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: 'Monday',
+        opens: '09:00',
+        closes: '10:15',
+      },
+    ],
     founder: { '@id': founderUrl },
     dateModified: new Date().toISOString().split('T')[0],
     ...(sameAs.length > 0 && { sameAs }),
@@ -216,5 +244,57 @@ export function generateReviewSnippets(reviews: Array<{ name: string; text: stri
         bestRating: 5,
       },
     })),
+  });
+}
+
+export function generateProduct(product: {
+  name: string;
+  description: string;
+  url: string;
+  price: string;
+  image?: string;
+}) {
+  return JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product.name,
+    description: product.description,
+    url: `${siteConfig.url}${product.url}`,
+    brand: { '@id': orgId },
+    ...(product.image && {
+      image: product.image.startsWith('http') ? product.image : `${siteConfig.url}${product.image}`,
+    }),
+    offers: {
+      '@type': 'Offer',
+      price: product.price,
+      priceCurrency: 'EUR',
+      availability: 'https://schema.org/InStock',
+      seller: { '@id': orgId },
+    },
+  });
+}
+
+export function generateEvent(event: {
+  name: string;
+  description: string;
+  url: string;
+  eventAttendanceMode?: string;
+}) {
+  return JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'EducationEvent',
+    name: event.name,
+    description: event.description,
+    url: `${siteConfig.url}${event.url}`,
+    organizer: { '@id': orgId },
+    performer: { '@id': founderUrl },
+    eventAttendanceMode: event.eventAttendanceMode ?? 'https://schema.org/OnlineEventAttendanceMode',
+    eventStatus: 'https://schema.org/EventScheduled',
+    isAccessibleForFree: true,
+    inLanguage: 'nl',
+    location: {
+      '@type': 'VirtualLocation',
+      url: `${siteConfig.url}${event.url}`,
+    },
   });
 }

@@ -2,18 +2,24 @@
 import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { siteConfig } from '../../data/site';
-import { generateBreadcrumbs } from '../../data/schema';
+import { generateBreadcrumbs, generateProduct } from '../../data/schema';
 import yogaAttributes from '../../assets/marielle/marielle_yogapose_attributes.jpg';
 ---
 
 <BaseLayout
   title={`Shavasana ontspanning audio | ${siteConfig.name}`}
-  description="Begeleide shavasana ontspanning audio door Yogapracht. Diepe eindontspanning door yogadocent Mariëlle van der Geest. Ideaal bij overprikkeling en stress."
+  description="Begeleide shavasana ontspanning audio door Yogapracht Hilvarenbeek. Diepe eindontspanning door yogadocent Mariëlle. Ideaal bij overprikkeling — €9."
   schemas={[
     generateBreadcrumbs([
-      { name: 'Aanbod', url: '/aanbod/videoles-overprikkeling' },
+      { name: 'Yoga bij overprikkeling', url: '/yoga-bij-overprikkeling' },
       { name: 'Shavasana ontspanning', url: '/aanbod/ontspanning-audio' },
     ]),
+    generateProduct({
+      name: 'Shavasana ontspanning audio',
+      description: 'Begeleide shavasana diepe ontspanning audio door yogadocent Mariëlle van der Geest. Ideaal bij overprikkeling en stress.',
+      url: '/aanbod/ontspanning-audio',
+      price: '9.00',
+    }),
   ]}
 >
 

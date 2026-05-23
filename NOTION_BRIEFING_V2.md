@@ -374,6 +374,25 @@ Deze features zijn verplicht bij elke klant-build. Ze zijn essentieel voor vindb
 
 ---
 
+## AI-vindbaarheid checklist (per klant)
+
+Dit zijn de stappen die de AI-vindbaarheid (ChatGPT, Claude, Perplexity) maximaliseren:
+
+```
+- [ ] Person schema op homepage met hasCredential, alumniOf, sameAs, knowsAbout
+- [ ] dateModified in LocalBusiness + WebSite schema (automatisch via build-datum)
+- [ ] lastmod in sitemap: sitemap({ lastmod: new Date() }) in astro.config.mjs
+- [ ] Individuele Review objecten op homepage (generateReviewSnippets naast generateAggregateRating)
+- [ ] Minimaal 3 quotable paragrafen (60-80 woorden) op homepage met explanation markers
+- [ ] Minimaal 1 nichepagina per specialisatie (lange content, FAQPage schema)
+- [ ] robots.txt: expliciete Allow voor GPTBot, ClaudeBot, PerplexityBot
+- [ ] llms.txt in public/ met site-overzicht en specialisaties
+- [ ] Alle H2's beginnen met topic noun
+- [ ] Credentials in tekst + in Person schema (niet alleen sales-copy)
+```
+
+---
+
 ## Veelgemaakte fouten
 
 | Fout | Gevolg | Oplossing |

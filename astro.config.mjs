@@ -24,7 +24,10 @@ export default defineConfig({
     mdx(),
     ...(isDev ? [keystatic()] : []),
     sitemap({
-      filter: (page) => !page.includes('/keystatic'),
+      filter: (page) =>
+        !page.includes('/keystatic') &&
+        !page.includes('/privacy') &&
+        !page.includes('/voorwaarden'),
       lastmod: new Date(),
     }),
   ],

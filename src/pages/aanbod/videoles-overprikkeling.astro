@@ -2,19 +2,25 @@
 import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { siteConfig } from '../../data/site';
-import { generateBreadcrumbs } from '../../data/schema';
+import { generateBreadcrumbs, generateProduct } from '../../data/schema';
 import profileImage from '../../assets/marielle/marielle_profile_image.jpg';
 import yogaPose from '../../assets/marielle/marielle_yogapose.jpg';
 ---
 
 <BaseLayout
   title={`Videoles yoga bij overprikkeling | ${siteConfig.name}`}
-  description="Online videoles yoga bij overprikkeling door Yogapracht. Inclusief PDF met oefeningen voor thuis. Leer je zenuwstelsel kalmeren op je eigen tempo."
+  description="Online videoles yoga bij overprikkeling door Yogapracht Hilvarenbeek. Inclusief PDF met oefeningen. Kalmeer je zenuwstelsel op eigen tempo — €27."
   schemas={[
     generateBreadcrumbs([
       { name: 'Yoga bij overprikkeling', url: '/yoga-bij-overprikkeling' },
       { name: 'Videoles', url: '/aanbod/videoles-overprikkeling' },
     ]),
+    generateProduct({
+      name: 'Videoles yoga bij overprikkeling',
+      description: 'Online videoles yoga bij overprikkeling door gediplomeerd yogadocent Mariëlle van der Geest. Inclusief PDF met oefeningen voor thuis.',
+      url: '/aanbod/videoles-overprikkeling',
+      price: '27.00',
+    }),
   ]}
 >
 

@@ -2,16 +2,21 @@
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { siteConfig } from '../data/site';
-import { generateBreadcrumbs } from '../data/schema';
+import { generateBreadcrumbs, generateEvent } from '../data/schema';
 import heroImage from '../assets/marielle/backgroundimage_marielle.jpg';
 import profileImage from '../assets/marielle/marielle_profile_image.jpg';
 ---
 
 <BaseLayout
   title={`Masterclass yoga bij overprikkeling | ${siteConfig.name}`}
-  description="Gratis live masterclass yoga bij overprikkeling door Yogapracht. Leer van yogadocent Mariëlle van der Geest hoe je je zenuwstelsel kalmeert door yoga."
+  description="Gratis live masterclass yoga bij overprikkeling door Yogapracht Hilvarenbeek. Leer van yogadocent Mariëlle hoe je je zenuwstelsel kalmeert."
   schemas={[
     generateBreadcrumbs([{ name: 'Masterclass', url: '/masterclass' }]),
+    generateEvent({
+      name: 'Gratis masterclass yoga bij overprikkeling',
+      description: 'Gratis live masterclass over yoga bij overprikkeling door yogadocent Mariëlle van der Geest. Leer hoe je je zenuwstelsel kalmeert door yoga.',
+      url: '/masterclass',
+    }),
   ]}
 >
 
