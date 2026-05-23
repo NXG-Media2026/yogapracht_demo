@@ -5,10 +5,11 @@ import FAQAccordion from '../components/FAQAccordion.astro';
 import TestimonialCard from '../components/TestimonialCard.astro';
 import { siteConfig } from '../data/site';
 import { getCollection } from 'astro:content';
-import { generateLocalBusiness, generateWebSite, generateAggregateRating, generateFAQPage } from '../data/schema';
+import { generateLocalBusiness, generateWebSite, generateAggregateRating, generateFAQPage, generateFounderPerson, generateReviewSnippets } from '../data/schema';
 import heroImage from '../assets/marielle/backgroundimage_marielle.jpg';
 import profileImage from '../assets/marielle/marielle_profile_image.jpg';
 import ctaImage from '../assets/marielle/marielle_yogapose.jpg';
+import yogaPoseSideways from '../assets/marielle/marielle_yogapose_sideways.jpg';
 import bulletIcon from '../assets/marielle/bullet-logo-groen.png';
 
 const testimonials = await getCollection('testimonials');
@@ -34,12 +35,14 @@ const homepageFaq = [
 ---
 
 <BaseLayout
-  title={`${siteConfig.name} — ${siteConfig.tagline}`}
-  description="Yogapracht in Hilvarenbeek — hatha-rajayoga lessen van gediplomeerd yogadocent Mariëlle van der Geest. Groepslessen, privélessen, stoelyoga en bedrijfsyoga."
+  title={`${siteConfig.name} — hatha-rajayoga in Hilvarenbeek`}
+  description="Yogapracht in Hilvarenbeek — hatha-rajayoga lessen van gediplomeerd yogadocent Mariëlle van der Geest. Groepslessen, privélessen, stoelyoga en bedrijfsyoga. Gratis proefles."
   schemas={[
     generateLocalBusiness(),
     generateWebSite('nl'),
+    generateFounderPerson(),
     generateAggregateRating(testimonials.map(t => ({ rating: t.data.rating ?? 5 }))),
+    generateReviewSnippets(testimonials.map(t => ({ name: t.data.name, text: t.data.text, rating: t.data.rating ?? 5 }))),
     generateFAQPage(homepageFaq.map(f => ({ question: f.q, answer: f.a }))),
   ].filter(Boolean)}
 >
@@ -73,42 +76,189 @@ const homepageFaq = [
             Gratis proefles aanvragen
           </a>
           <a
-            href="/over"
+            href="/diensten"
             class="inline-flex items-center px-8 py-4 text-base font-medium text-white border-2 border-white/60 hover:bg-white/10 transition-colors rounded-button"
           >
-            Over Mariëlle
+            Bekijk de mogelijkheden
           </a>
         </div>
       </div>
     </div>
   </section>
 
-  {/* ── Diensten / USPs ── */}
+  {/* ── Introductie ── */}
+  <section class="py-16 md:py-20">
+    <div class="max-w-4xl mx-auto px-4 md:px-6">
+      <div class="max-w-2xl mx-auto text-center">
+        <h2 class="font-heading text-2xl md:text-3xl text-text mb-6">Yoga in Hilvarenbeek</h2>
+        <p class="text-lg text-text-muted leading-relaxed mb-4">
+          Yogapracht is de yogapraktijk van Mariëlle van der Geest in Hilvarenbeek. Als gediplomeerd hatha-rajayoga docent begeleidt zij mensen die meer rust, balans en bewustzijn zoeken in hun leven.
+        </p>
+        <p class="text-text-muted leading-relaxed mb-4">
+          De lessen zijn gebaseerd op de yogasutra's van Patanjali — een tijdloze filosofie die lichaam en geest met elkaar verbindt. Of je nu voor het eerst op een matje stapt of al jaren oefent: bij Yogapracht is er een vorm die bij jou past.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {/* ── Wat is hatha-rajayoga ── */}
+  <section class="py-12 md:py-16">
+    <div class="max-w-3xl mx-auto px-4 md:px-6">
+      <h2 class="font-heading text-2xl md:text-3xl text-text mb-6">Hatha-rajayoga: lichaam en geest in balans</h2>
+      <p class="text-text-muted leading-relaxed mb-4">
+        Hatha-rajayoga is een traditionele yogavorm die lichaam en geest combineert. Het woord "hatha" verwijst naar het fysieke aspect — houdingen (asana's) en ademhalingsoefeningen (pranayama) — terwijl "raja" zich richt op de geest: concentratie en meditatie. Omdat beide aspecten samenkomen in elke les, ervaren deelnemers niet alleen meer souplesse, maar ook meer mentale rust.
+      </p>
+      <p class="text-text-muted leading-relaxed mb-6">
+        De lessen bij Yogapracht zijn gebaseerd op de Yoga Sūtra's van Patañjali, een Indiase filosoof die duizenden jaren geleden de principes van bewustzijnsontwikkeling vastlegde. Dat betekent dat elke les een vaste structuur volgt: houdingen om het lichaam te openen, ademhalingsoefeningen als brug tussen lichaam en geest, meditatie voor innerlijke stilte, en een diepe ontspanning (shavasana) om af te sluiten.
+      </p>
+      <h3 class="font-heading text-xl text-text mb-4">Lesopbouw bij een groepsles</h3>
+      <ul class="space-y-2 mb-6">
+        <li class="flex items-start gap-3">
+          <span class="text-accent font-medium mt-0.5">1.</span>
+          <span class="text-text-muted"><strong class="text-text">Houdingen (asana's)</strong> — lichamelijke oefeningen waarmee je spanning loslaat en naar binnen reist</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-accent font-medium mt-0.5">2.</span>
+          <span class="text-text-muted"><strong class="text-text">Ademhaling (pranayama)</strong> — bewuste ademhalingsoefeningen die het zenuwstelsel kalmeren</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-accent font-medium mt-0.5">3.</span>
+          <span class="text-text-muted"><strong class="text-text">Meditatie</strong> — het onafgebroken vasthouden van je concentratie voor innerlijke stilte</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-accent font-medium mt-0.5">4.</span>
+          <span class="text-text-muted"><strong class="text-text">Diepe ontspanning (shavasana)</strong> — afsluiting waarin alles mag landen en het lichaam herstelt</span>
+        </li>
+      </ul>
+      <p class="text-text-muted leading-relaxed">
+        Elke les duurt ongeveer 75 minuten. Er is geen ervaring nodig om te beginnen, omdat Mariëlle de houdingen aanpast aan het niveau van de deelnemers. Dat maakt de groepslessen geschikt voor zowel beginners als gevorderden. Je kunt altijd een gratis proefles volgen om te ervaren hoe hatha-rajayoga voelt.
+      </p>
+    </div>
+  </section>
+
+  {/* ── Diensten ── */}
   <section class="py-12 md:py-16 bg-bg-alt">
     <div class="max-w-4xl mx-auto px-4 md:px-6">
-      <h2 class="font-heading text-2xl md:text-3xl text-text mb-8">Mogelijkheden</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="bg-white rounded-card p-6 border border-border">
+      <h2 class="font-heading text-2xl md:text-3xl text-text mb-3">Mogelijkheden bij Yogapracht</h2>
+      <p class="text-text-muted mb-8 max-w-2xl">Elke yogavorm heeft dezelfde basis — houdingen, ademhaling, meditatie en ontspanning — maar is afgestemd op een andere situatie.</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <a href="/diensten/groepslessen" class="group bg-white rounded-card p-6 border border-border hover:border-primary-light/50 hover:shadow-md transition-all">
           <Image src={bulletIcon} alt="" width={28} height={28} class="w-7 h-7 mb-3" loading="lazy" aria-hidden="true" />
-          <h3 class="font-heading text-lg text-text mb-2">Groepslessen</h3>
-          <p class="text-sm text-text-muted">Reguliere hatha-rajayoga lessen in een kleine groep. Ook Morgenstond Yoga op maandagochtend om 09:00 uur.</p>
+          <h3 class="font-heading text-lg text-text mb-2 group-hover:text-primary transition-colors">Groepslessen</h3>
+          <p class="text-sm text-text-muted mb-3">Wekelijkse hatha-rajayoga in een kleine groep. Persoonlijke aandacht en ruimte om in je eigen tempo te oefenen.</p>
+          <span class="text-sm text-accent group-hover:text-accent-dark font-medium">Meer info &rarr;</span>
+        </a>
+        <a href="/diensten/privelessen" class="group bg-white rounded-card p-6 border border-border hover:border-primary-light/50 hover:shadow-md transition-all">
+          <Image src={bulletIcon} alt="" width={28} height={28} class="w-7 h-7 mb-3" loading="lazy" aria-hidden="true" />
+          <h3 class="font-heading text-lg text-text mb-2 group-hover:text-primary transition-colors">Privélessen</h3>
+          <p class="text-sm text-text-muted mb-3">Persoonlijke begeleiding op maat, in de studio of bij jou thuis. Beschikbaar in Nederlands en Engels.</p>
+          <span class="text-sm text-accent group-hover:text-accent-dark font-medium">Meer info &rarr;</span>
+        </a>
+        <a href="/diensten/stoelyoga" class="group bg-white rounded-card p-6 border border-border hover:border-primary-light/50 hover:shadow-md transition-all">
+          <Image src={bulletIcon} alt="" width={28} height={28} class="w-7 h-7 mb-3" loading="lazy" aria-hidden="true" />
+          <h3 class="font-heading text-lg text-text mb-2 group-hover:text-primary transition-colors">Stoelyoga</h3>
+          <p class="text-sm text-text-muted mb-3">Alle voordelen van yoga, zittend op een stoel. Toegankelijk voor iedereen, ongeacht mobiliteit.</p>
+          <span class="text-sm text-accent group-hover:text-accent-dark font-medium">Meer info &rarr;</span>
+        </a>
+        <a href="/diensten/bedrijfsyoga" class="group bg-white rounded-card p-6 border border-border hover:border-primary-light/50 hover:shadow-md transition-all">
+          <Image src={bulletIcon} alt="" width={28} height={28} class="w-7 h-7 mb-3" loading="lazy" aria-hidden="true" />
+          <h3 class="font-heading text-lg text-text mb-2 group-hover:text-primary transition-colors">Bedrijfsyoga</h3>
+          <p class="text-sm text-text-muted mb-3">Yogalessen op de werkvloer voor meer rust en energie bij jouw team. Op locatie in de regio Hilvarenbeek.</p>
+          <span class="text-sm text-accent group-hover:text-accent-dark font-medium">Meer info &rarr;</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  {/* ── Waarom yoga ── */}
+  <section class="py-16 md:py-20">
+    <div class="max-w-4xl mx-auto px-4 md:px-6">
+      <div class="flex flex-col md:flex-row items-center gap-10">
+        <div class="w-full md:w-2/5 shrink-0">
+          <div class="rounded-card overflow-hidden">
+            <Image
+              src={yogaPoseSideways}
+              alt="Hatha-rajayoga houding door Mariëlle — voordelen van yoga bij Yogapracht Hilvarenbeek"
+              widths={[384, 512]}
+              sizes="(max-width: 768px) 100vw, 40vw"
+              class="w-full h-auto"
+              loading="lazy"
+            />
+          </div>
         </div>
-        <div class="bg-white rounded-card p-6 border border-border">
-          <Image src={bulletIcon} alt="" width={28} height={28} class="w-7 h-7 mb-3" loading="lazy" aria-hidden="true" />
-          <h3 class="font-heading text-lg text-text mb-2">Privélessen</h3>
-          <p class="text-sm text-text-muted">Persoonlijke begeleiding op maat, bij jou thuis of in de studio. Beschikbaar in Nederlands en Engels.</p>
-        </div>
-        <div class="bg-white rounded-card p-6 border border-border">
-          <Image src={bulletIcon} alt="" width={28} height={28} class="w-7 h-7 mb-3" loading="lazy" aria-hidden="true" />
-          <h3 class="font-heading text-lg text-text mb-2">Stoelyoga & Bedrijfsyoga</h3>
-          <p class="text-sm text-text-muted">Toegankelijke yoga op een stoel of yogalessen op de werkvloer voor meer rust en energie bij jouw team.</p>
+        <div>
+          <h2 class="font-heading text-2xl md:text-3xl text-text mb-6">Voordelen van yoga</h2>
+          <p class="text-text-muted leading-relaxed mb-6">
+            Regelmatig yoga beoefenen heeft een merkbaar effect op hoe je je voelt — zowel fysiek als mentaal. Dit zijn de voordelen die deelnemers het vaakst ervaren:
+          </p>
+          <ul class="space-y-3">
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+              <span class="text-text-muted">Meer mentale rust en een betere nachtrust</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+              <span class="text-text-muted">Diepere, bewustere ademhaling</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+              <span class="text-text-muted">Makkelijker ontspannen na een drukke dag</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+              <span class="text-text-muted">Meer comfort en souplesse in je lichaam</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+              <span class="text-text-muted">Betere concentratie en focus</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+              <span class="text-text-muted">Sneller je energie herstellen</span>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
   </section>
 
+  {/* ── Voor wie ── */}
+  <section class="py-12 md:py-16">
+    <div class="max-w-3xl mx-auto px-4 md:px-6">
+      <h2 class="font-heading text-2xl md:text-3xl text-text mb-6">Yogalessen geschikt voor iedereen</h2>
+      <p class="text-text-muted leading-relaxed mb-6">
+        De lessen bij Yogapracht zijn toegankelijk voor iedereen, ongeacht leeftijd, lichaamsbouw of ervaring. Mariëlle past de houdingen aan op wie er in de groep zit, waardoor je altijd op je eigen niveau kunt oefenen. Er zijn bijvoorbeeld aangepaste yogavormen voor mensen die liever op een stoel oefenen, voor zwangeren, en voor mensen met chronische pijn of overprikkeling.
+      </p>
+      <div class="bg-bg-alt rounded-card p-6">
+        <h3 class="font-heading text-xl text-text mb-4">Yogapracht onderscheidt zich door</h3>
+        <ul class="space-y-2">
+          <li class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+            <span class="text-text-muted"><strong class="text-text">Kleine groepen</strong> — maximale persoonlijke aandacht en een veilige, vertrouwde sfeer</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+            <span class="text-text-muted"><strong class="text-text">Gediplomeerd docent</strong> — opgeleid bij de Blikopener met 14+ bijscholingen</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+            <span class="text-text-muted"><strong class="text-text">Specialisaties</strong> — stoelyoga, yoga bij overprikkeling, chronische pijn, zwangerschap en depressie</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+            <span class="text-text-muted"><strong class="text-text">Tweetalig</strong> — lessen in het Nederlands en Engels</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+            <span class="text-text-muted"><strong class="text-text">Gratis proefles</strong> — vrijblijvend kennismaken voordat je je aanmeldt</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
   {/* ── Over de founder ── */}
-  <section class="py-16 md:py-20">
+  <section class="py-12 md:py-16 bg-bg-alt">
     <div class="max-w-4xl mx-auto px-4 md:px-6">
       <div class="flex flex-col md:flex-row items-center gap-10">
         <div class="w-48 h-48 md:w-56 md:h-56 shrink-0 rounded-full overflow-hidden border-4 border-primary-light/30">
@@ -122,15 +272,18 @@ const homepageFaq = [
           />
         </div>
         <div class="text-center md:text-left">
-          <h2 class="font-heading text-2xl md:text-3xl text-text mb-4">Over Mariëlle</h2>
-          <p class="text-lg text-text-muted leading-relaxed mb-6">
-            Gediplomeerd hatha-rajayoga docent sinds 2020. Het is mijn zielsmissie om je vanuit plezier, vrijheid en intuïtie yoga te laten beoefenen.
+          <h2 class="font-heading text-2xl md:text-3xl text-text mb-4">Over Mariëlle van der Geest</h2>
+          <p class="text-text-muted leading-relaxed mb-3">
+            Mariëlle beoefent sinds 2011 hatha-rajayoga en volgde haar yogadocentopleiding bij opleidingsinstituut de Blikopener (2016–2020). Sindsdien heeft zij zich bijgeschoold in veertien specialisaties, waaronder stoelyoga, yoga bij chronische pijn, yoga bij depressie en yoga en preventie van overprikkeling. Dat betekent dat zij deelnemers met uiteenlopende achtergronden en klachten kan begeleiden.
+          </p>
+          <p class="text-text-muted leading-relaxed mb-6">
+            Het is haar zielsmissie om je vanuit plezier, vrijheid en intuïtie yoga te laten beoefenen. Haar verwondering over de pracht van yoga drijft haar om zich hierin continu te verdiepen. Yogapracht is lid van de Europese Yoga Unie en de Vereniging Yogadocenten Nederland, omdat kwaliteit en continue ontwikkeling centraal staan in haar werk.
           </p>
           <a
             href="/over"
             class="inline-flex items-center text-accent hover:text-accent-dark transition-colors font-medium"
           >
-            Lees meer
+            Lees meer over Mariëlle en haar opleidingen
             <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
           </a>
         </div>
@@ -140,9 +293,10 @@ const homepageFaq = [
 
   {/* ── Reviews ── */}
   {testimonials.length > 0 && (
-    <section class="py-12 md:py-16 bg-bg-alt">
+    <section class="py-16 md:py-20">
       <div class="max-w-4xl mx-auto px-4 md:px-6">
-        <h2 class="font-heading text-2xl md:text-3xl text-text mb-8">Ervaringen van deelnemers</h2>
+        <h2 class="font-heading text-2xl md:text-3xl text-text mb-3">Ervaringen van deelnemers</h2>
+        <p class="text-text-muted mb-8">Wat deelnemers zeggen over hun yogalessen bij Yogapracht.</p>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {testimonials.slice(0, 3).map((t) => (
             <TestimonialCard
@@ -187,7 +341,7 @@ const homepageFaq = [
           Ervaar zelf de kracht van yoga
         </h2>
         <p class="text-lg text-white/80 mb-8 max-w-2xl mx-auto">
-          Boek een gratis en vrijblijvende proefles en ontdek wat hatha-rajayoga voor jou kan betekenen.
+          Boek een gratis en vrijblijvende proefles en ontdek wat hatha-rajayoga voor jou kan betekenen. Geen ervaring nodig — alleen de wil om het te proberen.
         </p>
         <a
           href="/contact"

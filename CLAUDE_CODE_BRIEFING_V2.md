@@ -39,11 +39,22 @@ Deze features moeten ALTIJD mee — ze zijn essentieel voor vindbaarheid:
 
 1. **Blog** — /blog index + /blog/[slug] detail, BlogPosting schema, Keystatic MDX editor
 2. **Reviews** — /reviews pagina + TestimonialCard + homepage sectie, AggregateRating + ReviewSnippets schema
-3. **Local SEO schemas** — LocalBusiness (juiste subtype), AggregateRating, ReviewSnippets, FAQPage, BreadcrumbList, WebSite, ProfilePage
-4. **Pagina's** — Home, Over, Reviews, Blog, Contact, Privacy (AVG), Voorwaarden
-5. **Image SEO** — Alle images via `<Image>` (auto WebP), alt-teksten met bedrijfsnaam + plaatsnaam
-6. **OG image** — Default social sharing image op alle pagina's
-7. **Keurmerk-logo's** — Branchevereniging/certificering logo's in footer
+3. **Local SEO schemas** — LocalBusiness (juiste subtype), AggregateRating, ReviewSnippets, FAQPage, BreadcrumbList, WebSite, ProfilePage, Service
+4. **Pagina's** — Home, Over, Diensten (index + detailpagina's), Reviews, Blog, Contact, Privacy (AVG), Voorwaarden
+5. **Diensten** — /diensten overzicht + /diensten/[slug] per dienst, Service schema, links vanuit homepage
+6. **Image SEO** — Alle images via `<Image>` (auto WebP), alt-teksten met bedrijfsnaam + plaatsnaam + dienst
+7. **OG image** — Default social sharing image op alle pagina's
+8. **Keurmerk-logo's** — Branchevereniging/certificering logo's in footer
+
+### Copywriting regels voor diensten en content
+
+- **Homepage** moet altijd bevatten: hero met CTA, intro-sectie, diensten-kaarten (clickable), voordelen-lijst, founder-sectie, reviews, CTA-band, FAQ
+- **Dienstenpagina's** bevatten: hero/kop, uitgebreide beschrijving, voor-wie lijst, praktische info, relevante testimonial, CTA
+- **H2 koppen** beginnen altijd met een topic noun (niet "Waarom..." of "Hoe...")
+- **Alt-teksten** bevatten bedrijfsnaam + plaatsnaam + dienst/context
+- **FAQ antwoorden** eerste zin moet standalone werken, NOOIT beginnen met "Ja"/"Nee"
+- **Testimonials** koppelen aan de juiste dienstenpagina waar mogelijk
+- **Navigatie** bevat "Diensten" als vast item
 
 ## Stappen per nieuwe klant
 
@@ -140,11 +151,14 @@ singletons: {
 | Pagina | Schemas |
 |---|---|
 | Homepage | LocalBusiness, WebSite, AggregateRating, FAQPage |
+| Diensten index | BreadcrumbList |
+| Diensten detail | Service, BreadcrumbList |
 | Over | ProfilePage, BreadcrumbList |
 | Reviews | BreadcrumbList, ReviewSnippets, AggregateRating |
 | Blog index | BreadcrumbList |
 | Blog detail | BlogPosting, BreadcrumbList |
 | Contact | BreadcrumbList |
+| Nichepagina's | FAQPage, BreadcrumbList |
 
 ## Mapstructuur afbeeldingen
 

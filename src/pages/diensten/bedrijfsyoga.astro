@@ -1,0 +1,140 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TestimonialCard from '../../components/TestimonialCard.astro';
+import { siteConfig } from '../../data/site';
+import { generateBreadcrumbs, generateService } from '../../data/schema';
+import { getCollection } from 'astro:content';
+import ctaImage from '../../assets/marielle/marielle_yogapose.jpg';
+
+const testimonials = await getCollection('testimonials');
+const bedrijfsReview = testimonials.find(t => t.data.name === 'Tamara');
+---
+
+<BaseLayout
+  title={`Bedrijfsyoga in Hilvarenbeek en omgeving | ${siteConfig.name}`}
+  description="Bedrijfsyoga op de werkvloer door Yogapracht. Yogalessen voor teams in Hilvarenbeek en omgeving. Meer rust, focus en energie voor jouw medewerkers."
+  schemas={[
+    generateBreadcrumbs([
+      { name: 'Diensten', url: '/diensten' },
+      { name: 'Bedrijfsyoga', url: '/diensten/bedrijfsyoga' },
+    ]),
+    generateService({
+      name: 'Bedrijfsyoga',
+      description: 'Yogalessen op de werkvloer door Yogapracht in Hilvarenbeek en omgeving. Meer rust, focus en energie voor teams.',
+      url: `${siteConfig.url}/diensten/bedrijfsyoga`,
+    }),
+  ]}
+>
+
+  {/* ── Hero ── */}
+  <section class="py-12 md:py-16 lg:py-20 bg-bg-alt">
+    <div class="max-w-3xl mx-auto px-4 md:px-6">
+      <p class="text-text-muted text-sm font-medium uppercase tracking-wider mb-3">
+        <a href="/diensten" class="hover:text-primary transition-colors">Diensten</a>
+      </p>
+      <h1 class="font-heading text-3xl md:text-4xl lg:text-5xl text-primary mb-4">
+        Bedrijfsyoga
+      </h1>
+      <p class="text-lg text-text-muted leading-relaxed max-w-xl">
+        Yogalessen op de werkvloer voor teams die meer rust, focus en energie willen. Een investering in welzijn die zich direct terugbetaalt.
+      </p>
+    </div>
+  </section>
+
+  {/* ── Inhoud ── */}
+  <section class="py-12 md:py-16">
+    <div class="max-w-3xl mx-auto px-4 md:px-6">
+      <div class="prose prose-lg">
+        <h2>Yoga op de werkvloer</h2>
+        <p>
+          Werkdruk, beeldschermuren en vergaderingen — de moderne werkdag vraagt veel van lichaam en geest. Bedrijfsyoga biedt een effectieve tegenhanger. In een les van 30 tot 60 minuten leren medewerkers spanning los te laten, bewuster te ademen en met meer energie verder te gaan.
+        </p>
+        <p>
+          Mariëlle komt naar jullie toe. De lessen worden gegeven op een moment en locatie die past bij jullie werkritme — in een vergaderruimte, kantine of zelfs buiten. Geen speciale ruimte of materialen nodig.
+        </p>
+
+        <h2>Voordelen voor werkgever en werknemer</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2 not-prose my-8">
+          <div class="py-3 border-b border-border">
+            <h3 class="font-heading text-lg text-text mb-1">Minder verzuim</h3>
+            <p class="text-sm text-text-muted">Regelmatige beweging en ontspanning verminderen fysieke klachten en stress-gerelateerd verzuim.</p>
+          </div>
+          <div class="py-3 border-b border-border">
+            <h3 class="font-heading text-lg text-text mb-1">Betere focus</h3>
+            <p class="text-sm text-text-muted">Na een yogales zijn medewerkers scherper en kunnen ze zich beter concentreren.</p>
+          </div>
+          <div class="py-3 border-b border-border">
+            <h3 class="font-heading text-lg text-text mb-1">Teamverbinding</h3>
+            <p class="text-sm text-text-muted">Samen bewegen buiten de werktaken om versterkt de band tussen collega's.</p>
+          </div>
+          <div class="py-3 border-b border-border">
+            <h3 class="font-heading text-lg text-text mb-1">Werkplezier</h3>
+            <p class="text-sm text-text-muted">Aandacht voor welzijn toont waardering en verhoogt betrokkenheid en werkplezier.</p>
+          </div>
+        </div>
+
+        <h2>Flexibele opzet</h2>
+        <p>
+          Bedrijfsyoga kan op verschillende manieren worden ingezet, afhankelijk van de wensen en mogelijkheden van jouw organisatie:
+        </p>
+        <ul>
+          <li><strong>Wekelijks vast moment</strong> — structurele yogalessen als vast onderdeel van het welzijnsbeleid</li>
+          <li><strong>Maandelijkse sessie</strong> — een regelmatig rustpunt voor het team</li>
+          <li><strong>Eenmalige workshop</strong> — bijvoorbeeld tijdens een teamdag, congres of bedrijfsuitje</li>
+          <li><strong>Stoelyoga op kantoor</strong> — geen matjes nodig, direct aan het bureau of in de vergaderruimte</li>
+        </ul>
+
+        <h2>Praktische informatie</h2>
+        <ul>
+          <li><strong>Locatie:</strong> Bij jullie op de werkvloer (Hilvarenbeek en omgeving)</li>
+          <li><strong>Duur:</strong> 30 tot 60 minuten, in overleg</li>
+          <li><strong>Groepsgrootte:</strong> Flexibel — van een klein team tot een grotere afdeling</li>
+          <li><strong>Benodigdheden:</strong> Een ruimte waar deelnemers een matje kunnen uitrollen, of stoelen voor stoelyoga</li>
+          <li><strong>Ervaring:</strong> Niet nodig — de les wordt aangepast aan het niveau van de groep</li>
+        </ul>
+      </div>
+
+      {/* ── Review ── */}
+      {bedrijfsReview && (
+        <div class="mt-12">
+          <h2 class="font-heading text-2xl text-text mb-6">Ervaring van een opdrachtgever</h2>
+          <TestimonialCard
+            name={bedrijfsReview.data.name}
+            role={bedrijfsReview.data.role}
+            text={bedrijfsReview.data.text}
+            rating={bedrijfsReview.data.rating}
+          />
+        </div>
+      )}
+
+      {/* ── CTA band ── */}
+      <div class="mt-12 relative rounded-card overflow-hidden">
+        <div class="absolute inset-0">
+          <Image
+            src={ctaImage}
+            alt="Yogahouding hatha-rajayoga — bedrijfsyoga door Yogapracht in Hilvarenbeek"
+            widths={[480, 768, 1024]}
+            sizes="(max-width: 768px) 100vw, 768px"
+            class="w-full h-full object-cover"
+            loading="lazy"
+          />
+          <div class="absolute inset-0 bg-primary-dark/80"></div>
+        </div>
+        <div class="relative py-12 px-8 text-center">
+          <h2 class="font-heading text-2xl md:text-3xl text-white mb-3">Bedrijfsyoga voor jouw team?</h2>
+          <p class="text-white/80 mb-6 max-w-lg mx-auto">
+            Neem contact op voor een vrijblijvend gesprek over de mogelijkheden. Samen bespreken we wat past bij jullie organisatie.
+          </p>
+          <a
+            href="/contact"
+            class="inline-flex items-center px-8 py-4 text-base font-medium bg-accent hover:bg-accent-dark text-white transition-colors rounded-button shadow-lg"
+          >
+            Vrijblijvend informeren
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

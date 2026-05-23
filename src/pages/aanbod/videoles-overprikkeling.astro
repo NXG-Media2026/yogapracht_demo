@@ -1,0 +1,170 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { siteConfig } from '../../data/site';
+import { generateBreadcrumbs } from '../../data/schema';
+import profileImage from '../../assets/marielle/marielle_profile_image.jpg';
+import yogaPose from '../../assets/marielle/marielle_yogapose.jpg';
+---
+
+<BaseLayout
+  title={`Videoles yoga bij overprikkeling | ${siteConfig.name}`}
+  description="Online videoles yoga bij overprikkeling door Yogapracht. Inclusief PDF met oefeningen voor thuis. Leer je zenuwstelsel kalmeren op je eigen tempo."
+  schemas={[
+    generateBreadcrumbs([
+      { name: 'Yoga bij overprikkeling', url: '/yoga-bij-overprikkeling' },
+      { name: 'Videoles', url: '/aanbod/videoles-overprikkeling' },
+    ]),
+  ]}
+>
+
+  {/* ── Hero ── */}
+  <section class="py-12 md:py-16 lg:py-20">
+    <div class="max-w-4xl mx-auto px-4 md:px-6">
+      <div class="flex flex-col md:flex-row items-center gap-10">
+        <div class="flex-1">
+          <p class="text-accent text-sm font-medium uppercase tracking-wider mb-3">Online videoles</p>
+          <h1 class="font-heading text-3xl md:text-4xl lg:text-5xl text-primary mb-4 leading-tight">
+            Yoga bij overprikkeling
+          </h1>
+          <p class="text-lg text-text-muted leading-relaxed mb-6">
+            Een complete videoles van Mariëlle, speciaal ontwikkeld voor mensen die last hebben van overprikkeling. Inclusief PDF met oefeningen en tips voor de dagen dat het teveel wordt.
+          </p>
+
+          <div class="bg-bg-alt rounded-card p-6 mb-6">
+            <h2 class="font-heading text-xl text-text mb-3">Dit krijg je</h2>
+            <ul class="space-y-2">
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                <span class="text-text-muted"><strong class="text-text">Videoles yoga bij overprikkeling</strong> — zachte houdingen, ademhalingsoefeningen en meditatie die je zenuwstelsel kalmeren</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                <span class="text-text-muted"><strong class="text-text">PDF: Wat helpt bij dagen van overprikkeling</strong> — praktische oefeningen en tips die je direct kunt toepassen</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                <span class="text-text-muted"><strong class="text-text">Onbeperkt terugkijken</strong> — op je eigen tempo, wanneer het jou uitkomt</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* ── Prijs + CTA ── */}
+          <div class="flex items-end gap-4 mb-6">
+            <div>
+              <span class="text-3xl font-heading text-primary">€27</span>
+              <span class="text-text-muted ml-1">eenmalig</span>
+            </div>
+          </div>
+          <a
+            href="#bestellen"
+            class="inline-flex items-center px-8 py-4 text-base font-medium text-text-inverse bg-accent hover:bg-accent-dark transition-colors rounded-button shadow-lg"
+          >
+            Direct bestellen
+            <svg class="ml-2 w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </a>
+        </div>
+
+        {/* ── Preview afbeelding ── */}
+        <div class="w-full md:w-2/5 shrink-0">
+          <div class="rounded-card overflow-hidden shadow-lg">
+            <Image
+              src={yogaPose}
+              alt="Videoles yoga bij overprikkeling — Yogapracht Hilvarenbeek"
+              widths={[384, 512]}
+              sizes="(max-width: 768px) 100vw, 40vw"
+              class="w-full h-auto"
+              loading="eager"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ── Voor wie ── */}
+  <section class="py-12 md:py-16 bg-bg-alt">
+    <div class="max-w-3xl mx-auto px-4 md:px-6">
+      <h2 class="font-heading text-2xl md:text-3xl text-text mb-6">Voor wie is deze videoles?</h2>
+      <div class="prose prose-lg">
+        <p>
+          Deze videoles is ontwikkeld voor mensen die regelmatig last hebben van overprikkeling en daar zelf iets aan willen doen. Je hoeft geen yoga-ervaring te hebben — de oefeningen zijn toegankelijk en worden rustig begeleid door Mariëlle.
+        </p>
+        <p>De videoles is geschikt als je:</p>
+        <ul>
+          <li>Vaak het gevoel hebt dat je hoofd niet stilvalt</li>
+          <li>Moe bent maar niet kunt ontspannen</li>
+          <li>Snel overprikkeld raakt door drukte, geluid of sociale situaties</li>
+          <li>Op zoek bent naar een manier om thuis tot rust te komen</li>
+          <li>Flexibel wilt oefenen op momenten die jou uitkomen</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  {/* ── Over Mariëlle ── */}
+  <section class="py-12 md:py-16">
+    <div class="max-w-3xl mx-auto px-4 md:px-6">
+      <div class="flex flex-col sm:flex-row items-center sm:items-start gap-8">
+        <div class="w-24 h-24 shrink-0 rounded-full overflow-hidden border-3 border-primary-light/30">
+          <Image
+            src={profileImage}
+            alt="Mariëlle van der Geest — yogadocent Yogapracht Hilvarenbeek"
+            width={96}
+            height={96}
+            class="w-full h-full object-cover"
+            loading="lazy"
+          />
+        </div>
+        <div>
+          <h2 class="font-heading text-2xl text-text mb-3">Over de docent</h2>
+          <p class="text-text-muted leading-relaxed">
+            Mariëlle van der Geest is gediplomeerd hatha-rajayoga docent en gespecialiseerd in yoga bij overprikkeling (2023). Zij combineert zachte fysieke oefeningen met ademwerk en meditatie om je zenuwstelsel te kalmeren. Haar lessen zijn persoonlijk, zonder druk en altijd op jouw niveau.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ── Extra's na aankoop ── */}
+  <section class="py-12 md:py-16 bg-bg-alt">
+    <div class="max-w-3xl mx-auto px-4 md:px-6">
+      <h2 class="font-heading text-2xl md:text-3xl text-text mb-3">Verdiep je ervaring</h2>
+      <p class="text-text-muted mb-8">Na je aankoop kun je je yogapraktijk verder verdiepen met deze aanvullingen:</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <a href="/aanbod/ontspanning-audio" class="group bg-white rounded-card p-6 border border-border hover:border-primary-light/50 hover:shadow-md transition-all">
+          <span class="text-xs font-medium uppercase tracking-wider text-accent mb-2 block">Audio</span>
+          <h3 class="font-heading text-lg text-text mb-2 group-hover:text-primary transition-colors">Shavasana ontspanning</h3>
+          <p class="text-sm text-text-muted mb-3">Begeleide diepe ontspanning door Mariëlle. Ideaal om na een drukke dag of voor het slapengaan te gebruiken.</p>
+          <span class="text-sm text-accent group-hover:text-accent-dark font-medium">Bekijk &rarr;</span>
+        </a>
+        <a href="/aanbod/meditatie-video" class="group bg-white rounded-card p-6 border border-border hover:border-primary-light/50 hover:shadow-md transition-all">
+          <span class="text-xs font-medium uppercase tracking-wider text-accent mb-2 block">Video</span>
+          <h3 class="font-heading text-lg text-text mb-2 group-hover:text-primary transition-colors">Meditatie video</h3>
+          <p class="text-sm text-text-muted mb-3">Begeleide meditatie die je helpt om uit je hoofd te komen en in het moment te zijn.</p>
+          <span class="text-sm text-accent group-hover:text-accent-dark font-medium">Bekijk &rarr;</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  {/* ── Nichepagina link ── */}
+  <section class="py-16 md:py-20">
+    <div class="max-w-3xl mx-auto px-4 md:px-6 text-center">
+      <h2 class="font-heading text-2xl md:text-3xl text-text mb-4">Meer weten over yoga bij overprikkeling?</h2>
+      <p class="text-text-muted mb-6 max-w-xl mx-auto">
+        Lees meer over hoe yoga helpt bij overprikkeling, wat je kunt verwachten en welke andere mogelijkheden Yogapracht biedt.
+      </p>
+      <a
+        href="/yoga-bij-overprikkeling"
+        class="inline-flex items-center text-accent hover:text-accent-dark transition-colors font-medium"
+      >
+        Lees het volledige artikel
+        <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+      </a>
+    </div>
+  </section>
+
+</BaseLayout>

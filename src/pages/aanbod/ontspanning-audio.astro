@@ -1,0 +1,118 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { siteConfig } from '../../data/site';
+import { generateBreadcrumbs } from '../../data/schema';
+import yogaAttributes from '../../assets/marielle/marielle_yogapose_attributes.jpg';
+---
+
+<BaseLayout
+  title={`Shavasana ontspanning audio | ${siteConfig.name}`}
+  description="Begeleide shavasana ontspanning audio door Yogapracht. Diepe eindontspanning door yogadocent Mariëlle van der Geest. Ideaal bij overprikkeling en stress."
+  schemas={[
+    generateBreadcrumbs([
+      { name: 'Aanbod', url: '/aanbod/videoles-overprikkeling' },
+      { name: 'Shavasana ontspanning', url: '/aanbod/ontspanning-audio' },
+    ]),
+  ]}
+>
+
+  <section class="py-12 md:py-16 lg:py-20">
+    <div class="max-w-4xl mx-auto px-4 md:px-6">
+      <div class="flex flex-col md:flex-row items-center gap-10">
+        <div class="flex-1">
+          <p class="text-accent text-sm font-medium uppercase tracking-wider mb-3">Audio</p>
+          <h1 class="font-heading text-3xl md:text-4xl lg:text-5xl text-primary mb-4 leading-tight">
+            Shavasana ontspanning
+          </h1>
+          <p class="text-lg text-text-muted leading-relaxed mb-6">
+            Een begeleide diepe ontspanning ingesproken door Mariëlle. Shavasana is het moment waarop alles mag landen — je lichaam herstelt, je geest komt tot rust.
+          </p>
+
+          <div class="bg-bg-alt rounded-card p-6 mb-6">
+            <h2 class="font-heading text-xl text-text mb-3">Wat je krijgt</h2>
+            <ul class="space-y-2">
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                <span class="text-text-muted"><strong class="text-text">Begeleide shavasana audio</strong> — diepe eindontspanning ingesproken door Mariëlle</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                <span class="text-text-muted"><strong class="text-text">Direct beschikbaar</strong> — luister op je telefoon, tablet of computer</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                <span class="text-text-muted"><strong class="text-text">Onbeperkt luisteren</strong> — voor het slapengaan, na een drukke dag of na je eigen yogapraktijk</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="flex items-end gap-4 mb-6">
+            <div>
+              <span class="text-3xl font-heading text-primary">€9</span>
+              <span class="text-text-muted ml-1">eenmalig</span>
+            </div>
+          </div>
+          <a
+            href="#bestellen"
+            class="inline-flex items-center px-8 py-4 text-base font-medium text-text-inverse bg-accent hover:bg-accent-dark transition-colors rounded-button shadow-lg"
+          >
+            Direct bestellen
+          </a>
+        </div>
+
+        <div class="w-full md:w-2/5 shrink-0">
+          <div class="rounded-card overflow-hidden shadow-lg">
+            <Image
+              src={yogaAttributes}
+              alt="Shavasana diepe ontspanning — Yogapracht Hilvarenbeek"
+              widths={[384, 512]}
+              sizes="(max-width: 768px) 100vw, 40vw"
+              class="w-full h-auto"
+              loading="eager"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ── Uitleg ── */}
+  <section class="py-12 md:py-16 bg-bg-alt">
+    <div class="max-w-3xl mx-auto px-4 md:px-6">
+      <div class="prose prose-lg">
+        <h2>Shavasana: de kracht van diepe ontspanning</h2>
+        <p>
+          Shavasana — letterlijk "de houding van het lijk" — is het moment aan het einde van elke yogales waarop je volledig tot rust komt. Je ligt op je rug, sluit je ogen en laat alles los. Het is het moment waarop de effecten van de oefeningen landen in je lichaam.
+        </p>
+        <p>
+          Maar shavasana hoeft niet alleen na een yogales. Deze begeleide audio kun je op elk moment gebruiken: als rustmoment na een drukke dag, als hulp bij het inslapen, of als bewust rustpunt tussendoor.
+        </p>
+
+        <h2>Wanneer gebruik je deze audio?</h2>
+        <ul>
+          <li>Na een drukke dag om spanning los te laten</li>
+          <li>Voor het slapengaan als je hoofd niet stil wil worden</li>
+          <li>Na je eigen yoga- of bewegingspraktijk</li>
+          <li>Als bewust rustmoment in een overvolle dag</li>
+          <li>Bij momenten van overprikkeling of stress</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  {/* ── Terug naar videoles ── */}
+  <section class="py-12 md:py-16">
+    <div class="max-w-3xl mx-auto px-4 md:px-6 text-center">
+      <p class="text-text-muted mb-4">Nog geen videoles yoga bij overprikkeling?</p>
+      <a
+        href="/aanbod/videoles-overprikkeling"
+        class="inline-flex items-center text-accent hover:text-accent-dark transition-colors font-medium"
+      >
+        Bekijk de videoles
+        <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+      </a>
+    </div>
+  </section>
+
+</BaseLayout>

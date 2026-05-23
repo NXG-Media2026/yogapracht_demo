@@ -1,0 +1,130 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TestimonialCard from '../../components/TestimonialCard.astro';
+import { siteConfig } from '../../data/site';
+import { generateBreadcrumbs, generateService } from '../../data/schema';
+import { getCollection } from 'astro:content';
+import profileImage from '../../assets/marielle/marielle_profile_image.jpg';
+
+const testimonials = await getCollection('testimonials');
+const priveReview = testimonials.find(t => t.data.name === 'Ann');
+---
+
+<BaseLayout
+  title={`Privélessen yoga in Hilvarenbeek | ${siteConfig.name}`}
+  description="Privé yogalessen op maat bij Yogapracht in Hilvarenbeek. Persoonlijke begeleiding door gediplomeerd yogadocent Mariëlle van der Geest. In het Nederlands of Engels."
+  schemas={[
+    generateBreadcrumbs([
+      { name: 'Diensten', url: '/diensten' },
+      { name: 'Privélessen', url: '/diensten/privelessen' },
+    ]),
+    generateService({
+      name: 'Privélessen yoga',
+      description: 'Persoonlijke hatha-rajayoga lessen op maat bij Yogapracht in Hilvarenbeek. In de studio of aan huis, in Nederlands of Engels.',
+      url: `${siteConfig.url}/diensten/privelessen`,
+    }),
+  ]}
+>
+
+  {/* ── Hero ── */}
+  <section class="py-12 md:py-16 lg:py-20 bg-bg-alt">
+    <div class="max-w-3xl mx-auto px-4 md:px-6">
+      <p class="text-text-muted text-sm font-medium uppercase tracking-wider mb-3">
+        <a href="/diensten" class="hover:text-primary transition-colors">Diensten</a>
+      </p>
+      <h1 class="font-heading text-3xl md:text-4xl lg:text-5xl text-primary mb-4">
+        Privélessen
+      </h1>
+      <p class="text-lg text-text-muted leading-relaxed max-w-xl">
+        Persoonlijke yogabegeleiding volledig afgestemd op jouw lichaam, wensen en tempo. In de studio, bij jou thuis of op een locatie naar keuze.
+      </p>
+    </div>
+  </section>
+
+  {/* ── Inhoud ── */}
+  <section class="py-12 md:py-16">
+    <div class="max-w-3xl mx-auto px-4 md:px-6">
+      <div class="prose prose-lg">
+        <h2>Yoga op jouw maat</h2>
+        <p>
+          Een privéles is volledig afgestemd op jou. Samen kijken we naar wat jij nodig hebt: meer ontspanning, werken aan specifieke klachten, verdieping zoeken in meditatie of gewoon rustig beginnen met yoga op jouw eigen tempo.
+        </p>
+        <p>
+          Door de één-op-één begeleiding kan Mariëlle direct inspelen op jouw lichaam en behoeften. Houdingen worden aangepast, de intensiteit afgestemd en er is alle ruimte om vragen te stellen. Dat maakt privélessen bijzonder effectief.
+        </p>
+
+        <h2>Wanneer is een privéles geschikt?</h2>
+        <ul>
+          <li>Je wilt yoga ontdekken in je eigen tempo, zonder groepsdruk</li>
+          <li>Je hebt specifieke klachten (chronische pijn, stress, overprikkeling)</li>
+          <li>Je bent zwanger en wilt yoga beoefenen dat is aangepast aan jouw situatie</li>
+          <li>Je wilt verdieping in ademhaling of meditatie</li>
+          <li>Je hebt een onregelmatig schema en wilt flexibel plannen</li>
+          <li>Je spreekt liever Engels dan Nederlands</li>
+        </ul>
+      </div>
+
+      {/* ── Profielfoto ── */}
+      <div class="my-12 flex justify-center">
+        <div class="w-64 h-64 rounded-full overflow-hidden border-4 border-primary-light/30">
+          <Image
+            src={profileImage}
+            alt="Mariëlle van der Geest — persoonlijke yogabegeleiding bij Yogapracht in Hilvarenbeek"
+            width={256}
+            height={256}
+            class="w-full h-full object-cover"
+            loading="lazy"
+          />
+        </div>
+      </div>
+
+      <div class="prose prose-lg">
+        <h2>Specialisaties van Mariëlle</h2>
+        <p>
+          Mariëlle heeft zich naast de reguliere hatha-rajayoga docentopleiding bijgeschoold in meerdere specialisaties. Daardoor kan zij privélessen aanbieden die zijn afgestemd op specifieke situaties:
+        </p>
+        <ul>
+          <li><strong>Yoga bij chronische pijn</strong> — leer omgaan met pijn door bewuste beweging en ademhaling</li>
+          <li><strong>Yoga en zwangerschap</strong> — veilige oefeningen aangepast aan elke fase</li>
+          <li><strong>Yoga bij depressie</strong> — mentale veerkracht opbouwen door lichaam en geest te verbinden</li>
+          <li><strong>Yoga bij overprikkeling</strong> — tot rust komen en je zenuwstelsel kalmeren</li>
+        </ul>
+
+        <h2>Praktische informatie</h2>
+        <ul>
+          <li><strong>Locatie:</strong> In de studio ({siteConfig.contact.address.city}), bij jou thuis of op een andere locatie</li>
+          <li><strong>Taal:</strong> Nederlands of Engels</li>
+          <li><strong>Duur:</strong> In overleg (standaard ±60 minuten)</li>
+          <li><strong>Planning:</strong> Flexibel, op afspraak</li>
+        </ul>
+      </div>
+
+      {/* ── Review ── */}
+      {priveReview && (
+        <div class="mt-12">
+          <h2 class="font-heading text-2xl text-text mb-6">Ervaring van een deelneemster</h2>
+          <TestimonialCard
+            name={priveReview.data.name}
+            role={priveReview.data.role}
+            text={priveReview.data.text}
+            rating={priveReview.data.rating}
+          />
+        </div>
+      )}
+
+      {/* ── CTA ── */}
+      <div class="mt-12 bg-bg-alt rounded-card p-8 text-center">
+        <h2 class="font-heading text-2xl text-text mb-3">Privéles inplannen?</h2>
+        <p class="text-text-muted mb-6">Neem contact op om de mogelijkheden te bespreken. De eerste kennismaking is vrijblijvend.</p>
+        <a
+          href="/contact"
+          class="inline-flex items-center px-8 py-4 text-base font-medium text-text-inverse bg-primary hover:bg-primary-dark transition-colors rounded-button shadow-lg"
+        >
+          Contact opnemen
+        </a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

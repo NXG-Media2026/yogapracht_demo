@@ -1,0 +1,118 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { siteConfig } from '../../data/site';
+import { generateBreadcrumbs } from '../../data/schema';
+import yogaPose from '../../assets/marielle/marielle_yogapose_sideways.jpg';
+---
+
+<BaseLayout
+  title={`Begeleide meditatie video | ${siteConfig.name}`}
+  description="Begeleide meditatie video door Yogapracht. Leer mediteren onder begeleiding van yogadocent Mariëlle van der Geest. Geschikt voor beginners."
+  schemas={[
+    generateBreadcrumbs([
+      { name: 'Aanbod', url: '/aanbod/videoles-overprikkeling' },
+      { name: 'Meditatie video', url: '/aanbod/meditatie-video' },
+    ]),
+  ]}
+>
+
+  <section class="py-12 md:py-16 lg:py-20">
+    <div class="max-w-4xl mx-auto px-4 md:px-6">
+      <div class="flex flex-col md:flex-row items-center gap-10">
+        <div class="flex-1">
+          <p class="text-accent text-sm font-medium uppercase tracking-wider mb-3">Video</p>
+          <h1 class="font-heading text-3xl md:text-4xl lg:text-5xl text-primary mb-4 leading-tight">
+            Begeleide meditatie
+          </h1>
+          <p class="text-lg text-text-muted leading-relaxed mb-6">
+            Een begeleide meditatie door Mariëlle die je helpt om uit je hoofd te komen en in het moment te zijn. Geschikt voor iedereen — ook als je nog nooit gemediteerd hebt.
+          </p>
+
+          <div class="bg-bg-alt rounded-card p-6 mb-6">
+            <h2 class="font-heading text-xl text-text mb-3">Wat je krijgt</h2>
+            <ul class="space-y-2">
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                <span class="text-text-muted"><strong class="text-text">Begeleide meditatie video</strong> — stap voor stap begeleid door Mariëlle</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                <span class="text-text-muted"><strong class="text-text">Gebaseerd op Patanjali</strong> — het onafgebroken vasthouden van je concentratie</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                <span class="text-text-muted"><strong class="text-text">Onbeperkt terugkijken</strong> — bouw een dagelijkse meditatiepraktijk op</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="flex items-end gap-4 mb-6">
+            <div>
+              <span class="text-3xl font-heading text-primary">€9</span>
+              <span class="text-text-muted ml-1">eenmalig</span>
+            </div>
+          </div>
+          <a
+            href="#bestellen"
+            class="inline-flex items-center px-8 py-4 text-base font-medium text-text-inverse bg-accent hover:bg-accent-dark transition-colors rounded-button shadow-lg"
+          >
+            Direct bestellen
+          </a>
+        </div>
+
+        <div class="w-full md:w-2/5 shrink-0">
+          <div class="rounded-card overflow-hidden shadow-lg">
+            <Image
+              src={yogaPose}
+              alt="Begeleide meditatie — Yogapracht Hilvarenbeek"
+              widths={[384, 512]}
+              sizes="(max-width: 768px) 100vw, 40vw"
+              class="w-full h-auto"
+              loading="eager"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ── Uitleg ── */}
+  <section class="py-12 md:py-16 bg-bg-alt">
+    <div class="max-w-3xl mx-auto px-4 md:px-6">
+      <div class="prose prose-lg">
+        <h2>Meditatie bij hatha-rajayoga</h2>
+        <p>
+          Meditatie is het derde onderdeel van elke hatha-rajayogales, na de houdingen en ademhalingsoefeningen. Het is het moment waarop je je concentratie onafgebroken vasthoudt op één punt — waardoor je gedachten tot rust komen en er innerlijke stilte ontstaat.
+        </p>
+        <p>
+          Deze begeleide meditatie is zo opgebouwd dat je er geen ervaring voor nodig hebt. Mariëlle neemt je stap voor stap mee, van het tot rust komen van je lichaam tot het vinden van een concentratiepunt.
+        </p>
+
+        <h2>Voordelen van regelmatig mediteren</h2>
+        <ul>
+          <li>Meer mentale rust en helderheid</li>
+          <li>Minder piekeren en malen</li>
+          <li>Betere concentratie in je dagelijks leven</li>
+          <li>Meer bewustzijn van je gedachten en emoties</li>
+          <li>Sneller herstellen na stressvolle momenten</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  {/* ── Terug naar videoles ── */}
+  <section class="py-12 md:py-16">
+    <div class="max-w-3xl mx-auto px-4 md:px-6 text-center">
+      <p class="text-text-muted mb-4">Nog geen videoles yoga bij overprikkeling?</p>
+      <a
+        href="/aanbod/videoles-overprikkeling"
+        class="inline-flex items-center text-accent hover:text-accent-dark transition-colors font-medium"
+      >
+        Bekijk de videoles
+        <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+      </a>
+    </div>
+  </section>
+
+</BaseLayout>

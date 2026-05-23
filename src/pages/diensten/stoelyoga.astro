@@ -1,0 +1,118 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { siteConfig } from '../../data/site';
+import { generateBreadcrumbs, generateService } from '../../data/schema';
+import yogaAttributes from '../../assets/marielle/marielle_yogapose_attributes.jpg';
+---
+
+<BaseLayout
+  title={`Stoelyoga in Hilvarenbeek | ${siteConfig.name}`}
+  description="Stoelyoga bij Yogapracht in Hilvarenbeek — toegankelijke yoga op een stoel voor iedereen. Geschikt bij beperkte mobiliteit, herstel of als laagdrempelige instap."
+  schemas={[
+    generateBreadcrumbs([
+      { name: 'Diensten', url: '/diensten' },
+      { name: 'Stoelyoga', url: '/diensten/stoelyoga' },
+    ]),
+    generateService({
+      name: 'Stoelyoga',
+      description: 'Toegankelijke yoga op een stoel bij Yogapracht in Hilvarenbeek. Geschikt voor alle leeftijden en bij beperkte mobiliteit.',
+      url: `${siteConfig.url}/diensten/stoelyoga`,
+    }),
+  ]}
+>
+
+  {/* ── Hero ── */}
+  <section class="py-12 md:py-16 lg:py-20 bg-bg-alt">
+    <div class="max-w-3xl mx-auto px-4 md:px-6">
+      <p class="text-text-muted text-sm font-medium uppercase tracking-wider mb-3">
+        <a href="/diensten" class="hover:text-primary transition-colors">Diensten</a>
+      </p>
+      <h1 class="font-heading text-3xl md:text-4xl lg:text-5xl text-primary mb-4">
+        Stoelyoga
+      </h1>
+      <p class="text-lg text-text-muted leading-relaxed max-w-xl">
+        Alle voordelen van yoga, zittend op een stoel. Toegankelijk, veilig en verrassend effectief — voor iedereen die yoga wil beoefenen zonder op de grond te hoeven.
+      </p>
+    </div>
+  </section>
+
+  {/* ── Inhoud ── */}
+  <section class="py-12 md:py-16">
+    <div class="max-w-3xl mx-auto px-4 md:px-6">
+      <div class="prose prose-lg">
+        <h2>Toegankelijke yoga voor iedereen</h2>
+        <p>
+          Stoelyoga biedt dezelfde kern als reguliere hatha-rajayoga — houdingen, ademhaling, ontspanning — maar dan aangepast zodat je alles zittend op een stoel kunt doen. De stoel biedt ondersteuning en stabiliteit, waardoor yoga toegankelijk wordt voor mensen die anders misschien niet zouden beginnen.
+        </p>
+        <p>
+          Mariëlle heeft in 2023 een gespecialiseerde stoelyoga-opleiding gevolgd en combineert deze kennis met haar brede ervaring in hatha-rajayoga. Het resultaat: lessen die zowel fysiek als mentaal uitdagend zijn, maar altijd veilig en op jouw niveau.
+        </p>
+
+        <h2>Stoelyoga is geschikt als je...</h2>
+        <ul>
+          <li>Minder mobiel bent door leeftijd, blessure of ziekte</li>
+          <li>Herstellende bent na een operatie of behandeling</li>
+          <li>Lange dagen op kantoor zit en tussentijds wilt bewegen</li>
+          <li>Een laagdrempelige instap naar yoga zoekt</li>
+          <li>Yoga wilt beoefenen maar niet comfortabel op de grond kunt zitten</li>
+        </ul>
+
+        <h2>Lesinhoud bij stoelyoga</h2>
+        <p>
+          De les volgt dezelfde structuur als de reguliere lessen, aangepast aan de stoel:
+        </p>
+        <ul>
+          <li><strong>Zittende houdingen</strong> — stretches en draaiingen die spanning loslaten in nek, schouders, rug en heupen</li>
+          <li><strong>Staande oefeningen met steun</strong> — de stoel als hulpmiddel voor balans en stabiliteit</li>
+          <li><strong>Ademhalingsoefeningen</strong> — bewust ademen voor meer rust en energie</li>
+          <li><strong>Meditatie en ontspanning</strong> — tot stilte komen, ook zittend</li>
+        </ul>
+      </div>
+
+      {/* ── Sfeerbeeld ── */}
+      <div class="my-12 rounded-card overflow-hidden">
+        <Image
+          src={yogaAttributes}
+          alt="Yogabenodigdheden en sfeer bij Yogapracht — stoelyoga in Hilvarenbeek"
+          widths={[480, 768, 1024]}
+          sizes="(max-width: 768px) 100vw, 768px"
+          class="w-full h-auto"
+          loading="lazy"
+        />
+      </div>
+
+      <div class="prose prose-lg">
+        <h2>Voordelen van stoelyoga</h2>
+        <ul>
+          <li>Verbetering van flexibiliteit en balans</li>
+          <li>Verlichting van stijfheid en spanning in het lichaam</li>
+          <li>Betere doorbloeding en ademhaling</li>
+          <li>Meer mentale rust en minder stress</li>
+          <li>Behoud van zelfstandigheid en bewegingsvrijheid</li>
+        </ul>
+
+        <h2>Praktische informatie</h2>
+        <ul>
+          <li><strong>Vorm:</strong> Privéles of in een kleine groep (op aanvraag)</li>
+          <li><strong>Locatie:</strong> In de studio ({siteConfig.contact.address.city}), bij jou thuis of in een verzorgingshuis/instelling</li>
+          <li><strong>Benodigdheden:</strong> Alleen een stevige stoel — die is aanwezig in de studio</li>
+          <li><strong>Ervaring:</strong> Niet nodig</li>
+        </ul>
+      </div>
+
+      {/* ── CTA ── */}
+      <div class="mt-12 bg-bg-alt rounded-card p-8 text-center">
+        <h2 class="font-heading text-2xl text-text mb-3">Stoelyoga uitproberen?</h2>
+        <p class="text-text-muted mb-6">Neem contact op om de mogelijkheden te bespreken. Stoelyoga kan ook op locatie worden gegeven, bijvoorbeeld in een zorginstelling.</p>
+        <a
+          href="/contact"
+          class="inline-flex items-center px-8 py-4 text-base font-medium text-text-inverse bg-primary hover:bg-primary-dark transition-colors rounded-button shadow-lg"
+        >
+          Contact opnemen
+        </a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

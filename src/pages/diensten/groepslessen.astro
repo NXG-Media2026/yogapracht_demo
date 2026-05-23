@@ -1,0 +1,148 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TestimonialCard from '../../components/TestimonialCard.astro';
+import { siteConfig } from '../../data/site';
+import { generateBreadcrumbs, generateService } from '../../data/schema';
+import { getCollection } from 'astro:content';
+import heroImage from '../../assets/marielle/backgroundimage_marielle.jpg';
+import yogaPose from '../../assets/marielle/marielle_yogapose_sideways.jpg';
+
+const testimonials = await getCollection('testimonials');
+const groepsReview = testimonials.find(t => t.data.name === 'Jolanda');
+---
+
+<BaseLayout
+  title={`Groepslessen hatha-rajayoga in Hilvarenbeek | ${siteConfig.name}`}
+  description="Wekelijkse hatha-rajayoga groepslessen in Hilvarenbeek bij Yogapracht. Kleine groepen, persoonlijke aandacht en een gratis proefles. Geschikt voor alle niveaus."
+  schemas={[
+    generateBreadcrumbs([
+      { name: 'Diensten', url: '/diensten' },
+      { name: 'Groepslessen', url: '/diensten/groepslessen' },
+    ]),
+    generateService({
+      name: 'Groepslessen hatha-rajayoga',
+      description: 'Wekelijkse hatha-rajayoga groepslessen in kleine groep bij Yogapracht in Hilvarenbeek. Geschikt voor alle niveaus.',
+      url: `${siteConfig.url}/diensten/groepslessen`,
+    }),
+  ]}
+>
+
+  {/* ── Hero ── */}
+  <section class="relative overflow-hidden">
+    <div class="absolute inset-0">
+      <Image
+        src={heroImage}
+        alt="Hatha-rajayoga groepsles bij Yogapracht in Hilvarenbeek"
+        widths={[768, 1280, 1920]}
+        sizes="100vw"
+        class="w-full h-full object-cover"
+        loading="eager"
+      />
+      <div class="absolute inset-0 bg-primary-dark/70"></div>
+    </div>
+    <div class="relative py-20 md:py-28">
+      <div class="max-w-4xl mx-auto px-4 md:px-6">
+        <p class="text-white/70 text-sm font-medium uppercase tracking-wider mb-3">
+          <a href="/diensten" class="hover:text-white transition-colors">Diensten</a>
+        </p>
+        <h1 class="font-heading text-4xl md:text-5xl text-white mb-4">
+          Groepslessen
+        </h1>
+        <p class="text-lg text-white/80 max-w-xl">
+          Wekelijkse hatha-rajayoga in een kleine, vertrouwde groep. Ruimte om in je eigen tempo te oefenen, met persoonlijke begeleiding.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {/* ── Inhoud ── */}
+  <section class="py-12 md:py-16 lg:py-20">
+    <div class="max-w-3xl mx-auto px-4 md:px-6">
+      <div class="prose prose-lg">
+        <h2>Hatha-rajayoga in kleine groep</h2>
+        <p>
+          De groepslessen bij Yogapracht zijn bewust klein gehouden. Dat betekent dat er altijd ruimte is voor persoonlijke aandacht en dat je in een veilige, rustige sfeer kunt oefenen — ongeacht je ervaring of leeftijd.
+        </p>
+        <p>
+          Elke les volgt de klassieke opbouw: je begint met houdingen (asana's) om het lichaam te openen, gevolgd door ademhalingsoefeningen die de brug vormen tussen lichaam en geest. Via meditatie kom je tot innerlijke stilte, waarna de les wordt afgesloten met een diepe ontspanning (shavasana). De lessen duren ongeveer 75 minuten.
+        </p>
+
+        <h2>Morgenstond Yoga</h2>
+        <p>
+          Elke maandagochtend om 09:00 uur start de week met Morgenstond Yoga. Een rustige les om de dag bewust te beginnen, je lichaam wakker te maken en je geest helder te krijgen. De ochtend is bij uitstek het moment waarop je lichaam openstaat voor yoga.
+        </p>
+
+        <h2>Lesinhoud en aanpak</h2>
+        <p>
+          De lessen zijn gebaseerd op de yogasutra's van Patanjali, een tijdloze filosofie die draait om bewustzijnsontwikkeling. Hathayoga richt zich op het fysieke aspect, rajayoga op de geest. Samen vormen ze een complete benadering die lichaam en geest in balans brengt.
+        </p>
+        <p>
+          Mariëlle past de lessen aan op wie er in de groep zit. Heb je ergens last van of wil je ergens extra aandacht aan besteden? Dan wordt daar rekening mee gehouden — zonder dat het ten koste gaat van de groepservaring.
+        </p>
+
+        <h2>Voordelen van regelmatig oefenen</h2>
+        <ul>
+          <li>Meer mentale rust en een betere nachtrust</li>
+          <li>Diepere, bewustere ademhaling</li>
+          <li>Makkelijker ontspannen na een drukke dag</li>
+          <li>Meer comfort en souplesse in je lichaam</li>
+          <li>Betere concentratie en focus</li>
+          <li>Sneller je energie herstellen</li>
+        </ul>
+      </div>
+
+      {/* ── Sfeerbeeld ── */}
+      <div class="my-12 rounded-card overflow-hidden">
+        <Image
+          src={yogaPose}
+          alt="Hatha-rajayoga houding door Mariëlle van der Geest — groepsles bij Yogapracht in Hilvarenbeek"
+          widths={[480, 768, 1024]}
+          sizes="(max-width: 768px) 100vw, 768px"
+          class="w-full h-auto"
+          loading="lazy"
+        />
+      </div>
+
+      <div class="prose prose-lg">
+        <h2>Praktische informatie</h2>
+        <ul>
+          <li><strong>Wanneer:</strong> Maandag 09:00 uur (Morgenstond Yoga)</li>
+          <li><strong>Duur:</strong> ±75 minuten per les</li>
+          <li><strong>Locatie:</strong> {siteConfig.contact.address.street}, {siteConfig.contact.address.city}</li>
+          <li><strong>Ervaring:</strong> Niet nodig — geschikt voor beginners en gevorderden</li>
+          <li><strong>Proefles:</strong> Gratis en vrijblijvend</li>
+        </ul>
+        <p>
+          Neem je eigen matje mee als je dat hebt, maar het is geen vereiste. Draag comfortabele kleding waarin je vrij kunt bewegen.
+        </p>
+      </div>
+
+      {/* ── Review ── */}
+      {groepsReview && (
+        <div class="mt-12">
+          <h2 class="font-heading text-2xl text-text mb-6">Ervaring van een deelneemster</h2>
+          <TestimonialCard
+            name={groepsReview.data.name}
+            role={groepsReview.data.role}
+            text={groepsReview.data.text}
+            rating={groepsReview.data.rating}
+          />
+        </div>
+      )}
+
+      {/* ── CTA ── */}
+      <div class="mt-12 bg-bg-alt rounded-card p-8 text-center">
+        <h2 class="font-heading text-2xl text-text mb-3">Gratis proefles bijwonen?</h2>
+        <p class="text-text-muted mb-6">Ervaar zelf hoe hatha-rajayoga jou kan helpen. Een proefles is gratis en geheel vrijblijvend.</p>
+        <a
+          href="/contact"
+          class="inline-flex items-center px-8 py-4 text-base font-medium text-text-inverse bg-primary hover:bg-primary-dark transition-colors rounded-button shadow-lg"
+        >
+          Proefles aanvragen
+        </a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

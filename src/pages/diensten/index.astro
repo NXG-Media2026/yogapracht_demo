@@ -1,0 +1,170 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { siteConfig } from '../../data/site';
+import { generateBreadcrumbs } from '../../data/schema';
+import heroImage from '../../assets/marielle/marielle_yogapose.jpg';
+import bulletIcon from '../../assets/marielle/bullet-logo-groen.png';
+---
+
+<BaseLayout
+  title={`Diensten — yogalessen in Hilvarenbeek | ${siteConfig.name}`}
+  description="Ontdek de yogalessen van Yogapracht in Hilvarenbeek: groepslessen, privélessen, stoelyoga en bedrijfsyoga. Gediplomeerd hatha-rajayoga docent Mariëlle van der Geest."
+  schemas={[generateBreadcrumbs([{ name: 'Diensten', url: '/diensten' }])]}
+>
+
+  {/* ── Hero ── */}
+  <section class="relative overflow-hidden">
+    <div class="absolute inset-0">
+      <Image
+        src={heroImage}
+        alt="Hatha-rajayoga houding — yogalessen bij Yogapracht in Hilvarenbeek"
+        widths={[768, 1280, 1920]}
+        sizes="100vw"
+        class="w-full h-full object-cover"
+        loading="eager"
+      />
+      <div class="absolute inset-0 bg-primary-dark/70"></div>
+    </div>
+    <div class="relative py-20 md:py-28">
+      <div class="max-w-4xl mx-auto px-4 md:px-6 text-center">
+        <h1 class="font-heading text-4xl md:text-5xl text-white mb-4">
+          Yogalessen bij Yogapracht
+        </h1>
+        <p class="text-lg text-white/80 max-w-2xl mx-auto">
+          Of je nu in een groep wilt oefenen, persoonlijke begeleiding zoekt of yoga op de werkvloer wilt brengen — er is altijd een vorm die bij jou past.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {/* ── Diensten overzicht ── */}
+  <section class="py-16 md:py-20">
+    <div class="max-w-4xl mx-auto px-4 md:px-6">
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+        {/* Groepslessen */}
+        <a href="/diensten/groepslessen" class="group bg-white rounded-card p-8 border border-border hover:border-primary-light/50 hover:shadow-lg transition-all">
+          <Image src={bulletIcon} alt="" width={32} height={32} class="w-8 h-8 mb-4" loading="lazy" aria-hidden="true" />
+          <h2 class="font-heading text-2xl text-text mb-3 group-hover:text-primary transition-colors">Groepslessen</h2>
+          <p class="text-text-muted leading-relaxed mb-4">
+            Wekelijkse hatha-rajayoga lessen in een kleine, vertrouwde groep. Door het beperkte aantal deelnemers is er ruimte voor persoonlijke aandacht en kun je in je eigen tempo oefenen.
+          </p>
+          <span class="inline-flex items-center text-accent group-hover:text-accent-dark font-medium transition-colors">
+            Meer over groepslessen
+            <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+          </span>
+        </a>
+
+        {/* Privélessen */}
+        <a href="/diensten/privelessen" class="group bg-white rounded-card p-8 border border-border hover:border-primary-light/50 hover:shadow-lg transition-all">
+          <Image src={bulletIcon} alt="" width={32} height={32} class="w-8 h-8 mb-4" loading="lazy" aria-hidden="true" />
+          <h2 class="font-heading text-2xl text-text mb-3 group-hover:text-primary transition-colors">Privélessen</h2>
+          <p class="text-text-muted leading-relaxed mb-4">
+            Persoonlijke yogabegeleiding volledig afgestemd op jouw lichaam, wensen en tempo. Beschikbaar in de studio, bij jou thuis of op een locatie naar keuze — in het Nederlands of Engels.
+          </p>
+          <span class="inline-flex items-center text-accent group-hover:text-accent-dark font-medium transition-colors">
+            Meer over privélessen
+            <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+          </span>
+        </a>
+
+        {/* Stoelyoga */}
+        <a href="/diensten/stoelyoga" class="group bg-white rounded-card p-8 border border-border hover:border-primary-light/50 hover:shadow-lg transition-all">
+          <Image src={bulletIcon} alt="" width={32} height={32} class="w-8 h-8 mb-4" loading="lazy" aria-hidden="true" />
+          <h2 class="font-heading text-2xl text-text mb-3 group-hover:text-primary transition-colors">Stoelyoga</h2>
+          <p class="text-text-muted leading-relaxed mb-4">
+            Alle voordelen van yoga, zittend op een stoel. Speciaal ontwikkeld voor mensen die minder mobiel zijn, herstellende zijn of gewoon een laagdrempelige instap zoeken.
+          </p>
+          <span class="inline-flex items-center text-accent group-hover:text-accent-dark font-medium transition-colors">
+            Meer over stoelyoga
+            <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+          </span>
+        </a>
+
+        {/* Bedrijfsyoga */}
+        <a href="/diensten/bedrijfsyoga" class="group bg-white rounded-card p-8 border border-border hover:border-primary-light/50 hover:shadow-lg transition-all">
+          <Image src={bulletIcon} alt="" width={32} height={32} class="w-8 h-8 mb-4" loading="lazy" aria-hidden="true" />
+          <h2 class="font-heading text-2xl text-text mb-3 group-hover:text-primary transition-colors">Bedrijfsyoga</h2>
+          <p class="text-text-muted leading-relaxed mb-4">
+            Yogalessen op de werkvloer voor meer rust, focus en energie bij jouw team. Een investering in het welzijn van medewerkers die zich direct terugbetaalt in productiviteit en werkplezier.
+          </p>
+          <span class="inline-flex items-center text-accent group-hover:text-accent-dark font-medium transition-colors">
+            Meer over bedrijfsyoga
+            <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+          </span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  {/* ── Werkwijze ── */}
+  <section class="py-12 md:py-16 bg-bg-alt">
+    <div class="max-w-3xl mx-auto px-4 md:px-6">
+      <h2 class="font-heading text-2xl md:text-3xl text-text mb-6">Lesopbouw bij elke yogavorm</h2>
+      <p class="text-text-muted leading-relaxed mb-8">
+        Ongeacht welke vorm je kiest, elke les bij Yogapracht volgt dezelfde bewezen structuur gebaseerd op de yogasutra's van Patanjali:
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div class="flex gap-4">
+          <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+            <span class="text-primary font-medium">1</span>
+          </div>
+          <div>
+            <h3 class="font-heading text-lg text-text mb-1">Houdingen (asana's)</h3>
+            <p class="text-sm text-text-muted">Lichamelijke oefeningen waarmee je naar binnen reist en spanning loslaat.</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+            <span class="text-primary font-medium">2</span>
+          </div>
+          <div>
+            <h3 class="font-heading text-lg text-text mb-1">Ademhaling (pranayama)</h3>
+            <p class="text-sm text-text-muted">De brug tussen lichaam en geest — bewust ademen brengt rust en helderheid.</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+            <span class="text-primary font-medium">3</span>
+          </div>
+          <div>
+            <h3 class="font-heading text-lg text-text mb-1">Meditatie</h3>
+            <p class="text-sm text-text-muted">Het onafgebroken vasthouden van je concentratie voor innerlijke stilte.</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+            <span class="text-primary font-medium">4</span>
+          </div>
+          <div>
+            <h3 class="font-heading text-lg text-text mb-1">Diepe ontspanning (shavasana)</h3>
+            <p class="text-sm text-text-muted">Afsluiting waarin alles mag landen — het lichaam herstelt, de geest komt tot rust.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ── CTA ── */}
+  <section class="py-16 md:py-20">
+    <div class="max-w-3xl mx-auto px-4 md:px-6 text-center">
+      <h2 class="font-heading text-3xl md:text-4xl text-text mb-4">Proefles is gratis en vrijblijvend</h2>
+      <p class="text-lg text-text-muted mb-8 max-w-xl mx-auto">
+        Benieuwd welke yogavorm bij jou past? Neem contact op en boek een gratis proefles. Samen ontdekken we wat het beste aansluit bij jouw wensen.
+      </p>
+      <a
+        href="/contact"
+        class="inline-flex items-center px-8 py-4 text-base font-medium text-text-inverse bg-primary hover:bg-primary-dark transition-colors rounded-button shadow-lg"
+      >
+        Gratis proefles aanvragen
+        <svg class="ml-2 w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+    </div>
+  </section>
+
+</BaseLayout>

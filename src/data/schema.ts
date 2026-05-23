@@ -13,6 +13,26 @@ export function generateFounderPerson() {
     ? (founder.image.startsWith('http') ? founder.image : `${siteConfig.url}${founder.image}`)
     : undefined;
 
+  // Persoonlijke social profiles (niet bedrijfspagina's)
+  const personalSameAs = [
+    siteConfig.socials.linkedin,
+    siteConfig.socials.instagram,
+  ].filter(Boolean);
+
+  // Credentials uit site config
+  const hasCredential = founder.credentials.map(c => ({
+    '@type': 'EducationalOccupationalCredential',
+    name: c.name,
+    credentialCategory: 'Professional Certification',
+    recognizedBy: { '@type': 'Organization', name: c.issuer },
+    dateCreated: String(c.year),
+  }));
+
+  const alumniOf = founder.education.map(e => ({
+    '@type': 'EducationalOrganization',
+    name: e.institution,
+  }));
+
   return JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'Person',
@@ -25,6 +45,9 @@ export function generateFounderPerson() {
     ...(founder.languages.length > 0 && { knowsLanguage: [...founder.languages] }),
     ...(founder.knowsAbout.length > 0 && { knowsAbout: [...founder.knowsAbout] }),
     ...(fullImage && { image: fullImage }),
+    ...(personalSameAs.length > 0 && { sameAs: personalSameAs }),
+    ...(hasCredential.length > 0 && { hasCredential }),
+    ...(alumniOf.length > 0 && { alumniOf }),
   });
 }
 
@@ -49,6 +72,7 @@ export function generateWebSite(locale: string = 'nl') {
     name: siteConfig.name,
     url: siteConfig.url,
     inLanguage: locale,
+    dateModified: new Date().toISOString().split('T')[0],
   });
 }
 
@@ -153,6 +177,7 @@ export function generateLocalBusiness() {
       longitude: 5.1386,
     },
     founder: { '@id': founderUrl },
+    dateModified: new Date().toISOString().split('T')[0],
     ...(sameAs.length > 0 && { sameAs }),
   });
 }

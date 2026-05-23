@@ -13,7 +13,7 @@
 
 **Elke klant-site bevat standaard:**
 - Statische site, sub-2s laadtijd, 95+ Lighthouse score
-- Pagina's: Home, Over, Reviews, Blog (index + detail), Contact, Privacy, Voorwaarden
+- Pagina's: Home, Over, Diensten (index + detailpagina's), Reviews, Blog (index + detail), Contact, Privacy, Voorwaarden
 - Schema.org structured data: LocalBusiness, AggregateRating, ReviewSnippets, BlogPosting, FAQPage, BreadcrumbList, WebSite, ProfilePage
 - Keystatic CMS dashboard op `/keystatic` (klant beheert blog, FAQ's, testimonials)
 - Alle afbeeldingen auto-WebP via Astro `<Image>` met GEO-geoptimaliseerde alt-teksten
@@ -171,12 +171,33 @@ public/images/   → profielfoto (JPG kopie voor JSON-LD schema), og-default.jpg
 
 **Homepage** (`src/pages/index.astro`):
 ```
-- [ ] Hero: koptekst, subtekst, CTA-tekst
-- [ ] Diensten/mogelijkheden cards (3 stuks)
-- [ ] Over-sectie korte intro
+- [ ] Hero: koptekst, subtekst, CTA-tekst (link naar /diensten + /contact)
+- [ ] Intro-sectie: korte uitleg wie de klant is en wat ze doen (met plaatsnaam)
+- [ ] Diensten/mogelijkheden cards (clickable, linken naar /diensten/[slug])
+- [ ] Voordelen-sectie: checkmark-lijst met sfeerbeeld
+- [ ] Over-sectie: founder intro met profielfoto (link naar /over)
 - [ ] Reviews sectie (trekt automatisch uit testimonials collection)
-- [ ] CTA-band tekst
+- [ ] CTA-band: achtergrondafbeelding met text overlay
 - [ ] FAQ's (min. 4, inline in de pagina)
+```
+
+**Diensten overzicht** (`src/pages/diensten/index.astro`):
+```
+- [ ] Hero met sfeerbeeld
+- [ ] Diensten-kaarten met korte beschrijving + link naar detailpagina
+- [ ] Lesopbouw / werkwijze sectie
+- [ ] CTA
+```
+
+**Diensten detail** (`src/pages/diensten/[slug].astro`):
+```
+- [ ] Hero/kop met breadcrumb (Diensten > [naam])
+- [ ] Uitgebreide beschrijving van de dienst
+- [ ] Voor-wie lijst (wanneer geschikt?)
+- [ ] Praktische info (locatie, duur, tijden, prijs)
+- [ ] Relevante testimonial (koppel aan juiste review)
+- [ ] CTA naar contact
+- [ ] Service schema + BreadcrumbList schema
 ```
 
 **Over pagina** (`src/pages/over.astro`):
@@ -260,7 +281,8 @@ Alle pagina's moeten de juiste schemas hebben:
 ```typescript
 export const navigation: NavItem[] = [
   { label: 'Home', href: '/' },
-  { label: 'Over Mij', href: '/over' },   // Pas label aan per klant
+  { label: 'Diensten', href: '/diensten' },  // Altijd meenemen
+  { label: 'Over Mij', href: '/over' },      // Pas label aan per klant
   { label: 'Reviews', href: '/reviews' },
   { label: 'Blog', href: '/blog' },
   { label: 'Contact', href: '/contact', isButton: true },

@@ -1,0 +1,178 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../data/site';
+import { generateBreadcrumbs } from '../data/schema';
+import heroImage from '../assets/marielle/backgroundimage_marielle.jpg';
+import profileImage from '../assets/marielle/marielle_profile_image.jpg';
+---
+
+<BaseLayout
+  title={`Masterclass yoga bij overprikkeling | ${siteConfig.name}`}
+  description="Gratis live masterclass yoga bij overprikkeling door Yogapracht. Leer van yogadocent Mariëlle van der Geest hoe je je zenuwstelsel kalmeert door yoga."
+  schemas={[
+    generateBreadcrumbs([{ name: 'Masterclass', url: '/masterclass' }]),
+  ]}
+>
+
+  {/* ── Hero ── */}
+  <section class="relative overflow-hidden">
+    <div class="absolute inset-0">
+      <Image
+        src={heroImage}
+        alt="Masterclass yoga bij overprikkeling — Yogapracht Hilvarenbeek"
+        widths={[768, 1280, 1920]}
+        sizes="100vw"
+        class="w-full h-full object-cover"
+        loading="eager"
+      />
+      <div class="absolute inset-0 bg-primary-dark/80"></div>
+    </div>
+    <div class="relative py-20 md:py-28 lg:py-36">
+      <div class="max-w-4xl mx-auto px-4 md:px-6 text-center">
+        <p class="text-accent text-sm font-medium uppercase tracking-wider mb-4">Gratis live masterclass</p>
+        <h1 class="font-heading text-4xl md:text-5xl lg:text-6xl text-white mb-6 leading-tight max-w-3xl mx-auto">
+          Yoga bij overprikkeling
+        </h1>
+        <p class="text-lg md:text-xl text-white/80 leading-relaxed mb-10 max-w-2xl mx-auto">
+          Ontdek in deze gratis live masterclass hoe je met zachte yoga je zenuwstelsel leert kalmeren. Van innerlijke onrust naar rustig aanwezig zijn bij jezelf.
+        </p>
+        <a
+          href="#aanmelden"
+          class="inline-flex items-center px-8 py-4 text-base font-medium text-text-inverse bg-accent hover:bg-accent-dark transition-colors rounded-button shadow-lg"
+        >
+          Gratis aanmelden
+          <svg class="ml-2 w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  {/* ── Wat leer je ── */}
+  <section class="py-16 md:py-20">
+    <div class="max-w-3xl mx-auto px-4 md:px-6">
+      <h2 class="font-heading text-2xl md:text-3xl text-text mb-8">Wat je leert in deze masterclass</h2>
+      <div class="space-y-6">
+        <div class="flex gap-4">
+          <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+            <span class="text-primary font-medium">1</span>
+          </div>
+          <div>
+            <h3 class="font-heading text-lg text-text mb-1">Overprikkeling begrijpen</h3>
+            <p class="text-text-muted">Wat overprikkeling is, hoe het ontstaat en waarom je zenuwstelsel vastloopt in de "aan"-stand. Herkenning is de eerste stap naar verandering.</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+            <span class="text-primary font-medium">2</span>
+          </div>
+          <div>
+            <h3 class="font-heading text-lg text-text mb-1">Ademhalingsoefening voor direct effect</h3>
+            <p class="text-text-muted">Een eenvoudige ademhalingstechniek die je zenuwstelsel kalmeert. Direct toepasbaar — ook als je nog nooit yoga hebt gedaan.</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+            <span class="text-primary font-medium">3</span>
+          </div>
+          <div>
+            <h3 class="font-heading text-lg text-text mb-1">Zachte yogahouding voor ontspanning</h3>
+            <p class="text-text-muted">Een houdingsreeks die spanning loslaat in de plekken waar je het het meest draagt: nek, schouders en onderrug.</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+            <span class="text-primary font-medium">4</span>
+          </div>
+          <div>
+            <h3 class="font-heading text-lg text-text mb-1">Jouw persoonlijke vervolgstap</h3>
+            <p class="text-text-muted">Concrete tips om thuis verder te oefenen, en een kijkje in de mogelijkheden om yoga structureel in je leven te brengen.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ── Voor wie ── */}
+  <section class="py-12 md:py-16 bg-bg-alt">
+    <div class="max-w-3xl mx-auto px-4 md:px-6">
+      <h2 class="font-heading text-2xl md:text-3xl text-text mb-6">Masterclass is geschikt voor jou als...</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="flex items-start gap-3">
+          <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+          <span class="text-text-muted">Je regelmatig last hebt van overprikkeling</span>
+        </div>
+        <div class="flex items-start gap-3">
+          <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+          <span class="text-text-muted">Je wilt ontdekken hoe yoga je kan helpen</span>
+        </div>
+        <div class="flex items-start gap-3">
+          <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+          <span class="text-text-muted">Je geen of weinig yoga-ervaring hebt</span>
+        </div>
+        <div class="flex items-start gap-3">
+          <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+          <span class="text-text-muted">Je direct iets wilt meenemen om thuis te doen</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ── Over Mariëlle ── */}
+  <section class="py-12 md:py-16">
+    <div class="max-w-3xl mx-auto px-4 md:px-6">
+      <div class="flex flex-col sm:flex-row items-center sm:items-start gap-8">
+        <div class="w-28 h-28 shrink-0 rounded-full overflow-hidden border-4 border-primary-light/30">
+          <Image
+            src={profileImage}
+            alt="Mariëlle van der Geest — yogadocent Yogapracht Hilvarenbeek"
+            width={112}
+            height={112}
+            class="w-full h-full object-cover"
+            loading="lazy"
+          />
+        </div>
+        <div>
+          <h2 class="font-heading text-2xl text-text mb-3">Jouw docent: Mariëlle van der Geest</h2>
+          <p class="text-text-muted leading-relaxed mb-3">
+            Mariëlle is gediplomeerd hatha-rajayoga docent en heeft zich gespecialiseerd in yoga bij overprikkeling. Zij weet uit ervaring hoe het is om teveel te dragen en heeft in yoga de weg gevonden naar meer rust en balans.
+          </p>
+          <p class="text-text-muted leading-relaxed">
+            In deze masterclass deelt zij niet alleen oefeningen, maar ook het inzicht waarom ze werken — zodat je ze zelfstandig kunt toepassen in je dagelijks leven.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ── Aanmelden CTA ── */}
+  <section id="aanmelden" class="py-16 md:py-20 bg-bg-alt">
+    <div class="max-w-xl mx-auto px-4 md:px-6 text-center">
+      <h2 class="font-heading text-3xl md:text-4xl text-text mb-4">Gratis aanmelden</h2>
+      <p class="text-text-muted mb-8">
+        Vul je e-mailadres in en je ontvangt een uitnodiging zodra de datum bekend is. Geen spam, alleen relevante informatie over de masterclass.
+      </p>
+
+      {/* ── Aanmeldformulier placeholder ── */}
+      <div class="bg-white rounded-card p-8 border border-border text-left">
+        <p class="text-sm text-text-muted text-center italic">
+          Aanmeldformulier wordt hier geplaatst zodra de masterclass-datum bekend is.
+        </p>
+        {/*
+          TODO: MailerLite of ander formulier integreren
+          - E-mail veld
+          - Voornaam veld (optioneel)
+          - Submit button "Aanmelden"
+          - Consent checkbox AVG
+        */}
+      </div>
+
+      <p class="text-xs text-text-muted mt-4">
+        Je gegevens worden alleen gebruikt voor de masterclass-uitnodiging. Lees ons <a href="/privacy" class="text-accent hover:text-accent-dark underline">privacybeleid</a>.
+      </p>
+    </div>
+  </section>
+
+</BaseLayout>

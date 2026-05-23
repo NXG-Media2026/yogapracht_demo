@@ -25,6 +25,7 @@ export default defineConfig({
     ...(isDev ? [keystatic()] : []),
     sitemap({
       filter: (page) => !page.includes('/keystatic'),
+      lastmod: new Date(),
     }),
   ],
 });
