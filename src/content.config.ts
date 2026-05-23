@@ -12,7 +12,7 @@ const blog = defineCollection({
 });
 
 const faqs = defineCollection({
-  type: 'data',
+  loader: glob({ pattern: '**/*.yaml', base: 'src/content/faqs' }),
   schema: z.object({
     question: z.string(),
     answer: z.string(),
@@ -22,7 +22,7 @@ const faqs = defineCollection({
 });
 
 const testimonials = defineCollection({
-  type: 'data',
+  loader: glob({ pattern: '**/*.yaml', base: 'src/content/testimonials' }),
   schema: z.object({
     name: z.string(),
     role: z.string().optional(),
@@ -32,8 +32,7 @@ const testimonials = defineCollection({
 });
 
 const settings = defineCollection({
-  type: 'data',
-  schema: z.record(z.any()),
+  loader: glob({ pattern: '**/*.{yaml,md}', base: 'src/content/settings' }),
 });
 
 export const collections = { blog, faqs, testimonials, settings };
