@@ -9,7 +9,7 @@ export default config({
     kind: isLocal ? 'local' : 'cloud',
   },
   cloud: {
-    project: 'nxg-media2026/yogapracht-demo',
+    project: 'yogapracht-demo/yogaprachtdemo',
   },
 
   collections: {
