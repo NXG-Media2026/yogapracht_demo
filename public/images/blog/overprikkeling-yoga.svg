@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none">
+  <rect width="1200" height="630" fill="#f5f0eb"/>
+  <circle cx="600" cy="280" r="200" fill="#e8ddd4" opacity="0.6"/>
+  <circle cx="600" cy="280" r="140" fill="#d4c4b0" opacity="0.4"/>
+  <circle cx="600" cy="280" r="80" fill="#6b7b3a" opacity="0.3"/>
+  <!-- Lotus flower shape -->
+  <g transform="translate(600, 260)" opacity="0.8">
+    <ellipse cx="0" cy="0" rx="25" ry="50" fill="#6b7b3a" transform="rotate(0)"/>
+    <ellipse cx="0" cy="0" rx="25" ry="50" fill="#6b7b3a" transform="rotate(36)"/>
+    <ellipse cx="0" cy="0" rx="25" ry="50" fill="#6b7b3a" transform="rotate(72)"/>
+    <ellipse cx="0" cy="0" rx="25" ry="50" fill="#6b7b3a" transform="rotate(108)"/>
+    <ellipse cx="0" cy="0" rx="25" ry="50" fill="#6b7b3a" transform="rotate(144)"/>
+    <ellipse cx="0" cy="0" rx="20" ry="40" fill="#8a9e52" transform="rotate(18)"/>
+    <ellipse cx="0" cy="0" rx="20" ry="40" fill="#8a9e52" transform="rotate(54)"/>
+    <ellipse cx="0" cy="0" rx="20" ry="40" fill="#8a9e52" transform="rotate(90)"/>
+    <ellipse cx="0" cy="0" rx="20" ry="40" fill="#8a9e52" transform="rotate(126)"/>
+    <ellipse cx="0" cy="0" rx="20" ry="40" fill="#8a9e52" transform="rotate(162)"/>
+    <circle cx="0" cy="0" r="15" fill="#f5f0eb"/>
+  </g>
+  <!-- Waves representing calm -->
+  <path d="M0 480 Q150 460 300 480 T600 480 T900 480 T1200 480 V630 H0 Z" fill="#6b7b3a" opacity="0.1"/>
+  <path d="M0 510 Q150 490 300 510 T600 510 T900 510 T1200 510 V630 H0 Z" fill="#6b7b3a" opacity="0.08"/>
+  <path d="M0 540 Q150 520 300 540 T600 540 T900 540 T1200 540 V630 H0 Z" fill="#6b7b3a" opacity="0.05"/>
+  <!-- Text -->
+  <text x="600" y="560" text-anchor="middle" font-family="system-ui, sans-serif" font-size="28" fill="#4a5a2a" font-weight="600" letter-spacing="2">YOGAPRACHT</text>
+  <text x="600" y="595" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" fill="#6b7b3a" letter-spacing="1">Rust en balans door yoga</text>
+</svg>

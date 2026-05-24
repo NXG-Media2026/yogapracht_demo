@@ -2,6 +2,7 @@
 title: Wat is overprikkeling en hoe helpt yoga?
 summary: Overprikkeling ontstaat als je zenuwstelsel meer prikkels ontvangt dan het kan verwerken. Ontdek hoe hatha-rajayoga helpt om weer tot rust te komen.
 publishDate: '2026-05-24'
+coverImage: /images/blog/overprikkeling-yoga.svg
 ---
 
 Je hoofd staat nooit stil. Je slaapt slecht, raakt sneller geprikkeld en aan het eind van de dag voel je je uitgeput — ook al heb je "niets bijzonders" gedaan. Herkenbaar? Dan is de kans groot dat je zenuwstelsel overprikkeld is.

@@ -1,7 +1,9 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { siteConfig } from '../data/site';
 import { generateBreadcrumbs, generateService } from '../data/schema';
+import heroImage from '../assets/marielle/marielle_yogapose_attributes.jpg';
 ---
 
 <BaseLayout
@@ -20,6 +22,16 @@ import { generateBreadcrumbs, generateService } from '../data/schema';
 >
   <section class="py-12 md:py-16 lg:py-20">
     <div class="max-w-3xl mx-auto px-4 md:px-6">
+      <div class="rounded-card overflow-hidden mb-10">
+        <Image
+          src={heroImage}
+          alt="Yoga bij Yogapracht — rustige setting dicht bij Oisterwijk"
+          widths={[480, 768, 1024]}
+          sizes="(max-width: 768px) 100vw, 768px"
+          class="w-full h-56 md:h-72 object-cover"
+          loading="eager"
+        />
+      </div>
       <h1 class="font-heading text-3xl md:text-4xl text-primary mb-6">Yoga voor inwoners van Oisterwijk</h1>
       <p class="text-lg text-text-muted leading-relaxed mb-8">
         Vanuit Oisterwijk ben je binnen 10 minuten bij Yogapracht in Hilvarenbeek. Een intieme yogastudio waar je niet verdwijnt in een grote groep, maar persoonlijke aandacht krijgt.
