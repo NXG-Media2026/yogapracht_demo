@@ -54,18 +54,68 @@ Deze features moeten ALTIJD mee — ze zijn essentieel voor vindbaarheid:
 - **Alt-teksten** bevatten bedrijfsnaam + plaatsnaam + dienst/context
 - **FAQ antwoorden** eerste zin moet standalone werken, NOOIT beginnen met "Ja"/"Nee"
 
-### AI-vindbaarheid (verplicht bij elke klant)
+### SEO/GEO regels (VERPLICHT — van begin af aan volgen, niet achteraf)
 
-- **Person schema op homepage** — met `hasCredential`, `alumniOf`, `sameAs` (persoonlijke profielen), `knowsAbout`
-- **dateModified** in LocalBusiness + WebSite schema (automatisch: build-datum)
-- **lastmod** in sitemap — `sitemap({ lastmod: new Date() })` in astro.config.mjs
-- **Individuele Review objecten** — `generateReviewSnippets()` op homepage naast `generateAggregateRating()`
-- **Quotable content** — minimaal 3 paragrafen van 60-80 woorden op homepage met explanation markers ("omdat", "dat betekent dat", "bijvoorbeeld")
-- **Nichepagina's** — 1+ lange content pagina's per specialisatie (bijv. `/yoga-bij-overprikkeling`) met FAQPage schema
-- **robots.txt** — expliciete `Allow` voor GPTBot, ClaudeBot, PerplexityBot
-- **llms.txt** — in public/ root met overzicht van site-structuur en specialisaties
-- **Testimonials** koppelen aan de juiste dienstenpagina waar mogelijk
+#### Meta & titels
+- **Alle meta descriptions** ONDER 160 karakters, bevatten altijd plaatsnaam
+- **Alle page titles** bevatten bedrijfsnaam óf plaatsnaam
+- **H1 homepage** bevat bedrijfsnaam + plaatsnaam
+- **Alle H2's** beginnen met een topic noun (niet "Waarom..." of "Hoe...")
+
+#### Schema.org — LocalBusiness
+Moet ALLE velden bevatten (niet optioneel):
+- `@type` (juiste subtype), `name`, `description`, `url`, `telephone`, `email`
+- `address` (streetAddress, addressLocality, postalCode, addressCountry)
+- `geo` (latitude + longitude van Google Maps)
+- `image` (profielfoto absolute URL), `logo` (OG image absolute URL)
+- `priceRange` (bijv. "€"), `hasMap` (Google Maps URL)
+- `areaServed` (@type City + name), `openingHoursSpecification` (dag, opens, closes)
+- `dateModified` (automatisch via build-datum), `sameAs` (social media URLs)
+- `founder` verwijst naar Person `@id`
+
+#### Schema.org — overige (alle verplicht)
+- **Person** op homepage: `hasCredential`, `alumniOf`, `sameAs` (persoonlijk), `knowsAbout`
+- **WebSite** met `dateModified`
+- **Service** per dienst: `serviceType` + `areaServed` (City) — URLs relatief (schema prepend automatisch)
+- **BreadcrumbList**: "Home" altijd als eerste item (automatisch), altijd absolute URLs (automatisch)
+- **AggregateRating** + individuele **ReviewSnippets** op homepage
+- **Product** schema op betaalde producten (met `offers/price/priceCurrency`)
+- **EducationEvent** schema op masterclass/workshop pagina's
+- **FAQPage** op homepage en nichepagina's
+- **BlogPosting** op blogposts, **ProfilePage** op over-pagina
+
+#### Breadcrumbs
+- URLs zijn ABSOLUUT (ingebouwd in `generateBreadcrumbs`)
+- "Home" wordt automatisch prepend (ingebouwd)
+- Breadcrumb parents moeten kloppen (geen orphan-chains)
+
+#### Sitemap & indexering
+- `lastmod: new Date()` in sitemap config
+- Privacy + voorwaarden UITGESLOTEN van sitemap (zijn noindex)
+- `/keystatic` uitgesloten
+- `robots.txt`: Allow voor GPTBot, ClaudeBot, PerplexityBot
+
+#### Footer (verplicht)
+- "Diensten" link in footer navigatie
+- Telefoonnummer met `tel:` link
+- E-mailadres met `mailto:` link  
+- Fysiek adres (straat, postcode, stad)
+- Keurmerk-logo's met alt-teksten inclusief plaatsnaam
+
+#### Contact pagina (verplicht)
+- Google Maps embed (iframe)
+- "Bekijk op Google Maps" link (`target="_blank"`)
+- Contactgegevens card + openingstijden card
+
+#### llms.txt
+- In `public/` root, bevat: bedrijfsbeschrijving + eigenaar, ALLE pagina's met absolute URLs, specialisaties, certificeringen, sitemap URL
+
+#### AI-vindbaarheid
+- **Quotable content** — minimaal 3 paragrafen van 60-80 woorden op homepage met explanation markers
+- **Nichepagina's** — 1+ lange content pagina's per specialisatie met FAQPage schema
+- **Testimonials** koppelen aan juiste dienstenpagina
 - **Navigatie** bevat "Diensten" als vast item
+- **Credentials** in tekst + in Person schema (niet alleen sales-copy)
 
 ## Stappen per nieuwe klant
 
@@ -77,7 +127,7 @@ Deze features moeten ALTIJD mee — ze zijn essentieel voor vindbaarheid:
 6. Content schrijven: alle pagina's, testimonials (.yaml), FAQ's, blog (min. 1 post)
 7. Privacy (AVG) en Voorwaarden pagina invullen
 8. OG image instellen (`public/images/og-default.jpg`)
-9. Schema.org controleren (LocalBusiness met geo-coördinaten, juiste @type)
+9. SEO/GEO checklist doorlopen (zie sectie hierboven): LocalBusiness compleet, meta descriptions < 160 chars + plaatsnaam, breadcrumbs, Product/Event schemas, footer met adres/telefoon, Google Maps op contact, llms.txt compleet
 10. `npm run build` → git commit → deploy
 
 ## Belangrijke regels
@@ -161,15 +211,17 @@ singletons: {
 
 | Pagina | Schemas |
 |---|---|
-| Homepage | LocalBusiness, WebSite, AggregateRating, FAQPage |
+| Homepage | LocalBusiness, WebSite, FounderPerson, AggregateRating, ReviewSnippets, FAQPage |
 | Diensten index | BreadcrumbList |
-| Diensten detail | Service, BreadcrumbList |
+| Diensten detail | Service (met serviceType + areaServed), BreadcrumbList |
 | Over | ProfilePage, BreadcrumbList |
 | Reviews | BreadcrumbList, ReviewSnippets, AggregateRating |
 | Blog index | BreadcrumbList |
 | Blog detail | BlogPosting, BreadcrumbList |
 | Contact | BreadcrumbList |
 | Nichepagina's | FAQPage, BreadcrumbList |
+| Aanbod (betaald) | Product (met offers/price), BreadcrumbList |
+| Masterclass/workshop | EducationEvent, BreadcrumbList |
 
 ## Mapstructuur afbeeldingen
 

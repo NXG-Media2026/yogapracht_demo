@@ -214,6 +214,10 @@ public/images/   → profielfoto (JPG kopie voor JSON-LD schema), og-default.jpg
 - [ ] Intro tekst
 - [ ] Contactgegevens card (email, telefoon, adres)
 - [ ] Openingstijden/lestijden/spreekuren card
+- [ ] Google Maps embed (iframe)
+- [ ] "Bekijk op Google Maps" link (target="_blank")
+- [ ] Title bevat plaatsnaam
+- [ ] H1 bevat bedrijfsnaam + plaatsnaam
 ```
 
 **Reviews pagina** (`src/pages/reviews.astro`):
@@ -256,24 +260,34 @@ public/images/   → profielfoto (JPG kopie voor JSON-LD schema), og-default.jpg
 - [ ] Bedrijfsgegevens onderaan via {siteConfig.legal.*}
 ```
 
-### Stap 7: Schema.org controleren (15 min)
+### Stap 7: SEO/GEO checklist + Schema.org controleren (30 min)
 
 Alle pagina's moeten de juiste schemas hebben:
 
 | Pagina | Schemas |
 |---|---|
-| Homepage | LocalBusiness, WebSite, AggregateRating, FAQPage |
+| Homepage | LocalBusiness, WebSite, FounderPerson, AggregateRating, ReviewSnippets, FAQPage |
+| Diensten index | BreadcrumbList |
+| Diensten detail | Service (met serviceType + areaServed), BreadcrumbList |
 | Over | ProfilePage, BreadcrumbList |
 | Reviews | BreadcrumbList, ReviewSnippets, AggregateRating |
 | Blog index | BreadcrumbList |
 | Blog detail | BlogPosting, BreadcrumbList |
 | Contact | BreadcrumbList |
+| Nichepagina's | FAQPage, BreadcrumbList |
+| Aanbod (betaald) | Product (met offers/price), BreadcrumbList |
+| Masterclass/workshop | EducationEvent, BreadcrumbList |
 
-**LocalBusiness:**
+**LocalBusiness (ALLE velden verplicht):**
 - [ ] Juiste `@type` kiezen (HealthAndBeautyBusiness, Chiropractor, ProfessionalService, etc.)
 - [ ] Geo-coördinaten ingevuld (latitude, longitude)
 - [ ] Telefoonnummer, email, adres
+- [ ] image (profielfoto), logo (OG image) — absolute URLs
+- [ ] priceRange, hasMap (Google Maps URL), areaServed (City)
+- [ ] openingHoursSpecification (dag + tijden)
+- [ ] dateModified (automatisch via build-datum)
 - [ ] Social media sameAs URLs
+- [ ] founder → Person @id
 
 ### Stap 8: Navigatie en footer (10 min)
 
@@ -290,8 +304,12 @@ export const navigation: NavItem[] = [
 ```
 
 **Footer** (`src/components/Footer.astro`):
+- [ ] "Diensten" link als eerste onder Pagina's
 - [ ] Pagina-links matchen met navigatie
-- [ ] Keurmerk/branchevereniging logo's toegevoegd
+- [ ] Telefoonnummer met tel: link
+- [ ] E-mailadres met mailto: link
+- [ ] Fysiek adres (straat, postcode, stad)
+- [ ] Keurmerk/branchevereniging logo's met alt-teksten (incl. plaatsnaam)
 - [ ] Social media icons tonen (automatisch op basis van siteConfig)
 
 ### Stap 9: Lokaal testen (30 min)
@@ -310,6 +328,12 @@ npm run dev
 - [ ] Favicon toont correct (juiste letter + kleur)
 - [ ] OG image tags aanwezig (check via View Source)
 - [ ] Schema.org markup aanwezig (check via View Source → zoek "application/ld+json")
+- [ ] LocalBusiness bevat: image, logo, priceRange, hasMap, areaServed, openingHoursSpecification
+- [ ] BreadcrumbList bevat "Home" als eerste item + absolute URLs
+- [ ] Alle meta descriptions < 160 chars + bevatten plaatsnaam
+- [ ] Footer bevat Diensten link + telefoon + adres
+- [ ] Contact heeft Google Maps embed
+- [ ] llms.txt bevat ALLE pagina's
 - [ ] Geen console errors
 - [ ] npm run build slaagt zonder errors
 ```
@@ -374,21 +398,112 @@ Deze features zijn verplicht bij elke klant-build. Ze zijn essentieel voor vindb
 
 ---
 
-## AI-vindbaarheid checklist (per klant)
+## SEO/GEO checklist (VERPLICHT — van begin af aan volgen, niet achteraf)
 
-Dit zijn de stappen die de AI-vindbaarheid (ChatGPT, Claude, Perplexity) maximaliseren:
-
+### Meta & titels
 ```
-- [ ] Person schema op homepage met hasCredential, alumniOf, sameAs, knowsAbout
-- [ ] dateModified in LocalBusiness + WebSite schema (automatisch via build-datum)
-- [ ] lastmod in sitemap: sitemap({ lastmod: new Date() }) in astro.config.mjs
-- [ ] Individuele Review objecten op homepage (generateReviewSnippets naast generateAggregateRating)
+- [ ] Alle meta descriptions ONDER 160 karakters
+- [ ] Alle meta descriptions bevatten plaatsnaam
+- [ ] Alle page titles bevatten bedrijfsnaam óf plaatsnaam
+- [ ] H1 op homepage bevat bedrijfsnaam + plaatsnaam
+- [ ] H1 op elke pagina is uniek en bevat relevante keywords
+- [ ] Alle H2's beginnen met een topic noun (niet "Waarom..." of "Hoe...")
+```
+
+### Schema.org — LocalBusiness (alle velden verplicht)
+```
+- [ ] Juiste @type (HealthAndBeautyBusiness, Chiropractor, ProfessionalService, etc.)
+- [ ] name, description, url, telephone, email
+- [ ] address (streetAddress, addressLocality, postalCode, addressCountry)
+- [ ] geo (latitude + longitude van Google Maps)
+- [ ] image (profielfoto absolute URL)
+- [ ] logo (OG image absolute URL)
+- [ ] priceRange (bijv. "€" of "€€")
+- [ ] hasMap (Google Maps URL naar adres)
+- [ ] areaServed (@type City + name)
+- [ ] openingHoursSpecification (dag, opens, closes)
+- [ ] dateModified (automatisch via build-datum)
+- [ ] sameAs (social media URLs)
+- [ ] founder verwijst naar Person @id
+```
+
+### Schema.org — overige schemas
+```
+- [ ] Person schema op homepage: hasCredential, alumniOf, sameAs (persoonlijk), knowsAbout
+- [ ] WebSite schema met dateModified
+- [ ] Service per dienst: serviceType + areaServed (City)
+- [ ] BreadcrumbList: "Home" als eerste item + absolute URLs (automatisch ingebouwd)
+- [ ] AggregateRating + individuele ReviewSnippets op homepage
+- [ ] FAQPage schema op homepage en nichepagina's
+- [ ] BlogPosting op blogposts, ProfilePage op over-pagina
+- [ ] Product schema op betaalde producten (offers/price/priceCurrency)
+- [ ] EducationEvent schema op masterclass/workshop pagina's
+```
+
+### Breadcrumbs
+```
+- [ ] URLs zijn absoluut (https://www.site.com/pad) — automatisch door generateBreadcrumbs
+- [ ] "Home" automatisch als eerste item — automatisch door generateBreadcrumbs
+- [ ] Breadcrumb parents kloppen (geen orphan-chains)
+```
+
+### Sitemap & indexering
+```
+- [ ] lastmod in sitemap config
+- [ ] Privacy + voorwaarden UITGESLOTEN van sitemap
+- [ ] /keystatic uitgesloten van sitemap
+- [ ] robots.txt: Allow voor GPTBot, ClaudeBot, PerplexityBot
+```
+
+### Alt-teksten (alle afbeeldingen)
+```
+- [ ] Bevatten: bedrijfsnaam + plaatsnaam + dienst/context
+- [ ] Decoratieve afbeeldingen: alt="" aria-hidden="true"
+```
+
+### Footer
+```
+- [ ] "Diensten" link aanwezig
+- [ ] Telefoonnummer met tel: link
+- [ ] E-mailadres met mailto: link
+- [ ] Fysiek adres (straat, postcode, stad)
+- [ ] Social media icons
+- [ ] Keurmerk-logo's met alt-teksten inclusief plaatsnaam
+```
+
+### Contact pagina
+```
+- [ ] Google Maps embed (iframe)
+- [ ] "Bekijk op Google Maps" link
+- [ ] Contactgegevens card (email, telefoon, adres)
+- [ ] Openingstijden/lestijden card
+```
+
+### llms.txt
+```
+- [ ] In public/ root
+- [ ] Beschrijving bedrijf + eigenaar
+- [ ] ALLE pagina's met absolute URLs
+- [ ] Specialisaties/diensten opsomming
+- [ ] Certificeringen/lidmaatschappen
+- [ ] Sitemap URL
+```
+
+### AI-vindbaarheid & content
+```
 - [ ] Minimaal 3 quotable paragrafen (60-80 woorden) op homepage met explanation markers
 - [ ] Minimaal 1 nichepagina per specialisatie (lange content, FAQPage schema)
-- [ ] robots.txt: expliciete Allow voor GPTBot, ClaudeBot, PerplexityBot
-- [ ] llms.txt in public/ met site-overzicht en specialisaties
-- [ ] Alle H2's beginnen met topic noun
-- [ ] Credentials in tekst + in Person schema (niet alleen sales-copy)
+- [ ] FAQ-antwoorden: eerste zin standalone, NOOIT beginnen met "Ja"/"Nee"
+- [ ] Credentials in tekst + in Person schema
+- [ ] Testimonials koppelen aan juiste dienstenpagina
+- [ ] Navigatie bevat "Diensten" als vast item
+```
+
+### Producten & events (indien van toepassing)
+```
+- [ ] Betaalde producten: Product schema met offers/price/priceCurrency
+- [ ] Prijs in meta description (bijv. "— €27")
+- [ ] Gratis events/workshops: EducationEvent schema met isAccessibleForFree
 ```
 
 ---
@@ -409,6 +524,17 @@ Dit zijn de stappen die de AI-vindbaarheid (ChatGPT, Claude, Perplexity) maximal
 | Geen `--legacy-peer-deps` bij install | npm install faalt met peer conflicts | Altijd `--legacy-peer-deps` meegeven |
 | Favicon niet aangepast | Oude template letter/kleur zichtbaar | Update letter + primary kleur in favicon.svg |
 | Geen OG image | Social shares tonen geen afbeelding | Kopieer foto naar `public/images/og-default.jpg` |
+| Meta description zonder plaatsnaam | Mist local SEO signaal | Altijd plaatsnaam in description |
+| Meta description boven 160 chars | Wordt afgeknipt in Google | Altijd tellen, max 155-160 chars |
+| H1 homepage zonder bedrijfsnaam/stad | Mist primair ranking signaal | H1 bevat altijd bedrijfsnaam + plaatsnaam |
+| LocalBusiness zonder image/hasMap/priceRange | Incompleet schema, minder rich results | Altijd ALLE velden invullen (zie checklist) |
+| Breadcrumbs met relatieve URLs | Ongeldige schema, Google negeert het | generateBreadcrumbs doet dit nu automatisch |
+| Geen Google Maps op contact | Mist GEO bevestiging | Google Maps embed + link altijd op contact |
+| Footer zonder adres/telefoon | Mist NAP consistentie | Footer bevat altijd telefoon + adres + Diensten link |
+| llms.txt met maar 3 pagina's | AI-bots vinden niet alle content | Altijd ALLE pagina's + specialisaties opnemen |
+| Sitemap met noindex pagina's | Conflicterend signaal naar Google | Privacy + voorwaarden uitsluiten van sitemap |
+| Service schema zonder serviceType | Google kan dienst niet classificeren | Altijd serviceType + areaServed meegeven |
+| Aanbod zonder Product schema | Prijs/beschikbaarheid niet zichtbaar in SERP | Product schema met offers/price op betaalde items |
 
 ---
 
@@ -423,7 +549,7 @@ Dit zijn de stappen die de AI-vindbaarheid (ChatGPT, Claude, Perplexity) maximal
 | Content schrijven (alle pagina's) | 2-3 uur |
 | Testimonials + FAQ's aanmaken | 30 min |
 | Privacy + Voorwaarden | 30 min |
-| Schema.org controleren | 15 min |
+| SEO/GEO checklist + Schema.org | 30 min |
 | Testen + build check | 30 min |
 | Git commit + deploy | 15 min |
 | Analytics + newsletter | 15 min |
@@ -448,21 +574,34 @@ Stappen:
 2. Vul site.ts in met alle klantgegevens
 3. Stel branding in (Tailwind kleuren, fonts via fontsource, favicon)
 4. Plaats alle afbeeldingen met GEO-geoptimaliseerde alt-teksten (altijd plaatsnaam erin)
-5. Schrijf content voor alle pagina's: Home, Over, Reviews, Blog, Contact
+5. Schrijf content voor alle pagina's: Home, Over, Diensten (index + detail), Reviews, Blog, Contact
 6. Maak testimonials en FAQ's aan
 7. Schrijf privacy pagina (AVG) en voorwaarden pagina
 8. Stel OG image in
-9. Controleer alle Schema.org markup
+9. SEO/GEO checklist doorlopen (zie sectie hierboven)
 10. Build + commit
 
 Standaard template features die ALTIJD mee moeten:
 - Blog (index + detail pagina's)
 - Reviews pagina + homepage sectie
-- LocalBusiness schema met geo-coordinaten
+- LocalBusiness schema COMPLEET (geo, image, logo, priceRange, hasMap, areaServed, openingHoursSpecification)
 - Alle afbeeldingen via <Image> component (auto WebP)
-- Alt-teksten met bedrijfsnaam + plaatsnaam
+- Alt-teksten met bedrijfsnaam + plaatsnaam + dienst
 
-Regels:
+SEO/GEO regels (DIRECT toepassen, niet achteraf):
+- Alle meta descriptions ONDER 160 chars met plaatsnaam
+- H1 homepage bevat bedrijfsnaam + plaatsnaam
+- Alle page titles bevatten bedrijfsnaam of plaatsnaam
+- BreadcrumbList: absolute URLs, "Home" als eerste item (automatisch)
+- Service schema: serviceType + areaServed per dienst
+- Product schema op betaalde producten (prijs in meta description)
+- EducationEvent schema op workshops/masterclasses
+- Footer: Diensten link + telefoon + adres
+- Contact: Google Maps embed + link
+- llms.txt compleet (alle pagina's + specialisaties)
+- Sitemap: privacy/voorwaarden uitsluiten
+
+Overige regels:
 - npm audit fix NOOIT uitvoeren
 - Gebruik fields.mdx() in Keystatic, NIET markdoc
 - FAQ-antwoorden beginnen NOOIT met "Ja" of "Nee"
