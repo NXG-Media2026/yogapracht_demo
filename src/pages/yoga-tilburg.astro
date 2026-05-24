@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../data/site';
+import { generateBreadcrumbs, generateService } from '../data/schema';
+---
+
+<BaseLayout
+  title={`Yoga voor inwoners van Tilburg | ${siteConfig.name}`}
+  description="Yoga in de buurt van Tilburg — hatha-rajayoga bij Yogapracht in Hilvarenbeek. Slechts 15 minuten rijden. Kleine groepen, persoonlijke aandacht en een gratis proefles."
+  schemas={[
+    generateBreadcrumbs([{ name: 'Yoga Tilburg', url: '/yoga-tilburg' }]),
+    generateService({
+      name: 'Yoga voor inwoners van Tilburg',
+      description: 'Hatha-rajayoga bij Yogapracht in Hilvarenbeek, op 15 minuten rijden vanaf Tilburg. Persoonlijke begeleiding in kleine groepen.',
+      url: '/yoga-tilburg',
+      serviceType: 'Yoga lessen',
+    }),
+  ]}
+  breadcrumbs={[{ label: 'Yoga Tilburg' }]}
+>
+  <section class="py-12 md:py-16 lg:py-20">
+    <div class="max-w-3xl mx-auto px-4 md:px-6">
+      <h1 class="font-heading text-3xl md:text-4xl text-primary mb-6">Yoga voor inwoners van Tilburg</h1>
+      <p class="text-lg text-text-muted leading-relaxed mb-8">
+        Woon je in Tilburg en zoek je een rustplek buiten de stad? Yogapracht in Hilvarenbeek ligt op slechts 15 minuten rijden — net ver genoeg om even helemaal weg te zijn uit de dagelijkse drukte.
+      </p>
+
+      <div class="prose prose-lg">
+        <h2>Waarom kiezen Tilburgers voor Yogapracht?</h2>
+        <p>
+          In Tilburg is het aanbod aan yogastudio's groot, maar veel deelnemers missen persoonlijke aandacht in volle groepslessen. Bij Yogapracht werk je in kleine groepen van maximaal acht personen. Docent Mariëlle kent je naam, weet waar je lichaam spanning vasthoudt en past de les daarop aan.
+        </p>
+        <p>
+          De studio ligt aan de Hakvoortseweg in Hilvarenbeek, midden in het groen. Gratis parkeren voor de deur. Vanuit Tilburg-West ben je er via de N269 in een kwartier — korter dan de meeste Tilburgse files in de spits.
+        </p>
+
+        <h2>Wat biedt Yogapracht?</h2>
+        <ul>
+          <li><strong>Groepslessen</strong> — wekelijks, maximaal 8 personen, geen ervaring nodig</li>
+          <li><strong>Privélessen</strong> — volledig op maat, ook aan huis in Tilburg mogelijk</li>
+          <li><strong>Stoelyoga</strong> — toegankelijk bij beperkte mobiliteit</li>
+          <li><strong>Bedrijfsyoga</strong> — op locatie bij bedrijven in Tilburg en omgeving</li>
+        </ul>
+
+        <h2>Hatha-rajayoga: lichaam én geest</h2>
+        <p>
+          Hatha-rajayoga combineert fysieke houdingen met ademhaling en meditatie. Elke les volgt een vaste structuur: asana's, pranayama, meditatie en diepe ontspanning. Die opbouw helpt je zenuwstelsel om van actie-modus naar rust te schakelen — precies wat je nodig hebt na een drukke werkdag in Tilburg.
+        </p>
+
+        <h2>Gratis proefles</h2>
+        <p>
+          Benieuwd of het bij je past? Boek een gratis en vrijblijvende proefles. Geen sportkleding of matje nodig — alles is aanwezig in de studio.
+        </p>
+      </div>
+
+      <div class="mt-10 flex flex-col sm:flex-row gap-4">
+        <a
+          href="/contact"
+          class="inline-flex items-center justify-center px-6 py-3 bg-accent text-white font-semibold rounded-button hover:bg-accent-dark transition-colors"
+        >
+          Gratis proefles aanvragen
+        </a>
+        <a
+          href="/diensten"
+          class="inline-flex items-center justify-center px-6 py-3 border-2 border-primary text-primary font-semibold rounded-button hover:bg-primary hover:text-white transition-colors"
+        >
+          Bekijk alle diensten
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

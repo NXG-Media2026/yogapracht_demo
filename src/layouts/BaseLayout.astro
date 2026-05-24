@@ -3,9 +3,15 @@ import '../styles/global.css';
 import SEOHead from '../components/SEOHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import BreadcrumbNav from '../components/BreadcrumbNav.astro';
 import CookieConsent from '../components/CookieConsent.astro';
 import { siteConfig } from '../data/site';
 import { getTrackingScript } from '../lib/analytics';
+
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
 
 interface Props {
   title: string;
@@ -15,6 +21,7 @@ interface Props {
   ogType?: string;
   noindex?: boolean;
   schemas?: string[];
+  breadcrumbs?: BreadcrumbItem[];
 }
 
 const {
@@ -25,6 +32,7 @@ const {
   ogType,
   noindex = false,
   schemas = [],
+  breadcrumbs,
 } = Astro.props;
 ---
 
@@ -53,6 +61,10 @@ const {
   </a>
 
   <Header currentPath={Astro.url.pathname} />
+
+  {breadcrumbs && breadcrumbs.length > 0 && (
+    <BreadcrumbNav items={[{ label: 'Home', href: '/' }, ...breadcrumbs]} />
+  )}
 
   <main id="main-content" class="flex-1">
     <slot />

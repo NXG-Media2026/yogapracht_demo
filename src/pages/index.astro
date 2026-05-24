@@ -29,7 +29,7 @@ const homepageFaq = homepageFaqs.map(f => ({
 
 <BaseLayout
   title={`${siteConfig.name} — hatha-rajayoga in Hilvarenbeek`}
-  description="Yogapracht Hilvarenbeek — hatha-rajayoga van gediplomeerd yogadocent Mariëlle. Groepslessen, privélessen, stoelyoga en bedrijfsyoga. Gratis proefles."
+  description="Yogapracht Hilvarenbeek — hatha-rajayoga bij overprikkeling, stress en spanning. Groepslessen, privélessen en online yoga door gediplomeerd docent Mariëlle. Gratis proefles."
   schemas={[
     generateLocalBusiness(),
     generateWebSite('nl'),
@@ -160,7 +160,7 @@ const homepageFaq = homepageFaqs.map(f => ({
     </div>
   </section>
 
-  {/* ── Waarom yoga ── */}
+  {/* ── Wat deelnemers ervaren ── */}
   <section class="py-16 md:py-20">
     <div class="max-w-4xl mx-auto px-4 md:px-6">
       <div class="flex flex-col md:flex-row items-center gap-10">
@@ -168,7 +168,7 @@ const homepageFaq = homepageFaqs.map(f => ({
           <div class="rounded-card overflow-hidden">
             <Image
               src={yogaPoseSideways}
-              alt="Hatha-rajayoga houding door Mariëlle — voordelen van yoga bij Yogapracht Hilvarenbeek"
+              alt="Hatha-rajayoga houding door Mariëlle — yoga bij overprikkeling en stress in Hilvarenbeek"
               widths={[384, 512]}
               sizes="(max-width: 768px) 100vw, 40vw"
               class="w-full h-auto"
@@ -177,34 +177,30 @@ const homepageFaq = homepageFaqs.map(f => ({
           </div>
         </div>
         <div>
-          <h2 class="font-heading text-2xl md:text-3xl text-text mb-6">Voordelen van yoga</h2>
+          <h2 class="font-heading text-2xl md:text-3xl text-text mb-6">Wat deelnemers ervaren na een aantal weken</h2>
           <p class="text-text-muted leading-relaxed mb-6">
-            Regelmatig yoga beoefenen heeft een merkbaar effect op hoe je je voelt — zowel fysiek als mentaal. Dit zijn de voordelen die deelnemers het vaakst ervaren:
+            Hatha-rajayoga activeert het parasympathische zenuwstelsel — het deel dat verantwoordelijk is voor rust en herstel. Deelnemers in Hilvarenbeek merken na vier tot zes weken concrete veranderingen:
           </p>
           <ul class="space-y-3">
             <li class="flex items-start gap-3">
               <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
-              <span class="text-text-muted">Meer mentale rust en een betere nachtrust</span>
+              <span class="text-text-muted">Sneller schakelen van spanning naar ontspanning — ook buiten de les</span>
             </li>
             <li class="flex items-start gap-3">
               <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
-              <span class="text-text-muted">Diepere, bewustere ademhaling</span>
+              <span class="text-text-muted">Beter slapen doordat het hoofd eerder stil wordt</span>
             </li>
             <li class="flex items-start gap-3">
               <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
-              <span class="text-text-muted">Makkelijker ontspannen na een drukke dag</span>
+              <span class="text-text-muted">Minder spanning in nek, schouders en onderrug</span>
             </li>
             <li class="flex items-start gap-3">
               <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
-              <span class="text-text-muted">Meer comfort en souplesse in je lichaam</span>
+              <span class="text-text-muted">Bewustere ademhaling als anker in drukke momenten</span>
             </li>
             <li class="flex items-start gap-3">
               <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
-              <span class="text-text-muted">Betere concentratie en focus</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
-              <span class="text-text-muted">Sneller je energie herstellen</span>
+              <span class="text-text-muted">Meer ruimte om te kiezen hoe je reageert op prikkels</span>
             </li>
           </ul>
         </div>
@@ -215,32 +211,54 @@ const homepageFaq = homepageFaqs.map(f => ({
   {/* ── Voor wie ── */}
   <section class="py-12 md:py-16">
     <div class="max-w-3xl mx-auto px-4 md:px-6">
-      <h2 class="font-heading text-2xl md:text-3xl text-text mb-6">Yogalessen geschikt voor iedereen</h2>
+      <h2 class="font-heading text-2xl md:text-3xl text-text mb-6">Voor wie zijn de lessen bij Yogapracht?</h2>
       <p class="text-text-muted leading-relaxed mb-6">
-        De lessen bij Yogapracht zijn toegankelijk voor iedereen, ongeacht leeftijd, lichaamsbouw of ervaring. Mariëlle past de houdingen aan op wie er in de groep zit, waardoor je altijd op je eigen niveau kunt oefenen. Er zijn bijvoorbeeld aangepaste yogavormen voor mensen die liever op een stoel oefenen, voor zwangeren, en voor mensen met chronische pijn of overprikkeling.
+        Mariëlle heeft veertien bijscholingen gevolgd om specifieke doelgroepen gericht te begeleiden. In de studio aan de Hakvoortseweg in Hilvarenbeek biedt zij yoga aan voor:
       </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+        <a href="/yoga-bij-overprikkeling" class="flex items-start gap-3 group">
+          <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+          <span class="text-text-muted group-hover:text-accent transition-colors"><strong class="text-text">Mensen met overprikkeling of HSP</strong> — leer je zenuwstelsel kalmeren</span>
+        </a>
+        <div class="flex items-start gap-3">
+          <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+          <span class="text-text-muted"><strong class="text-text">Mensen met chronische pijn</strong> — bewegen zonder het lichaam te belasten</span>
+        </div>
+        <div class="flex items-start gap-3">
+          <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+          <span class="text-text-muted"><strong class="text-text">Zwangeren</strong> — veilig oefenen afgestemd op elke fase</span>
+        </div>
+        <div class="flex items-start gap-3">
+          <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+          <span class="text-text-muted"><strong class="text-text">Ouderen of mensen met beperkte mobiliteit</strong> — via stoelyoga</span>
+        </div>
+        <a href="/diensten/bedrijfsyoga" class="flex items-start gap-3 group">
+          <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+          <span class="text-text-muted group-hover:text-accent transition-colors"><strong class="text-text">Bedrijven in de regio Hilvarenbeek</strong> — yoga op de werkvloer</span>
+        </a>
+        <div class="flex items-start gap-3">
+          <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+          <span class="text-text-muted"><strong class="text-text">Beginners zonder ervaring</strong> — gratis proefles om kennis te maken</span>
+        </div>
+      </div>
       <div class="bg-bg-alt rounded-card p-6">
-        <h3 class="font-heading text-xl text-text mb-4">Yogapracht onderscheidt zich door</h3>
+        <h3 class="font-heading text-xl text-text mb-4">Waarom Yogapracht</h3>
         <ul class="space-y-2">
           <li class="flex items-start gap-3">
             <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
-            <span class="text-text-muted"><strong class="text-text">Kleine groepen</strong> — maximale persoonlijke aandacht en een veilige, vertrouwde sfeer</span>
+            <span class="text-text-muted"><strong class="text-text">Kleine groepen</strong> — maximaal 8 deelnemers voor persoonlijke aandacht</span>
           </li>
           <li class="flex items-start gap-3">
             <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
-            <span class="text-text-muted"><strong class="text-text">Gediplomeerd docent</strong> — opgeleid bij de Blikopener met 14+ bijscholingen</span>
+            <span class="text-text-muted"><strong class="text-text">Gediplomeerd docent</strong> — opgeleid bij <a href="https://www.deblikopener.com" target="_blank" rel="noopener" class="text-accent hover:text-accent-dark underline">de Blikopener</a> met 14 bijscholingen</span>
           </li>
           <li class="flex items-start gap-3">
             <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
-            <span class="text-text-muted"><strong class="text-text">Specialisaties</strong> — stoelyoga, yoga bij overprikkeling, chronische pijn, zwangerschap en depressie</span>
+            <span class="text-text-muted"><strong class="text-text">Lid van</strong> de <a href="https://www.europeanyogaunion.org" target="_blank" rel="noopener" class="text-accent hover:text-accent-dark underline">Europese Yoga Unie</a> en de Vereniging Yogadocenten Nederland</span>
           </li>
           <li class="flex items-start gap-3">
             <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
             <span class="text-text-muted"><strong class="text-text">Tweetalig</strong> — lessen in het Nederlands en Engels</span>
-          </li>
-          <li class="flex items-start gap-3">
-            <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
-            <span class="text-text-muted"><strong class="text-text">Gratis proefles</strong> — vrijblijvend kennismaken voordat je je aanmeldt</span>
           </li>
         </ul>
       </div>

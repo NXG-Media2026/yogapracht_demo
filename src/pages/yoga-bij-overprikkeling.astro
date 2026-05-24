@@ -22,8 +22,8 @@ const faqItems = [
     a: 'De oefeningen zijn toegankelijk voor iedereen, ook als je nog nooit yoga hebt gedaan. De nadruk ligt op rust en bewustwording, niet op fysieke uitdaging.',
   },
   {
-    q: 'Is yoga een vervanging voor professionele hulp?',
-    a: 'Yoga is een aanvulling op, geen vervanging voor professionele psychologische of medische hulp. Bij ernstige klachten is het verstandig om ook een zorgprofessional te raadplegen.',
+    q: 'Hoe snel merk ik verschil bij overprikkeling?',
+    a: 'De meeste deelnemers merken na de eerste les al dat ze rustiger worden. Na vier tot zes weken regelmatig oefenen ervaren zij structureel minder innerlijke onrust, betere slaap en meer draagkracht in het dagelijks leven.',
   },
   {
     q: 'Welke yogavormen biedt Yogapracht aan bij overprikkeling?',
@@ -39,6 +39,7 @@ const faqItems = [
     generateBreadcrumbs([{ name: 'Yoga bij overprikkeling', url: '/yoga-bij-overprikkeling' }]),
     generateFAQPage(faqItems.map(f => ({ question: f.q, answer: f.a }))),
   ]}
+  breadcrumbs={[{ label: 'Yoga bij overprikkeling' }]}
 >
 
   {/* ── Hero ── */}

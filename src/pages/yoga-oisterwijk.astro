@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../data/site';
+import { generateBreadcrumbs, generateService } from '../data/schema';
+---
+
+<BaseLayout
+  title={`Yoga voor inwoners van Oisterwijk | ${siteConfig.name}`}
+  description="Yoga vlakbij Oisterwijk — hatha-rajayoga bij Yogapracht in Hilvarenbeek. 10 minuten rijden. Persoonlijke begeleiding, kleine groepen en een gratis proefles."
+  schemas={[
+    generateBreadcrumbs([{ name: 'Yoga Oisterwijk', url: '/yoga-oisterwijk' }]),
+    generateService({
+      name: 'Yoga voor inwoners van Oisterwijk',
+      description: 'Hatha-rajayoga bij Yogapracht in Hilvarenbeek, op 10 minuten rijden vanaf Oisterwijk. Kleine groepen met persoonlijke aandacht.',
+      url: '/yoga-oisterwijk',
+      serviceType: 'Yoga lessen',
+    }),
+  ]}
+  breadcrumbs={[{ label: 'Yoga Oisterwijk' }]}
+>
+  <section class="py-12 md:py-16 lg:py-20">
+    <div class="max-w-3xl mx-auto px-4 md:px-6">
+      <h1 class="font-heading text-3xl md:text-4xl text-primary mb-6">Yoga voor inwoners van Oisterwijk</h1>
+      <p class="text-lg text-text-muted leading-relaxed mb-8">
+        Vanuit Oisterwijk ben je binnen 10 minuten bij Yogapracht in Hilvarenbeek. Een intieme yogastudio waar je niet verdwijnt in een grote groep, maar persoonlijke aandacht krijgt.
+      </p>
+
+      <div class="prose prose-lg">
+        <h2>Rustige setting, dicht bij huis</h2>
+        <p>
+          De studio van Yogapracht ligt aan de Hakvoortseweg in Hilvarenbeek — via de Oisterwijksedreef of het Beekse Bergen-kruispunt ben je er in een paar minuten. De sfeer is vergelijkbaar met wat je in Oisterwijk waardeert: rustig, groen en zonder haast.
+        </p>
+        <p>
+          Doordat de lessen maximaal acht deelnemers tellen, heeft docent Mariëlle van der Geest de ruimte om te kijken of een houding goed bij jouw lichaam past. Ze corrigeert niet om te corrigeren, maar om je te helpen comfortabeler te bewegen.
+        </p>
+
+        <h2>Speciaal geschikt bij overprikkeling en stress</h2>
+        <p>
+          Veel deelnemers uit Oisterwijk komen naar Yogapracht omdat ze last hebben van overprikkeling of chronische spanning. De lessen zijn gebaseerd op hatha-rajayoga: een methode die het parasympathisch zenuwstelsel activeert. Dat is het deel van je zenuwstelsel dat verantwoordelijk is voor rust en herstel.
+        </p>
+        <p>
+          Elke les sluit af met shavasana — een diepe ontspanning van 10 tot 15 minuten. Deelnemers beschrijven het als het stilste moment van hun week.
+        </p>
+
+        <h2>Het lesaanbod</h2>
+        <ul>
+          <li><strong>Groepslessen</strong> — wekelijks, geschikt voor beginners en gevorderden</li>
+          <li><strong>Privélessen</strong> — op maat, ook aan huis in Oisterwijk</li>
+          <li><strong>Stoelyoga</strong> — yogalessen op een stoel, toegankelijk bij fysieke beperkingen</li>
+        </ul>
+
+        <h2>Probeer het vrijblijvend</h2>
+        <p>
+          Je eerste les is gratis. Kom kennismaken zonder verplichting — alles wat je nodig hebt is aanwezig in de studio. Gratis parkeren voor de deur.
+        </p>
+      </div>
+
+      <div class="mt-10 flex flex-col sm:flex-row gap-4">
+        <a
+          href="/contact"
+          class="inline-flex items-center justify-center px-6 py-3 bg-accent text-white font-semibold rounded-button hover:bg-accent-dark transition-colors"
+        >
+          Gratis proefles aanvragen
+        </a>
+        <a
+          href="/diensten"
+          class="inline-flex items-center justify-center px-6 py-3 border-2 border-primary text-primary font-semibold rounded-button hover:bg-primary hover:text-white transition-colors"
+        >
+          Bekijk alle diensten
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

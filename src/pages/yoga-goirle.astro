@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../data/site';
+import { generateBreadcrumbs, generateService } from '../data/schema';
+---
+
+<BaseLayout
+  title={`Yoga voor inwoners van Goirle | ${siteConfig.name}`}
+  description="Yoga dicht bij Goirle — hatha-rajayoga bij Yogapracht in Hilvarenbeek. 10 minuten rijden. Kleine groepen, rust en persoonlijke begeleiding. Gratis proefles."
+  schemas={[
+    generateBreadcrumbs([{ name: 'Yoga Goirle', url: '/yoga-goirle' }]),
+    generateService({
+      name: 'Yoga voor inwoners van Goirle',
+      description: 'Hatha-rajayoga bij Yogapracht in Hilvarenbeek, op 10 minuten rijden vanaf Goirle. Kleine groepen met persoonlijke aandacht.',
+      url: '/yoga-goirle',
+      serviceType: 'Yoga lessen',
+    }),
+  ]}
+  breadcrumbs={[{ label: 'Yoga Goirle' }]}
+>
+  <section class="py-12 md:py-16 lg:py-20">
+    <div class="max-w-3xl mx-auto px-4 md:px-6">
+      <h1 class="font-heading text-3xl md:text-4xl text-primary mb-6">Yoga voor inwoners van Goirle</h1>
+      <p class="text-lg text-text-muted leading-relaxed mb-8">
+        Woon je in Goirle en ben je op zoek naar yoga met persoonlijke aandacht? Yogapracht in Hilvarenbeek ligt op 10 minuten rijden — een bewuste keuze voor rust, weg van de waan van de dag.
+      </p>
+
+      <div class="prose prose-lg">
+        <h2>Waarom net even buiten Goirle?</h2>
+        <p>
+          Sommige deelnemers vertellen dat het ritje naar Hilvarenbeek al onderdeel is van het loslaten. Even de telefoon weg, de blik op het landschap, en bij aankomst stap je een wereld in waar niets hoeft. De studio aan de Hakvoortseweg is klein en stil — geen wachtruimte vol mensen, geen haast.
+        </p>
+
+        <h2>Voor wie zijn de lessen geschikt?</h2>
+        <p>
+          De lessen bij Yogapracht zijn specifiek gericht op mensen die veel prikkels ervaren in het dagelijks leven. Denk aan drukke banen, mantelzorg, of herstel na een burn-out. De yogavorm — hatha-rajayoga — is bewust gekozen omdat het zowel het lichaam als de geest betrekt.
+        </p>
+        <p>
+          Geen acrobatiek, geen wedstrijdelement. Wel: bewuste ademhaling, zachte houdingen en een diepe ontspanning die je lichaam de kans geeft om echt te herstellen.
+        </p>
+
+        <h2>Praktische informatie</h2>
+        <ul>
+          <li><strong>Bereikbaarheid</strong> — via de Turnhoutsebaan of N395, 10 minuten vanaf Goirle centrum</li>
+          <li><strong>Parkeren</strong> — gratis voor de deur</li>
+          <li><strong>Groepsgrootte</strong> — maximaal 8 personen per les</li>
+          <li><strong>Lesduur</strong> — 75 minuten inclusief diepe ontspanning</li>
+          <li><strong>Meenemen</strong> — niets, alles is aanwezig</li>
+        </ul>
+
+        <h2>Diensten</h2>
+        <ul>
+          <li><a href="/diensten/groepslessen" class="text-accent hover:text-accent-dark">Groepslessen</a> — wekelijks, open instap</li>
+          <li><a href="/diensten/privelessen" class="text-accent hover:text-accent-dark">Privélessen</a> — ook aan huis in Goirle</li>
+          <li><a href="/diensten/bedrijfsyoga" class="text-accent hover:text-accent-dark">Bedrijfsyoga</a> — op locatie bij bedrijven in Goirle</li>
+        </ul>
+
+        <h2>Gratis kennismaken</h2>
+        <p>
+          Nog nooit yoga gedaan? Geen probleem. Je eerste les is gratis en volledig vrijblijvend. Mariëlle past alles aan op jouw tempo en mogelijkheden.
+        </p>
+      </div>
+
+      <div class="mt-10 flex flex-col sm:flex-row gap-4">
+        <a
+          href="/contact"
+          class="inline-flex items-center justify-center px-6 py-3 bg-accent text-white font-semibold rounded-button hover:bg-accent-dark transition-colors"
+        >
+          Gratis proefles aanvragen
+        </a>
+        <a
+          href="/diensten"
+          class="inline-flex items-center justify-center px-6 py-3 border-2 border-primary text-primary font-semibold rounded-button hover:bg-primary hover:text-white transition-colors"
+        >
+          Bekijk alle diensten
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

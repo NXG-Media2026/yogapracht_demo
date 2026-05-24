@@ -21,6 +21,7 @@ const reviewData = testimonials.map(t => ({
     generateReviewSnippets(reviewData),
     generateAggregateRating(reviewData),
   ].filter(Boolean)}
+  breadcrumbs={[{ label: 'Reviews' }]}
 >
   <section class="py-12 md:py-16 lg:py-20">
     <div class="max-w-4xl mx-auto px-4 md:px-6">
