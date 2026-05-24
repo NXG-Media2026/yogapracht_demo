@@ -9,6 +9,7 @@ import { generateBreadcrumbs } from '../data/schema';
   description={`Algemene voorwaarden van ${siteConfig.name} — yogalessen en programma's in ${siteConfig.contact.address.city}. Lees over overeenkomst, betaling, annulering en aansprakelijkheid.`}
   noindex={true}
   schemas={[generateBreadcrumbs([{ name: 'Algemene Voorwaarden', url: '/voorwaarden' }])]}
+  breadcrumbs={[{ label: 'Algemene Voorwaarden' }]}
 >
   <article class="py-12 md:py-16 lg:py-20">
     <div class="max-w-3xl mx-auto px-4 md:px-6 prose prose-lg">

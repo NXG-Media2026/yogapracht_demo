@@ -3,7 +3,8 @@ import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import TestimonialCard from '../../components/TestimonialCard.astro';
 import { siteConfig } from '../../data/site';
-import { generateBreadcrumbs, generateService } from '../../data/schema';
+import { generateBreadcrumbs, generateService, generateFAQPage } from '../../data/schema';
+import FAQAccordion from '../../components/FAQAccordion.astro';
 import { getCollection, getEntry } from 'astro:content';
 import ctaImage from '../../assets/marielle/marielle_yogapose.jpg';
 
@@ -11,6 +12,25 @@ const testimonials = await getCollection('testimonials');
 const dienst = await getEntry('diensten', 'bedrijfsyoga');
 const d = dienst?.data ?? {};
 const bedrijfsReview = testimonials.find(t => t.data.name === 'Tamara');
+
+const faqItems = [
+  {
+    question: 'Hoe lang duurt een bedrijfsyogales?',
+    answer: 'Bedrijfsyogalessen duren 30 tot 60 minuten, afhankelijk van de wensen van de organisatie. Een sessie van 45 minuten is het meest gekozen — lang genoeg voor een complete les met houdingen, ademhaling en ontspanning, kort genoeg om in een lunchpauze te passen.',
+  },
+  {
+    question: 'Hebben medewerkers yoga-ervaring nodig?',
+    answer: 'Ervaring is niet nodig. Mariëlle past elke les aan op het niveau van de deelnemers. De oefeningen zijn toegankelijk voor iedereen, ook als stoelyoga-variant wanneer er geen ruimte is voor matjes.',
+  },
+  {
+    question: 'Wat kost bedrijfsyoga bij Yogapracht?',
+    answer: 'De kosten hangen af van de frequentie, groepsgrootte en locatie. Neem contact op voor een vrijblijvende offerte op maat. Veel bedrijven zetten bedrijfsyoga in als onderdeel van hun arbo- of vitaliteitsbeleid.',
+  },
+  {
+    question: 'Welke ruimte is nodig voor bedrijfsyoga?',
+    answer: 'Een vergaderruimte, kantine of open werkplek volstaat. Bij stoelyoga zijn alleen stoelen nodig. Bij matyoga heeft elke deelnemer een ruimte van ongeveer 2 bij 1 meter nodig. Mariëlle neemt alle benodigde materialen mee.',
+  },
+];
 ---
 
 <BaseLayout
@@ -27,6 +47,7 @@ const bedrijfsReview = testimonials.find(t => t.data.name === 'Tamara');
       url: '/diensten/bedrijfsyoga',
       serviceType: 'Bedrijfsyoga',
     }),
+    generateFAQPage(faqItems.map(f => ({ question: f.question, answer: f.answer }))),
   ]}
   breadcrumbs={[{ label: 'Diensten', href: '/diensten' }, { label: 'Bedrijfsyoga' }]}
 >
@@ -111,6 +132,26 @@ const bedrijfsReview = testimonials.find(t => t.data.name === 'Tamara');
           />
         </div>
       )}
+
+      {/* ── E-E-A-T ── */}
+      <div class="mt-12 bg-primary/5 rounded-card p-8">
+        <h2 class="font-heading text-xl text-text mb-3">Professionele begeleiding</h2>
+        <p class="text-text-muted leading-relaxed mb-4">
+          Mariëlle van der Geest is gediplomeerd hatha-rajayoga docent, opgeleid bij <a href="https://www.deblikopener.com/" target="_blank" rel="noopener" class="text-accent hover:text-accent-dark underline">De Blikopener</a> — erkend door de <a href="https://www.europeanunionofyoga.com/" target="_blank" rel="noopener" class="text-accent hover:text-accent-dark underline">Europese Yoga Unie</a>. Zij is lid van de Vereniging Yogadocenten Nederland (VYN).
+        </p>
+        <p class="text-text-muted leading-relaxed">
+          Met haar stoelyoga-specialisatie (2023) en ervaring met uiteenlopende groepen biedt Mariëlle bedrijfsyoga dat aansluit bij elke werksituatie — van kantoormedewerkers tot productieteams.
+        </p>
+      </div>
+
+      {/* ── FAQ ── */}
+      <FAQAccordion
+        title="Veelgestelde vragen over bedrijfsyoga"
+        items={faqItems.map(f => ({ q: f.question, a: f.answer }))}
+        pageType="service"
+        pageSlug="/diensten/bedrijfsyoga"
+        compact={true}
+      />
 
       {/* ── CTA band ── */}
       <div class="mt-12 relative rounded-card overflow-hidden">

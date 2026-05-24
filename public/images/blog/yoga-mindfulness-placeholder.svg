@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" fill="none">
+  <rect width="800" height="400" fill="#f0f5f0"/>
+  <circle cx="320" cy="180" r="50" stroke="#5a7a5a" stroke-width="2" fill="none"/>
+  <circle cx="480" cy="180" r="50" stroke="#5a7a5a" stroke-width="2" fill="none"/>
+  <path d="M370 180 Q400 160 430 180" stroke="#7a9a7a" stroke-width="1.5" fill="none"/>
+  <path d="M370 180 Q400 200 430 180" stroke="#7a9a7a" stroke-width="1.5" fill="none"/>
+  <text x="320" y="185" text-anchor="middle" font-family="Georgia, serif" font-size="14" fill="#5a7a5a">Yoga</text>
+  <text x="480" y="185" text-anchor="middle" font-family="Georgia, serif" font-size="12" fill="#5a7a5a">Mindfulness</text>
+  <text x="400" y="290" text-anchor="middle" font-family="Georgia, serif" font-size="18" fill="#5a7a5a">Yoga vs. Mindfulness</text>
+  <text x="400" y="315" text-anchor="middle" font-family="Georgia, serif" font-size="14" fill="#7a9a7a">Yogapracht Hilvarenbeek</text>
+</svg>

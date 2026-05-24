@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" fill="none">
+  <rect width="800" height="400" fill="#f0f5f0"/>
+  <circle cx="400" cy="180" r="60" stroke="#5a7a5a" stroke-width="2" fill="none"/>
+  <path d="M400 120 Q420 150 400 180 Q380 210 400 240" stroke="#5a7a5a" stroke-width="2" fill="none"/>
+  <path d="M360 150 Q380 170 400 180 Q420 170 440 150" stroke="#7a9a7a" stroke-width="1.5" fill="none" opacity="0.6"/>
+  <path d="M360 210 Q380 190 400 180 Q420 190 440 210" stroke="#7a9a7a" stroke-width="1.5" fill="none" opacity="0.6"/>
+  <text x="400" y="300" text-anchor="middle" font-family="Georgia, serif" font-size="18" fill="#5a7a5a">Ademhalingsoefeningen</text>
+  <text x="400" y="325" text-anchor="middle" font-family="Georgia, serif" font-size="14" fill="#7a9a7a">Yogapracht Hilvarenbeek</text>
+</svg>

@@ -3,7 +3,8 @@ import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import TestimonialCard from '../../components/TestimonialCard.astro';
 import { siteConfig } from '../../data/site';
-import { generateBreadcrumbs, generateService } from '../../data/schema';
+import { generateBreadcrumbs, generateService, generateFAQPage } from '../../data/schema';
+import FAQAccordion from '../../components/FAQAccordion.astro';
 import { getCollection, getEntry } from 'astro:content';
 import heroImage from '../../assets/marielle/backgroundimage_marielle.jpg';
 import yogaPose from '../../assets/marielle/marielle_yogapose_sideways.jpg';
@@ -12,6 +13,25 @@ const testimonials = await getCollection('testimonials');
 const dienst = await getEntry('diensten', 'groepslessen');
 const d = dienst?.data ?? {};
 const groepsReview = testimonials.find(t => t.data.name === 'Jolanda');
+
+const faqItems = [
+  {
+    question: 'Heb ik yoga-ervaring nodig voor de groepslessen?',
+    answer: 'Ervaring is niet nodig om deel te nemen aan de groepslessen bij Yogapracht. Mariëlle past elke les aan op wie er in de groep zit. Beginners krijgen basisinstructies, terwijl gevorderde deelnemers verdieping vinden in dezelfde houding.',
+  },
+  {
+    question: 'Hoe groot zijn de groepen bij Yogapracht?',
+    answer: 'De groepslessen tellen maximaal acht deelnemers. Door deze bewust kleine groepsgrootte is er altijd ruimte voor persoonlijke aandacht en kan Mariëlle houdingen individueel bijsturen.',
+  },
+  {
+    question: 'Wat is het verschil tussen hatha en hatha-rajayoga?',
+    answer: 'Hatha-rajayoga combineert het fysieke aspect van hathayoga (houdingen en ademhaling) met de geestelijke verdieping van rajayoga (meditatie en concentratie). Elke les bevat daarom zowel lichaamswerk als een meditatief gedeelte, afgesloten met diepe ontspanning.',
+  },
+  {
+    question: 'Kan ik een gratis proefles volgen?',
+    answer: 'De eerste groepsles bij Yogapracht is gratis en volledig vrijblijvend. Neem contact op via telefoon of het contactformulier om een geschikt moment af te spreken. Je hoeft geen eigen yogamat mee te nemen — alles is aanwezig in de studio.',
+  },
+];
 ---
 
 <BaseLayout
@@ -28,6 +48,7 @@ const groepsReview = testimonials.find(t => t.data.name === 'Jolanda');
       url: '/diensten/groepslessen',
       serviceType: 'Yoga groepslessen',
     }),
+    generateFAQPage(faqItems.map(f => ({ question: f.question, answer: f.answer }))),
   ]}
   breadcrumbs={[{ label: 'Diensten', href: '/diensten' }, { label: 'Groepslessen' }]}
 >
@@ -135,6 +156,26 @@ const groepsReview = testimonials.find(t => t.data.name === 'Jolanda');
           />
         </div>
       )}
+
+      {/* ── E-E-A-T ── */}
+      <div class="mt-12 bg-primary/5 rounded-card p-8">
+        <h2 class="font-heading text-xl text-text mb-3">Kwalificaties van je docent</h2>
+        <p class="text-text-muted leading-relaxed mb-4">
+          Mariëlle van der Geest is gediplomeerd hatha-rajayoga docent, opgeleid bij <a href="https://www.deblikopener.com/" target="_blank" rel="noopener" class="text-accent hover:text-accent-dark underline">De Blikopener</a> — een door de <a href="https://www.europeanunionofyoga.com/" target="_blank" rel="noopener" class="text-accent hover:text-accent-dark underline">Europese Yoga Unie</a> erkende opleiding. Zij is lid van de Vereniging Yogadocenten Nederland (VYN) en volgt jaarlijks bijscholing om haar kennis actueel te houden.
+        </p>
+        <p class="text-text-muted leading-relaxed">
+          Met aanvullende specialisaties in yoga bij chronische pijn, depressie, overprikkeling en zwangerschap kan zij de groepslessen veilig aanpassen aan uiteenlopende situaties.
+        </p>
+      </div>
+
+      {/* ── FAQ ── */}
+      <FAQAccordion
+        title="Veelgestelde vragen over groepslessen"
+        items={faqItems.map(f => ({ q: f.question, a: f.answer }))}
+        pageType="service"
+        pageSlug="/diensten/groepslessen"
+        compact={true}
+      />
 
       {/* ── CTA ── */}
       <div class="mt-12 bg-bg-alt rounded-card p-8 text-center">

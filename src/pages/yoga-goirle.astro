@@ -2,8 +2,24 @@
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { siteConfig } from '../data/site';
-import { generateBreadcrumbs, generateService } from '../data/schema';
+import { generateBreadcrumbs, generateService, generateFAQPage } from '../data/schema';
+import FAQAccordion from '../components/FAQAccordion.astro';
 import heroImage from '../assets/marielle/backgroundimage_marielle.jpg';
+
+const faqItems = [
+  {
+    question: 'Hoe ver is Yogapracht vanaf Goirle?',
+    answer: 'Yogapracht in Hilvarenbeek ligt op 10 minuten rijden vanaf Goirle centrum. Via de Turnhoutsebaan of N395 ben je er snel, met gratis parkeren voor de deur van de studio.',
+  },
+  {
+    question: 'Biedt Yogapracht ook bedrijfsyoga in Goirle?',
+    answer: 'Bedrijfsyoga kan op locatie worden gegeven bij bedrijven in Goirle en omgeving. Mariëlle komt naar de werkplek en past de les aan op de groep — als reguliere yogales of als stoelyoga-variant.',
+  },
+  {
+    question: 'Hoe groot zijn de groepen bij Yogapracht?',
+    answer: 'De groepslessen tellen maximaal acht deelnemers. Door deze bewust kleine groepsgrootte is er altijd ruimte voor persoonlijke aandacht en kan Mariëlle houdingen individueel bijsturen.',
+  },
+];
 ---
 
 <BaseLayout
@@ -17,6 +33,7 @@ import heroImage from '../assets/marielle/backgroundimage_marielle.jpg';
       url: '/yoga-goirle',
       serviceType: 'Yoga lessen',
     }),
+    generateFAQPage(faqItems.map(f => ({ question: f.question, answer: f.answer }))),
   ]}
   breadcrumbs={[{ label: 'Yoga Goirle' }]}
 >
@@ -34,11 +51,11 @@ import heroImage from '../assets/marielle/backgroundimage_marielle.jpg';
       </div>
       <h1 class="font-heading text-3xl md:text-4xl text-primary mb-6">Yoga voor inwoners van Goirle</h1>
       <p class="text-lg text-text-muted leading-relaxed mb-8">
-        Woon je in Goirle en ben je op zoek naar yoga met persoonlijke aandacht? Yogapracht in Hilvarenbeek ligt op 10 minuten rijden — een bewuste keuze voor rust, weg van de waan van de dag.
+        Yogapracht in Hilvarenbeek biedt hatha-rajayoga lessen voor inwoners van Goirle. De studio ligt op 10 minuten rijden via de Turnhoutsebaan en biedt groepslessen, privélessen (ook aan huis in Goirle) en bedrijfsyoga op locatie. Gediplomeerd yogadocent Mariëlle van der Geest geeft les in kleine groepen van maximaal acht personen, met een gratis en vrijblijvende proefles.
       </p>
 
       <div class="prose prose-lg">
-        <h2>Waarom net even buiten Goirle?</h2>
+        <h2>Yogapracht: net even buiten Goirle</h2>
         <p>
           Sommige deelnemers vertellen dat het ritje naar Hilvarenbeek al onderdeel is van het loslaten. Even de telefoon weg, de blik op het landschap, en bij aankomst stap je een wereld in waar niets hoeft. De studio aan de Hakvoortseweg is klein en stil — geen wachtruimte vol mensen, geen haast.
         </p>
@@ -72,6 +89,22 @@ import heroImage from '../assets/marielle/backgroundimage_marielle.jpg';
           Nog nooit yoga gedaan? Geen probleem. Je eerste les is gratis en volledig vrijblijvend. Mariëlle past alles aan op jouw tempo en mogelijkheden.
         </p>
       </div>
+
+      {/* ── E-E-A-T ── */}
+      <div class="mt-10 bg-primary/5 rounded-card p-8">
+        <h2 class="font-heading text-xl text-text mb-3">Gediplomeerde yogadocent</h2>
+        <p class="text-text-muted leading-relaxed">
+          De lessen worden gegeven door Mariëlle van der Geest, gediplomeerd hatha-rajayoga docent opgeleid bij <a href="https://www.deblikopener.com/" target="_blank" rel="noopener" class="text-accent hover:text-accent-dark underline">De Blikopener</a> (erkend door de <a href="https://www.europeanunionofyoga.com/" target="_blank" rel="noopener" class="text-accent hover:text-accent-dark underline">Europese Yoga Unie</a>). Lid van de Vereniging Yogadocenten Nederland (VYN), met aanvullende specialisaties in yoga bij overprikkeling, chronische pijn en stoelyoga.
+        </p>
+      </div>
+
+      <FAQAccordion
+        title="Veelgestelde vragen — yoga vanuit Goirle"
+        items={faqItems.map(f => ({ q: f.question, a: f.answer }))}
+        pageType="service"
+        pageSlug="/yoga-goirle"
+        compact={true}
+      />
 
       <div class="mt-10 flex flex-col sm:flex-row gap-4">
         <a

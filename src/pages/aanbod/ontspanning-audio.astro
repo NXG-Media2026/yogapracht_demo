@@ -3,11 +3,27 @@ import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { siteConfig } from '../../data/site';
 import { getEntry } from 'astro:content';
-import { generateBreadcrumbs, generateProduct } from '../../data/schema';
+import { generateBreadcrumbs, generateProduct, generateFAQPage } from '../../data/schema';
+import FAQAccordion from '../../components/FAQAccordion.astro';
 import yogaAttributes from '../../assets/marielle/marielle_yogapose_attributes.jpg';
 
 const product = await getEntry('producten', 'ontspanning-audio');
 const p = product?.data ?? {};
+
+const faqItems = [
+  {
+    question: 'Hoe lang duurt de shavasana ontspanning?',
+    answer: 'De begeleide shavasana ontspanning duurt ongeveer 15 tot 20 minuten. Dit is voldoende tijd om je lichaam volledig tot rust te laten komen en het parasympathisch zenuwstelsel te activeren.',
+  },
+  {
+    question: 'Wanneer kan ik de shavasana audio het beste gebruiken?',
+    answer: 'De audio is op elk moment bruikbaar: na een yogales als diepe eindontspanning, voor het slapengaan om makkelijker in slaap te vallen, of als rustpunt overdag bij momenten van overprikkeling of stress.',
+  },
+  {
+    question: 'Op welke apparaten kan ik de audio afspelen?',
+    answer: 'De audio is na aankoop direct beschikbaar en afspeelbaar op elk apparaat met een internetverbinding — telefoon, tablet, laptop of computer. Een koptelefoon wordt aanbevolen voor de beste ervaring.',
+  },
+];
 ---
 
 <BaseLayout
@@ -24,6 +40,7 @@ const p = product?.data ?? {};
       url: '/aanbod/ontspanning-audio',
       price: '9.00',
     }),
+    generateFAQPage(faqItems.map(f => ({ question: f.question, answer: f.answer }))),
   ]}
   breadcrumbs={[{ label: 'Yoga bij overprikkeling', href: '/yoga-bij-overprikkeling' }, { label: 'Shavasana ontspanning' }]}
 >
@@ -111,6 +128,15 @@ const p = product?.data ?? {};
       </div>
     </div>
   </section>
+
+  {/* ── FAQ ── */}
+  <FAQAccordion
+    title="Veelgestelde vragen over de ontspanning audio"
+    items={faqItems.map(f => ({ q: f.question, a: f.answer }))}
+    pageType="product"
+    pageSlug="/aanbod/ontspanning-audio"
+    compact={true}
+  />
 
   {/* ── Terug naar videoles ── */}
   <section class="py-12 md:py-16">

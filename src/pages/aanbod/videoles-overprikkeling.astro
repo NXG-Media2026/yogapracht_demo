@@ -3,12 +3,32 @@ import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { siteConfig } from '../../data/site';
 import { getEntry } from 'astro:content';
-import { generateBreadcrumbs, generateProduct } from '../../data/schema';
+import { generateBreadcrumbs, generateProduct, generateFAQPage } from '../../data/schema';
+import FAQAccordion from '../../components/FAQAccordion.astro';
 import profileImage from '../../assets/marielle/marielle_profile_image.jpg';
 import yogaPose from '../../assets/marielle/marielle_yogapose.jpg';
 
 const product = await getEntry('producten', 'videoles-overprikkeling');
 const p = product?.data ?? {};
+
+const faqItems = [
+  {
+    question: 'Hoe lang is de videoles?',
+    answer: 'De videoles duurt ongeveer 45 minuten en bevat een complete yogales met zachte houdingen, ademhalingsoefeningen en een begeleide diepe ontspanning. Het tempo is rustig gehouden zodat je alles goed kunt volgen.',
+  },
+  {
+    question: 'Heb ik yoga-ervaring nodig voor deze videoles?',
+    answer: 'Ervaring is niet nodig. De oefeningen zijn specifiek ontwikkeld voor mensen die last hebben van overprikkeling en worden rustig begeleid door Mariëlle. Elke houding wordt stap voor stap uitgelegd met aanpassingen voor beginners.',
+  },
+  {
+    question: 'Kan ik de videoles onbeperkt terugkijken?',
+    answer: 'Na aankoop heb je onbeperkt toegang tot de videoles en de bijbehorende PDF. Je kunt de les zo vaak bekijken als je wilt, op elk apparaat en op elk moment dat het jou uitkomt.',
+  },
+  {
+    question: 'Wat staat er in de bijgeleverde PDF?',
+    answer: 'De PDF bevat praktische oefeningen en tips voor dagen van overprikkeling. Denk aan ademhalingstechnieken die je in 2 minuten kunt doen, houdingen die spanning loslaten en richtlijnen voor het opbouwen van een dagelijkse routine.',
+  },
+];
 ---
 
 <BaseLayout
@@ -25,6 +45,7 @@ const p = product?.data ?? {};
       url: '/aanbod/videoles-overprikkeling',
       price: '27.00',
     }),
+    generateFAQPage(faqItems.map(f => ({ question: f.question, answer: f.answer }))),
   ]}
   breadcrumbs={[{ label: 'Yoga bij overprikkeling', href: '/yoga-bij-overprikkeling' }, { label: 'Videoles' }]}
 >
@@ -131,8 +152,11 @@ const p = product?.data ?? {};
         </div>
         <div>
           <h2 class="font-heading text-2xl text-text mb-3">Over de docent</h2>
+          <p class="text-text-muted leading-relaxed mb-3">
+            Mariëlle van der Geest is gediplomeerd hatha-rajayoga docent, opgeleid bij <a href="https://www.deblikopener.com/" target="_blank" rel="noopener" class="text-accent hover:text-accent-dark underline">De Blikopener</a> (erkend door de <a href="https://www.europeanunionofyoga.com/" target="_blank" rel="noopener" class="text-accent hover:text-accent-dark underline">Europese Yoga Unie</a>). Zij heeft zich aanvullend gespecialiseerd in yoga bij overprikkeling (2023).
+          </p>
           <p class="text-text-muted leading-relaxed">
-            Mariëlle van der Geest is gediplomeerd hatha-rajayoga docent en gespecialiseerd in yoga bij overprikkeling (2023). Zij combineert zachte fysieke oefeningen met ademwerk en meditatie om je zenuwstelsel te kalmeren. Haar lessen zijn persoonlijk, zonder druk en altijd op jouw niveau.
+            Als lid van de Vereniging Yogadocenten Nederland (VYN) combineert zij zachte fysieke oefeningen met ademwerk en meditatie om het zenuwstelsel te kalmeren. Deze videoles is gebaseerd op dezelfde aanpak die zij in haar lessen in Hilvarenbeek toepast.
           </p>
         </div>
       </div>
@@ -160,6 +184,15 @@ const p = product?.data ?? {};
       </div>
     </div>
   </section>
+
+  {/* ── FAQ ── */}
+  <FAQAccordion
+    title="Veelgestelde vragen over de videoles"
+    items={faqItems.map(f => ({ q: f.question, a: f.answer }))}
+    pageType="product"
+    pageSlug="/aanbod/videoles-overprikkeling"
+    compact={true}
+  />
 
   {/* ── Nichepagina link ── */}
   <section class="py-16 md:py-20">

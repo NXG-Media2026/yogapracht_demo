@@ -47,4 +47,6 @@ Als je langdurig klachten hebt die je dagelijks functioneren beperken, is het ve
 
 ## Probeer het zelf
 
-Bij Yogapracht in Hilvarenbeek kun je een gratis proefles volgen. De lessen zijn specifiek gericht op mensen met overprikkeling en stress. Geen ervaring nodig — Mariëlle past elke les aan op jouw tempo en mogelijkheden.
+Bij Yogapracht in Hilvarenbeek kun je een [gratis proefles](/contact) volgen. De [groepslessen](/diensten/groepslessen) zijn specifiek gericht op mensen met overprikkeling en stress. Geen ervaring nodig — Mariëlle past elke les aan op jouw tempo en mogelijkheden.
+
+Liever eerst thuis oefenen? Bekijk de [videoles yoga bij overprikkeling](/aanbod/videoles-overprikkeling) — een complete les inclusief PDF met oefeningen voor moeilijke dagen. Of lees meer op de pagina [yoga bij overprikkeling](/yoga-bij-overprikkeling).

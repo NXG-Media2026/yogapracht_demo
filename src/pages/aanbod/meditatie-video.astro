@@ -3,11 +3,27 @@ import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { siteConfig } from '../../data/site';
 import { getEntry } from 'astro:content';
-import { generateBreadcrumbs, generateProduct } from '../../data/schema';
+import { generateBreadcrumbs, generateProduct, generateFAQPage } from '../../data/schema';
+import FAQAccordion from '../../components/FAQAccordion.astro';
 import yogaPose from '../../assets/marielle/marielle_yogapose_sideways.jpg';
 
 const product = await getEntry('producten', 'meditatie-video');
 const p = product?.data ?? {};
+
+const faqItems = [
+  {
+    question: 'Heb ik meditatie-ervaring nodig?',
+    answer: 'Ervaring is niet nodig. De begeleide meditatie is zo opgebouwd dat Mariëlle je stap voor stap meeneemt — van het tot rust komen van je lichaam tot het vinden van een concentratiepunt. De video is specifiek geschikt voor mensen die voor het eerst mediteren.',
+  },
+  {
+    question: 'Hoe lang duurt de begeleide meditatie?',
+    answer: 'De meditatie video duurt ongeveer 20 minuten. Dit is lang genoeg om echt tot rust te komen, maar kort genoeg om in een dagelijkse routine te passen.',
+  },
+  {
+    question: 'Wat is het verschil met mindfulness-meditatie?',
+    answer: 'Deze meditatie is gebaseerd op de yogasutra\'s van Patanjali en richt zich op het onafgebroken vasthouden van concentratie op één punt. Waar mindfulness breed observeert, zoekt deze methode juist verdieping door focus — wat leidt tot een diepere innerlijke stilte.',
+  },
+];
 ---
 
 <BaseLayout
@@ -24,6 +40,7 @@ const p = product?.data ?? {};
       url: '/aanbod/meditatie-video',
       price: '9.00',
     }),
+    generateFAQPage(faqItems.map(f => ({ question: f.question, answer: f.answer }))),
   ]}
   breadcrumbs={[{ label: 'Yoga bij overprikkeling', href: '/yoga-bij-overprikkeling' }, { label: 'Meditatie video' }]}
 >
@@ -111,6 +128,15 @@ const p = product?.data ?? {};
       </div>
     </div>
   </section>
+
+  {/* ── FAQ ── */}
+  <FAQAccordion
+    title="Veelgestelde vragen over de meditatie video"
+    items={faqItems.map(f => ({ q: f.question, a: f.answer }))}
+    pageType="product"
+    pageSlug="/aanbod/meditatie-video"
+    compact={true}
+  />
 
   {/* ── Terug naar videoles ── */}
   <section class="py-12 md:py-16">

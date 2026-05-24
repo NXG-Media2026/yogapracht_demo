@@ -1,13 +1,36 @@
 ---
 import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import TestimonialCard from '../../components/TestimonialCard.astro';
 import { siteConfig } from '../../data/site';
-import { getEntry } from 'astro:content';
-import { generateBreadcrumbs, generateService } from '../../data/schema';
+import { getCollection, getEntry } from 'astro:content';
+import { generateBreadcrumbs, generateService, generateFAQPage } from '../../data/schema';
+import FAQAccordion from '../../components/FAQAccordion.astro';
 import yogaAttributes from '../../assets/marielle/marielle_yogapose_attributes.jpg';
 
+const testimonials = await getCollection('testimonials');
 const dienst = await getEntry('diensten', 'stoelyoga');
 const d = dienst?.data ?? {};
+const stoelReview = testimonials.find(t => t.data.name === 'Hennie');
+
+const faqItems = [
+  {
+    question: 'Is stoelyoga even effectief als reguliere yoga?',
+    answer: 'Stoelyoga biedt dezelfde kernvoordelen als reguliere hatha-rajayoga: verbetering van flexibiliteit, ademhaling, mentale rust en lichamelijke ontspanning. De stoel vervangt de yogamat als ondersteuning, waardoor alle oefeningen veilig en toegankelijk worden zonder dat effectiviteit verloren gaat.',
+  },
+  {
+    question: 'Voor welke leeftijd is stoelyoga geschikt?',
+    answer: 'Stoelyoga is geschikt voor alle leeftijden. De lessen worden met name gevolgd door mensen met beperkte mobiliteit, ouderen, mensen in herstel na een operatie en kantoorwerkers die tussentijds willen bewegen. Mariëlle past elke oefening aan op het niveau van de deelnemer.',
+  },
+  {
+    question: 'Kan stoelyoga ook op locatie worden gegeven?',
+    answer: 'Stoelyoga kan op elke locatie worden gegeven waar stevige stoelen aanwezig zijn. Mariëlle verzorgt stoelyoga in de studio in Hilvarenbeek, bij deelnemers thuis, in verzorgingshuizen en bij bedrijven. Neem contact op voor de mogelijkheden op jouw locatie.',
+  },
+  {
+    question: 'Wat moet ik meenemen naar een stoelyogales?',
+    answer: 'Deelnemers hoeven niets mee te nemen. Draag comfortabele kleding waarin je vrij kunt bewegen. De studio beschikt over stevige stoelen en eventuele hulpmiddelen. Bij lessen op locatie zorgt Mariëlle voor aanvullende materialen indien nodig.',
+  },
+];
 ---
 
 <BaseLayout
@@ -24,6 +47,7 @@ const d = dienst?.data ?? {};
       url: '/diensten/stoelyoga',
       serviceType: 'Stoelyoga',
     }),
+    generateFAQPage(faqItems.map(f => ({ question: f.question, answer: f.answer }))),
   ]}
   breadcrumbs={[{ label: 'Diensten', href: '/diensten' }, { label: 'Stoelyoga' }]}
 >
@@ -106,6 +130,39 @@ const d = dienst?.data ?? {};
           <li><strong>Ervaring:</strong> Niet nodig</li>
         </ul>
       </div>
+
+      {/* ── Review ── */}
+      {stoelReview && (
+        <div class="mt-12">
+          <h2 class="font-heading text-2xl text-text mb-6">Ervaring van een deelneemster</h2>
+          <TestimonialCard
+            name={stoelReview.data.name}
+            role={stoelReview.data.role}
+            text={stoelReview.data.text}
+            rating={stoelReview.data.rating}
+          />
+        </div>
+      )}
+
+      {/* ── E-E-A-T ── */}
+      <div class="mt-12 bg-primary/5 rounded-card p-8">
+        <h2 class="font-heading text-xl text-text mb-3">Specialisatie en opleiding</h2>
+        <p class="text-text-muted leading-relaxed mb-4">
+          Mariëlle van der Geest heeft in 2023 een gespecialiseerde stoelyoga-opleiding afgerond, naast haar diploma als hatha-rajayoga docent bij <a href="https://www.deblikopener.com/" target="_blank" rel="noopener" class="text-accent hover:text-accent-dark underline">De Blikopener</a>. Deze opleiding is erkend door de <a href="https://www.europeanunionofyoga.com/" target="_blank" rel="noopener" class="text-accent hover:text-accent-dark underline">Europese Yoga Unie</a>.
+        </p>
+        <p class="text-text-muted leading-relaxed">
+          Als lid van de Vereniging Yogadocenten Nederland (VYN) volgt Mariëlle jaarlijks bijscholing. Haar combinatie van stoelyoga-specialisatie en brede hatha-rajayoga-ervaring zorgt voor lessen die zowel veilig als uitdagend zijn.
+        </p>
+      </div>
+
+      {/* ── FAQ ── */}
+      <FAQAccordion
+        title="Veelgestelde vragen over stoelyoga"
+        items={faqItems.map(f => ({ q: f.question, a: f.answer }))}
+        pageType="service"
+        pageSlug="/diensten/stoelyoga"
+        compact={true}
+      />
 
       {/* ── CTA ── */}
       <div class="mt-12 bg-bg-alt rounded-card p-8 text-center">

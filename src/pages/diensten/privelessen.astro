@@ -3,7 +3,8 @@ import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import TestimonialCard from '../../components/TestimonialCard.astro';
 import { siteConfig } from '../../data/site';
-import { generateBreadcrumbs, generateService } from '../../data/schema';
+import { generateBreadcrumbs, generateService, generateFAQPage } from '../../data/schema';
+import FAQAccordion from '../../components/FAQAccordion.astro';
 import { getCollection, getEntry } from 'astro:content';
 import profileImage from '../../assets/marielle/marielle_profile_image.jpg';
 
@@ -11,6 +12,25 @@ const testimonials = await getCollection('testimonials');
 const dienst = await getEntry('diensten', 'privelessen');
 const d = dienst?.data ?? {};
 const priveReview = testimonials.find(t => t.data.name === 'Ann');
+
+const faqItems = [
+  {
+    question: 'Wat kost een privéles bij Yogapracht?',
+    answer: 'De prijs van een privéles hangt af van de locatie en duur. Neem contact op met Mariëlle voor een vrijblijvende offerte. De eerste kennismaking is altijd gratis, zodat je kunt ervaren of de werkwijze bij je past.',
+  },
+  {
+    question: 'Kan een privéles ook bij mij thuis plaatsvinden?',
+    answer: 'Privélessen kunnen bij jou thuis worden gegeven in Hilvarenbeek en omliggende plaatsen zoals Tilburg, Oisterwijk en Goirle. Mariëlle neemt alle benodigde materialen mee. Een ruimte van ongeveer 2 bij 2 meter is voldoende.',
+  },
+  {
+    question: 'Zijn privélessen ook in het Engels beschikbaar?',
+    answer: 'Alle privélessen bij Yogapracht worden aangeboden in het Nederlands én het Engels. Mariëlle is tweetalig en kan alle instructies, ademhalingsoefeningen en meditaties volledig in het Engels begeleiden.',
+  },
+  {
+    question: 'Voor welke klachten is een privéles geschikt?',
+    answer: 'Privélessen zijn bijzonder effectief bij specifieke klachten zoals chronische pijn, overprikkeling, burn-out, zwangerschap en depressie. Mariëlle heeft voor elk van deze gebieden een aanvullende specialisatie gevolgd en stemt de oefeningen af op jouw situatie.',
+  },
+];
 ---
 
 <BaseLayout
@@ -27,6 +47,7 @@ const priveReview = testimonials.find(t => t.data.name === 'Ann');
       url: '/diensten/privelessen',
       serviceType: 'Privé yogalessen',
     }),
+    generateFAQPage(faqItems.map(f => ({ question: f.question, answer: f.answer }))),
   ]}
   breadcrumbs={[{ label: 'Diensten', href: '/diensten' }, { label: 'Privélessen' }]}
 >
@@ -116,6 +137,26 @@ const priveReview = testimonials.find(t => t.data.name === 'Ann');
           />
         </div>
       )}
+
+      {/* ── E-E-A-T ── */}
+      <div class="mt-12 bg-primary/5 rounded-card p-8">
+        <h2 class="font-heading text-xl text-text mb-3">Kwalificaties en specialisaties</h2>
+        <p class="text-text-muted leading-relaxed mb-4">
+          Mariëlle van der Geest is gediplomeerd hatha-rajayoga docent, opgeleid bij <a href="https://www.deblikopener.com/" target="_blank" rel="noopener" class="text-accent hover:text-accent-dark underline">De Blikopener</a> — erkend door de <a href="https://www.europeanunionofyoga.com/" target="_blank" rel="noopener" class="text-accent hover:text-accent-dark underline">Europese Yoga Unie</a>. Zij is lid van de Vereniging Yogadocenten Nederland (VYN).
+        </p>
+        <p class="text-text-muted leading-relaxed">
+          Haar aanvullende specialisaties — yoga bij chronische pijn, depressie, overprikkeling en zwangerschap — maken privélessen bijzonder geschikt voor mensen met specifieke hulpvragen. Elke oefening wordt afgestemd op jouw lichaam en situatie.
+        </p>
+      </div>
+
+      {/* ── FAQ ── */}
+      <FAQAccordion
+        title="Veelgestelde vragen over privélessen"
+        items={faqItems.map(f => ({ q: f.question, a: f.answer }))}
+        pageType="service"
+        pageSlug="/diensten/privelessen"
+        compact={true}
+      />
 
       {/* ── CTA ── */}
       <div class="mt-12 bg-bg-alt rounded-card p-8 text-center">

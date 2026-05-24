@@ -26,8 +26,15 @@ Een typische les bij Yogapracht bestaat uit drie onderdelen:
 
 Elke les wordt afgesloten met een diepe ontspanning (shavasana), een moment waarop alles mag landen.
 
-## Voor wie is het geschikt?
+## Lesaanbod bij Yogapracht
 
-Hatha-rajayoga is geschikt voor iedereen, ongeacht leeftijd of ervaring. Of je nu op zoek bent naar meer rust, betere concentratie of meer comfort in je lichaam — yoga biedt het allemaal.
+Yogapracht biedt meerdere vormen aan om hatha-rajayoga te beoefenen:
 
-Benieuwd? Bij Yogapracht kun je altijd een gratis proefles volgen om kennis te maken.
+- [Groepslessen](/diensten/groepslessen) — wekelijks in een kleine groep van maximaal acht deelnemers
+- [Privelessen](/diensten/privelessen) — volledig op maat, ook aan huis of in het Engels
+- [Stoelyoga](/diensten/stoelyoga) — toegankelijke yoga op een stoel, bij beperkte mobiliteit
+- [Bedrijfsyoga](/diensten/bedrijfsyoga) — yogalessen op de werkvloer voor teams
+
+Hatha-rajayoga is geschikt voor iedereen, ongeacht leeftijd of ervaring. Benieuwd? Bij Yogapracht kun je altijd een [gratis proefles](/contact) volgen om kennis te maken.
+
+Lees ook: [Verschil tussen yoga en mindfulness](/blog/verschil-yoga-en-mindfulness)

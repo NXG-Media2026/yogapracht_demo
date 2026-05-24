@@ -2,8 +2,24 @@
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { siteConfig } from '../data/site';
-import { generateBreadcrumbs, generateService } from '../data/schema';
+import { generateBreadcrumbs, generateService, generateFAQPage } from '../data/schema';
+import FAQAccordion from '../components/FAQAccordion.astro';
 import heroImage from '../assets/marielle/marielle_yogapose_sideways.jpg';
+
+const faqItems = [
+  {
+    question: 'Hoe ver is Yogapracht vanaf Tilburg?',
+    answer: 'Yogapracht in Hilvarenbeek ligt op 15 minuten rijden vanaf Tilburg centrum. Via de N269 ben je er snel, met gratis parkeren voor de deur van de studio aan de Hakvoortseweg.',
+  },
+  {
+    question: 'Kan ik ook privélessen aan huis krijgen in Tilburg?',
+    answer: 'Privélessen kunnen ook bij jou thuis in Tilburg worden gegeven. Mariëlle neemt alle benodigde materialen mee. Neem contact op voor de mogelijkheden en beschikbaarheid.',
+  },
+  {
+    question: 'Welke yogavorm wordt er gegeven bij Yogapracht?',
+    answer: 'Yogapracht biedt hatha-rajayoga aan — een methode die fysieke houdingen combineert met ademhalingsoefeningen, meditatie en diepe ontspanning. Elke les duurt 75 minuten en volgt een vaste opbouw die lichaam en geest in balans brengt.',
+  },
+];
 ---
 
 <BaseLayout
@@ -17,6 +33,7 @@ import heroImage from '../assets/marielle/marielle_yogapose_sideways.jpg';
       url: '/yoga-tilburg',
       serviceType: 'Yoga lessen',
     }),
+    generateFAQPage(faqItems.map(f => ({ question: f.question, answer: f.answer }))),
   ]}
   breadcrumbs={[{ label: 'Yoga Tilburg' }]}
 >
@@ -34,11 +51,11 @@ import heroImage from '../assets/marielle/marielle_yogapose_sideways.jpg';
       </div>
       <h1 class="font-heading text-3xl md:text-4xl text-primary mb-6">Yoga voor inwoners van Tilburg</h1>
       <p class="text-lg text-text-muted leading-relaxed mb-8">
-        Woon je in Tilburg en zoek je een rustplek buiten de stad? Yogapracht in Hilvarenbeek ligt op slechts 15 minuten rijden — net ver genoeg om even helemaal weg te zijn uit de dagelijkse drukte.
+        Yogapracht in Hilvarenbeek biedt hatha-rajayoga lessen voor inwoners van Tilburg en omgeving. De studio ligt op 15 minuten rijden via de N269 en biedt kleine groepen van maximaal acht deelnemers, persoonlijke begeleiding door gediplomeerd yogadocent Mariëlle van der Geest en een gratis proefles. Geschikt voor beginners en gevorderden, met specialisaties in overprikkeling en chronische pijn.
       </p>
 
       <div class="prose prose-lg">
-        <h2>Waarom kiezen Tilburgers voor Yogapracht?</h2>
+        <h2>Persoonlijke aandacht in kleine groepen</h2>
         <p>
           In Tilburg is het aanbod aan yogastudio's groot, maar veel deelnemers missen persoonlijke aandacht in volle groepslessen. Bij Yogapracht werk je in kleine groepen van maximaal acht personen. Docent Mariëlle kent je naam, weet waar je lichaam spanning vasthoudt en past de les daarop aan.
         </p>
@@ -64,6 +81,22 @@ import heroImage from '../assets/marielle/marielle_yogapose_sideways.jpg';
           Benieuwd of het bij je past? Boek een gratis en vrijblijvende proefles. Geen sportkleding of matje nodig — alles is aanwezig in de studio.
         </p>
       </div>
+
+      {/* ── E-E-A-T ── */}
+      <div class="mt-10 bg-primary/5 rounded-card p-8">
+        <h2 class="font-heading text-xl text-text mb-3">Gediplomeerde yogadocent</h2>
+        <p class="text-text-muted leading-relaxed">
+          De lessen worden gegeven door Mariëlle van der Geest, gediplomeerd hatha-rajayoga docent opgeleid bij <a href="https://www.deblikopener.com/" target="_blank" rel="noopener" class="text-accent hover:text-accent-dark underline">De Blikopener</a> (erkend door de <a href="https://www.europeanunionofyoga.com/" target="_blank" rel="noopener" class="text-accent hover:text-accent-dark underline">Europese Yoga Unie</a>). Lid van de Vereniging Yogadocenten Nederland (VYN), met aanvullende specialisaties in yoga bij overprikkeling, chronische pijn en stoelyoga.
+        </p>
+      </div>
+
+      <FAQAccordion
+        title="Veelgestelde vragen — yoga vanuit Tilburg"
+        items={faqItems.map(f => ({ q: f.question, a: f.answer }))}
+        pageType="service"
+        pageSlug="/yoga-tilburg"
+        compact={true}
+      />
 
       <div class="mt-10 flex flex-col sm:flex-row gap-4">
         <a

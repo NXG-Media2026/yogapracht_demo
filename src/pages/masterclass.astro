@@ -3,12 +3,32 @@ import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { siteConfig } from '../data/site';
 import { getEntry } from 'astro:content';
-import { generateBreadcrumbs, generateEvent } from '../data/schema';
+import { generateBreadcrumbs, generateEvent, generateFAQPage } from '../data/schema';
+import FAQAccordion from '../components/FAQAccordion.astro';
 import heroImage from '../assets/marielle/backgroundimage_marielle.jpg';
 import profileImage from '../assets/marielle/marielle_profile_image.jpg';
 
 const masterclass = await getEntry('settings', 'masterclass');
 const mc = masterclass?.data ?? {};
+
+const faqItems = [
+  {
+    question: 'Heb ik yoga-ervaring nodig voor de masterclass?',
+    answer: 'Ervaring is niet nodig om deel te nemen aan de masterclass. De oefeningen zijn bewust eenvoudig gehouden zodat iedereen ze direct kan toepassen — ook als je nog nooit yoga hebt gedaan.',
+  },
+  {
+    question: 'Is de masterclass echt gratis?',
+    answer: 'De masterclass is volledig gratis en vrijblijvend. Er zijn geen verborgen kosten of verplichtingen. Mariëlle deelt haar kennis over yoga bij overprikkeling om zo meer mensen te helpen die last hebben van prikkelgevoeligheid.',
+  },
+  {
+    question: 'Hoe lang duurt de masterclass?',
+    answer: 'De masterclass duurt ongeveer 60 minuten en bevat zowel uitleg als praktische oefeningen. Na afloop is er ruimte voor vragen. De exacte datum en tijd worden gecommuniceerd na aanmelding.',
+  },
+  {
+    question: 'Wat leer ik concreet in de masterclass?',
+    answer: 'Deelnemers leren wat overprikkeling is en hoe het zenuwstelsel daarbij vastloopt, een ademhalingstechniek die direct het parasympathisch zenuwstelsel activeert, en een zachte houdingsreeks die spanning loslaat in nek, schouders en onderrug.',
+  },
+];
 ---
 
 <BaseLayout
@@ -21,6 +41,7 @@ const mc = masterclass?.data ?? {};
       description: 'Gratis live masterclass over yoga bij overprikkeling door yogadocent Mariëlle van der Geest. Leer hoe je je zenuwstelsel kalmeert door yoga.',
       url: '/masterclass',
     }),
+    generateFAQPage(faqItems.map(f => ({ question: f.question, answer: f.answer }))),
   ]}
   breadcrumbs={[{ label: 'Masterclass' }]}
 >
@@ -147,15 +168,24 @@ const mc = masterclass?.data ?? {};
         <div>
           <h2 class="font-heading text-2xl text-text mb-3">Jouw docent: Mariëlle van der Geest</h2>
           <p class="text-text-muted leading-relaxed mb-3">
-            Mariëlle is gediplomeerd hatha-rajayoga docent en heeft zich gespecialiseerd in yoga bij overprikkeling. Zij weet uit ervaring hoe het is om teveel te dragen en heeft in yoga de weg gevonden naar meer rust en balans.
+            Mariëlle is gediplomeerd hatha-rajayoga docent, opgeleid bij <a href="https://www.deblikopener.com/" target="_blank" rel="noopener" class="text-accent hover:text-accent-dark underline">De Blikopener</a> (erkend door de <a href="https://www.europeanunionofyoga.com/" target="_blank" rel="noopener" class="text-accent hover:text-accent-dark underline">Europese Yoga Unie</a>). Zij heeft zich aanvullend gespecialiseerd in yoga bij overprikkeling en weet uit persoonlijke ervaring hoe het is om teveel prikkels te moeten verwerken.
           </p>
           <p class="text-text-muted leading-relaxed">
-            In deze masterclass deelt zij niet alleen oefeningen, maar ook het inzicht waarom ze werken — zodat je ze zelfstandig kunt toepassen in je dagelijks leven.
+            Als lid van de Vereniging Yogadocenten Nederland (VYN) deelt zij in deze masterclass niet alleen oefeningen, maar ook het inzicht waarom ze werken — zodat je ze zelfstandig kunt toepassen in je dagelijks leven.
           </p>
         </div>
       </div>
     </div>
   </section>
+
+  {/* ── FAQ ── */}
+  <FAQAccordion
+    title="Veelgestelde vragen over de masterclass"
+    items={faqItems.map(f => ({ q: f.question, a: f.answer }))}
+    pageType="event"
+    pageSlug="/masterclass"
+    compact={true}
+  />
 
   {/* ── Aanmelden CTA ── */}
   <section id="aanmelden" class="py-16 md:py-20 bg-bg-alt">

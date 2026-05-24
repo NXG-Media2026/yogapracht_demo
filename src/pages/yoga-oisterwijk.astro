@@ -2,8 +2,24 @@
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { siteConfig } from '../data/site';
-import { generateBreadcrumbs, generateService } from '../data/schema';
+import { generateBreadcrumbs, generateService, generateFAQPage } from '../data/schema';
+import FAQAccordion from '../components/FAQAccordion.astro';
 import heroImage from '../assets/marielle/marielle_yogapose_attributes.jpg';
+
+const faqItems = [
+  {
+    question: 'Hoe ver is Yogapracht vanaf Oisterwijk?',
+    answer: 'Yogapracht in Hilvarenbeek ligt op 10 minuten rijden vanaf Oisterwijk centrum. Via de Oisterwijksedreef of het Beekse Bergen-kruispunt ben je er snel, met gratis parkeren voor de deur.',
+  },
+  {
+    question: 'Zijn de lessen geschikt bij overprikkeling?',
+    answer: 'De lessen bij Yogapracht zijn bijzonder geschikt bij overprikkeling en chronische spanning. Hatha-rajayoga activeert het parasympathisch zenuwstelsel — het deel dat verantwoordelijk is voor rust en herstel. Mariëlle heeft zich hierin aanvullend gespecialiseerd.',
+  },
+  {
+    question: 'Kan ik ook privélessen aan huis krijgen in Oisterwijk?',
+    answer: 'Privélessen kunnen ook bij jou thuis in Oisterwijk worden gegeven. Mariëlle neemt alle benodigde materialen mee en stemt de les volledig af op jouw situatie en wensen.',
+  },
+];
 ---
 
 <BaseLayout
@@ -17,6 +33,7 @@ import heroImage from '../assets/marielle/marielle_yogapose_attributes.jpg';
       url: '/yoga-oisterwijk',
       serviceType: 'Yoga lessen',
     }),
+    generateFAQPage(faqItems.map(f => ({ question: f.question, answer: f.answer }))),
   ]}
   breadcrumbs={[{ label: 'Yoga Oisterwijk' }]}
 >
@@ -34,7 +51,7 @@ import heroImage from '../assets/marielle/marielle_yogapose_attributes.jpg';
       </div>
       <h1 class="font-heading text-3xl md:text-4xl text-primary mb-6">Yoga voor inwoners van Oisterwijk</h1>
       <p class="text-lg text-text-muted leading-relaxed mb-8">
-        Vanuit Oisterwijk ben je binnen 10 minuten bij Yogapracht in Hilvarenbeek. Een intieme yogastudio waar je niet verdwijnt in een grote groep, maar persoonlijke aandacht krijgt.
+        Yogapracht in Hilvarenbeek biedt hatha-rajayoga lessen voor inwoners van Oisterwijk. De studio ligt op 10 minuten rijden en biedt groepslessen van maximaal acht deelnemers, privélessen op maat en stoelyoga. Gediplomeerd yogadocent Mariëlle van der Geest is gespecialiseerd in yoga bij overprikkeling en stress — de reden waarom veel deelnemers uit Oisterwijk specifiek voor Yogapracht kiezen.
       </p>
 
       <div class="prose prose-lg">
@@ -66,6 +83,22 @@ import heroImage from '../assets/marielle/marielle_yogapose_attributes.jpg';
           Je eerste les is gratis. Kom kennismaken zonder verplichting — alles wat je nodig hebt is aanwezig in de studio. Gratis parkeren voor de deur.
         </p>
       </div>
+
+      {/* ── E-E-A-T ── */}
+      <div class="mt-10 bg-primary/5 rounded-card p-8">
+        <h2 class="font-heading text-xl text-text mb-3">Gediplomeerde yogadocent</h2>
+        <p class="text-text-muted leading-relaxed">
+          De lessen worden gegeven door Mariëlle van der Geest, gediplomeerd hatha-rajayoga docent opgeleid bij <a href="https://www.deblikopener.com/" target="_blank" rel="noopener" class="text-accent hover:text-accent-dark underline">De Blikopener</a> (erkend door de <a href="https://www.europeanunionofyoga.com/" target="_blank" rel="noopener" class="text-accent hover:text-accent-dark underline">Europese Yoga Unie</a>). Lid van de Vereniging Yogadocenten Nederland (VYN), met aanvullende specialisaties in yoga bij overprikkeling, chronische pijn en stoelyoga.
+        </p>
+      </div>
+
+      <FAQAccordion
+        title="Veelgestelde vragen — yoga vanuit Oisterwijk"
+        items={faqItems.map(f => ({ q: f.question, a: f.answer }))}
+        pageType="service"
+        pageSlug="/yoga-oisterwijk"
+        compact={true}
+      />
 
       <div class="mt-10 flex flex-col sm:flex-row gap-4">
         <a

@@ -37,23 +37,26 @@ Per nieuwe klant: clone de template, vul klantgegevens in, pas branding aan, sch
 
 Deze features moeten ALTIJD mee — ze zijn essentieel voor vindbaarheid:
 
-1. **Blog** — /blog index + /blog/[slug] detail, BlogPosting schema, Keystatic MDX editor
-2. **Reviews** — /reviews pagina + TestimonialCard + homepage sectie, AggregateRating + ReviewSnippets schema
+1. **Blog** — /blog index + /blog/[slug] detail, BlogPosting schema, Keystatic MDX editor. Minimaal 3-5 posts voor topical authority
+2. **Reviews** — /reviews pagina + TestimonialCard + homepage sectie, AggregateRating + ReviewSnippets schema. Testimonials koppelen aan juiste dienstenpagina
 3. **Local SEO schemas** — LocalBusiness (juiste subtype), AggregateRating, ReviewSnippets, FAQPage, BreadcrumbList, WebSite, ProfilePage, Service
 4. **Pagina's** — Home, Over, Diensten (index + detailpagina's), Reviews, Blog, Contact, Privacy (AVG), Voorwaarden
 5. **Diensten** — /diensten overzicht + /diensten/[slug] per dienst, Service schema, links vanuit homepage
-6. **Visuele breadcrumbs** — Op ALLE subpagina's via BaseLayout `breadcrumbs` prop
-7. **Regiopagina's** — 2-3 service area pages voor nabijgelegen steden (unieke content, rijtijd, Service schema met areaServed)
+6. **Visuele breadcrumbs** — Op ALLE subpagina's (inclusief privacy/voorwaarden) via BaseLayout `breadcrumbs` prop
+7. **Regiopagina's** — 2-3 service area pages voor nabijgelegen steden (unieke content, rijtijd, Service schema met areaServed, FAQ + E-E-A-T blok, quotable openingsalinea 60-80 woorden)
 8. **Prominente masterclass/workshop** — Full-width banner op homepage met CTA + afbeelding (indien van toepassing)
 9. **Navigatie compleet** — Alle subpagina's (nichepagina, masterclass, aanbod) bereikbaar vanuit header EN footer
 10. **Image SEO** — Alle images via `<Image>` (auto WebP), alt-teksten met bedrijfsnaam + plaatsnaam + dienst
 11. **OG image** — Default social sharing image op alle pagina's
 12. **Keurmerk-logo's** — Branchevereniging/certificering logo's in footer
+13. **FAQ + FAQPage schema** — Op ALLE diensten-, product-, masterclass- en regiopagina's. 3-4 inline FAQ items per pagina met FAQAccordion component + generateFAQPage schema
+14. **E-E-A-T blokken** — Op ALLE diensten-, product-, masterclass- en regiopagina's. Opleiding, opleidingsinstituut (authority link), beroepsvereniging-lidmaatschappen, relevante specialisatie per pagina
+15. **Interne linking vanuit blog** — Blogposts bevatten links naar relevante diensten, producten en andere blogposts
 
 ### Copywriting regels voor diensten en content
 
 - **Homepage** moet altijd bevatten: hero met CTA, intro-sectie, uitleg-sectie (wat is de methode), diensten-kaarten (clickable), **prominente masterclass/workshop banner** (indien van toepassing), voor-wie sectie, voordelen-lijst, founder-sectie, reviews, CTA-band, online aanbod, FAQ
-- **Dienstenpagina's** bevatten: hero/kop, uitgebreide beschrijving, voor-wie lijst, praktische info, relevante testimonial, CTA
+- **Dienstenpagina's** bevatten: hero/kop, uitgebreide beschrijving, voor-wie lijst, praktische info, relevante testimonial, E-E-A-T blok (opleiding + lidmaatschappen + authority links), FAQ sectie (3-4 items + FAQPage schema), CTA
 - **H2 koppen** beginnen altijd met een topic noun (niet "Waarom..." of "Hoe...")
 - **Alt-teksten** bevatten bedrijfsnaam + plaatsnaam + dienst/context
 - **FAQ antwoorden** eerste zin moet standalone werken, NOOIT beginnen met "Ja"/"Nee"
@@ -128,14 +131,16 @@ Moet ALLE velden bevatten (niet optioneel):
 3. Vul `src/data/site.ts` in (alle CHANGE_ME waarden)
 4. Branding: Tailwind kleuren, fonts (fontsource → public/fonts/), favicon (letter + primary kleur)
 5. Alle afbeeldingen plaatsen met GEO-geoptimaliseerde alt-teksten
-6. Content schrijven: alle pagina's, testimonials (.yaml), FAQ's, blog (min. 1 post)
-7. Regiopagina's aanmaken (2-3 nabijgelegen steden, unieke content + rijtijd)
-8. Navigatie: alle subpagina's bereikbaar vanuit header + footer (nichepagina, masterclass, aanbod)
-9. Visuele breadcrumbs op ALLE subpagina's (`breadcrumbs` prop op BaseLayout)
-10. Privacy (AVG) en Voorwaarden pagina invullen
-11. OG image instellen (`public/images/og-default.jpg`)
-12. SEO/GEO checklist doorlopen: LocalBusiness compleet, meta descriptions < 160 chars + plaatsnaam, Product/Event schemas, footer met adres/telefoon, Google Maps op contact, llms.txt compleet
-13. `npm run build` → git commit → deploy
+6. Content schrijven: alle pagina's, testimonials (.yaml), FAQ's, blog (min. 3 posts met interne links naar diensten)
+7. Regiopagina's aanmaken (2-3 nabijgelegen steden, unieke content + rijtijd + quotable openingsalinea + FAQ + E-E-A-T)
+8. FAQ + E-E-A-T: op ALLE diensten-, product-, masterclass- en regiopagina's (3-4 FAQ items + FAQPage schema + E-E-A-T blok met opleiding + lidmaatschappen)
+9. Testimonials koppelen: per dienstenpagina een relevante review tonen
+10. Navigatie: alle subpagina's bereikbaar vanuit header + footer (nichepagina, masterclass, aanbod)
+11. Visuele breadcrumbs op ALLE subpagina's inclusief privacy/voorwaarden (`breadcrumbs` prop op BaseLayout)
+12. Privacy (AVG) en Voorwaarden pagina invullen
+13. OG image instellen (`public/images/og-default.jpg`)
+14. SEO/GEO checklist doorlopen: LocalBusiness compleet, meta descriptions < 160 chars + plaatsnaam, Product/Event schemas, footer met adres/telefoon, Google Maps op contact, llms.txt compleet (incl. regiopagina's)
+15. `npm run build` → git commit → deploy
 
 ## Belangrijke regels
 
@@ -160,6 +165,12 @@ Moet ALLE velden bevatten (niet optioneel):
 - Keystatic blog: `format: { contentField: 'content', data: 'yaml' }` + `entryLayout: 'content'`
 - Test altijd met `npm run build` voordat je iets als klaar beschouwt
 - Alle tracking scripts alleen laden na cookie consent
+- FAQ + FAQPage schema op ALLE diensten-, product-, masterclass- en regiopagina's (3-4 items inline, FAQAccordion component)
+- E-E-A-T blok op ALLE diensten-, product-, masterclass- en regiopagina's (opleiding + opleidingsinstituut authority link + beroepsvereniging-lidmaatschappen)
+- Testimonials koppelen aan de juiste dienstenpagina (niet alleen op homepage/reviews)
+- Blogposts bevatten interne links naar relevante diensten en producten
+- Regiopagina's hebben quotable openingsalinea (60-80 woorden, feitelijk, standalone als AI-antwoord)
+- llms.txt bijwerken bij ELKE nieuwe pagina (ook regiopagina's)
 
 ## astro.config.mjs patroon
 
@@ -220,15 +231,16 @@ singletons: {
 |---|---|
 | Homepage | LocalBusiness, WebSite, FounderPerson, AggregateRating, ReviewSnippets, FAQPage |
 | Diensten index | BreadcrumbList |
-| Diensten detail | Service (met serviceType + areaServed), BreadcrumbList |
+| Diensten detail | Service (met serviceType + areaServed), FAQPage, BreadcrumbList |
 | Over | ProfilePage, BreadcrumbList |
 | Reviews | BreadcrumbList, ReviewSnippets, AggregateRating |
 | Blog index | BreadcrumbList |
 | Blog detail | BlogPosting, BreadcrumbList |
 | Contact | BreadcrumbList |
 | Nichepagina's | FAQPage, BreadcrumbList |
-| Aanbod (betaald) | Product (met offers/price), BreadcrumbList |
-| Masterclass/workshop | EducationEvent, BreadcrumbList |
+| Aanbod (betaald) | Product (met offers/price), FAQPage, BreadcrumbList |
+| Masterclass/workshop | EducationEvent, FAQPage, BreadcrumbList |
+| Regiopagina's | Service (met areaServed), FAQPage, BreadcrumbList |
 
 ## Mapstructuur afbeeldingen
 
