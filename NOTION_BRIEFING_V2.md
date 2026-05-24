@@ -295,16 +295,22 @@ Alle pagina's moeten de juiste schemas hebben:
 ```typescript
 export const navigation: NavItem[] = [
   { label: 'Home', href: '/' },
-  { label: 'Diensten', href: '/diensten' },  // Altijd meenemen
-  { label: 'Over Mij', href: '/over' },      // Pas label aan per klant
+  { label: 'Diensten', href: '/diensten' },     // Altijd meenemen
+  { label: 'Aanbod', href: '/nichepagina' },     // Nichepagina of producten-overzicht
+  { label: 'Masterclass', href: '/masterclass' },// Indien van toepassing
+  { label: 'Over Mij', href: '/over' },          // Pas label aan per klant
   { label: 'Reviews', href: '/reviews' },
   { label: 'Blog', href: '/blog' },
   { label: 'Contact', href: '/contact', isButton: true },
 ];
 ```
 
+**Let op:** Alle subpagina's met eigen content (nichepagina's, masterclass, producten) moeten bereikbaar zijn vanuit de navigatie. Test dit altijd.
+
 **Footer** (`src/components/Footer.astro`):
 - [ ] "Diensten" link als eerste onder Pagina's
+- [ ] Nichepagina / aanbod link (bijv. "Yoga bij overprikkeling")
+- [ ] Masterclass / workshop link (indien aanwezig)
 - [ ] Pagina-links matchen met navigatie
 - [ ] Telefoonnummer met tel: link
 - [ ] E-mailadres met mailto: link
@@ -391,7 +397,10 @@ Deze features zijn verplicht bij elke klant-build. Ze zijn essentieel voor vindb
 | Reviews pagina + homepage sectie | Social proof, AggregateRating + ReviewSnippets schema |
 | LocalBusiness schema met geo | Google Maps / local pack ranking |
 | FAQPage schema | Featured snippets in zoekresultaten |
-| BreadcrumbList schema | Betere SERP weergave |
+| BreadcrumbList schema + visuele breadcrumbs | Betere SERP weergave + UX navigatie |
+| Regiopagina's (2-3 nabijgelegen steden) | GEO vindbaarheid, Service schema met areaServed |
+| Prominente masterclass/workshop banner | Conversie op homepage, EducationEvent schema |
+| Navigatie: alle content bereikbaar | Masterclass, aanbod, nichepagina's in header + footer |
 | OG image | Social sharing ziet er professioneel uit |
 | Privacy + Voorwaarden | Wettelijk verplicht, vertrouwen |
 | Keurmerk-logo's in footer | Vertrouwen + branche-autoriteit |
@@ -571,20 +580,28 @@ Branche: [yoga/chiro/coach/etc]
 
 Stappen:
 1. Fetch alle content, contactgegevens, reviews, kleuren en fonts van de bestaande site
-2. Vul site.ts in met alle klantgegevens
-3. Stel branding in (Tailwind kleuren, fonts via fontsource, favicon)
-4. Plaats alle afbeeldingen met GEO-geoptimaliseerde alt-teksten (altijd plaatsnaam erin)
-5. Schrijf content voor alle pagina's: Home, Over, Diensten (index + detail), Reviews, Blog, Contact
-6. Maak testimonials en FAQ's aan
-7. Schrijf privacy pagina (AVG) en voorwaarden pagina
-8. Stel OG image in
-9. SEO/GEO checklist doorlopen (zie sectie hierboven)
-10. Build + commit
+2. Als bestaande site: migratie-checklist doorlopen (zie sectie hieronder)
+3. Vul site.ts in met alle klantgegevens
+4. Stel branding in (Tailwind kleuren, fonts via fontsource, favicon)
+5. Plaats alle afbeeldingen met GEO-geoptimaliseerde alt-teksten (altijd plaatsnaam erin)
+6. Schrijf content voor alle pagina's: Home, Over, Diensten (index + detail), Reviews, Blog, Contact
+7. Maak testimonials en FAQ's aan
+8. Maak 2-3 regiopagina's aan voor nabijgelegen steden (unieke content, rijtijd, Service schema)
+9. Navigatie: alle subpagina's (nichepagina, masterclass, aanbod) bereikbaar in header EN footer
+10. Visuele breadcrumbs op ALLE subpagina's (breadcrumbs prop op BaseLayout)
+11. Prominente masterclass/workshop banner op homepage (indien van toepassing)
+12. Schrijf privacy pagina (AVG) en voorwaarden pagina
+13. Stel OG image in
+14. SEO/GEO checklist doorlopen (zie sectie hierboven)
+15. Build + commit
 
 Standaard template features die ALTIJD mee moeten:
 - Blog (index + detail pagina's)
 - Reviews pagina + homepage sectie
 - LocalBusiness schema COMPLEET (geo, image, logo, priceRange, hasMap, areaServed, openingHoursSpecification)
+- Visuele breadcrumbs op ALLE subpagina's
+- Regiopagina's (2-3 nabijgelegen steden, unieke content)
+- Navigatie: masterclass/aanbod/nichepagina in header + footer
 - Alle afbeeldingen via <Image> component (auto WebP)
 - Alt-teksten met bedrijfsnaam + plaatsnaam + dienst
 
@@ -608,3 +625,84 @@ Overige regels:
 - Testimonial veldnaam is "text", niet "quote"
 - trailingSlash: 'never' — geen trailing slashes in links
 ```
+
+---
+
+## Site Migratie Checklist
+
+> Gebruik dit bij het migreren van een BESTAANDE klantsite naar het template. Niet nodig bij greenfield builds.
+
+### Bepaal het migratietype
+
+| Vraag | Simpel | Serieus |
+|---|---|---|
+| Hoeveel pagina's? | 1-5 | 6+ |
+| Inkomende backlinks? | <10 | 10+ |
+| Rankt op zoektermen? | Nauwelijks | Ja |
+| Blog/kennisbank? | Nee | Ja |
+| Google Maps / GBP met reviews? | Nee/net aangemaakt | Ja |
+| Site ouder dan 1 jaar? | Nee | Ja |
+
+**<=2x Serieus** → Simpel pad (5-7 uur)
+**>=3x Serieus** → Volledig pad (12-20 uur)
+
+### Simpel pad
+
+1. **Content ophalen** (30 min) — web_fetch per pagina
+2. **URL-structuur** (15 min) — schone slugs, trailing slash beslissing
+3. **Template vullen** (2-4 uur) — clone, site.ts, kleuren, content, Keystatic
+4. **Deploy** (30 min) — Cloudflare Pages, custom domein, SSL
+5. **Na live** (15 min) — GBP updaten, sitemap indienen
+
+### Volledig pad
+
+1. **SEO-inventaris** (1-2 uur) — NOOIT OVERSLAAN
+   - Sitemap ophalen (sitemap.xml, wp-sitemap.xml, robots.txt)
+   - Backlink analyse (Ubersuggest/Ahrefs) — pagina's met backlinks zijn HEILIG
+   - Rankings checken (GSC of Ubersuggest) — top-10 zoektermen = prioriteit
+   - GBP check (URL, reviews, Place ID)
+   - Technical baseline (Lighthouse, structured data, CMS, robots.txt)
+
+2. **URL-mapping** (1 uur) — spreadsheet: Oude URL | Nieuwe URL | Actie | Backlinks | Rankt op
+   - URLs met backlinks/rankings blijven EXACT hetzelfde of krijgen 301
+   - WordPress-URLs opruimen: /author/, /category/, /tag/, /feed/, /wp-admin/
+   - Trailing slashes: 1 variant kiezen, andere redirecten
+
+3. **Content ophalen** (1-2 uur) — web_fetch (<15 pagina's) of Firecrawl (15+)
+
+4. **Content verbeteren** (2-4 uur) — copywriting + SEO + GEO regels toepassen (zie checklist hierboven)
+
+5. **Schema markup** (1 uur) — minimaal: LocalBusiness, Person, FAQPage, Service, Review+AggregateRating, BreadcrumbList, BlogPosting
+
+6. **Redirects** (30 min) — `_redirects` in `public/`, Cloudflare max 2000 regels
+   - 301 voor verplaatste pagina's, 410 Gone alleen zonder SEO-waarde
+   - Test met `curl -I https://domein.nl/oude-url`
+
+7. **Template bouwen** (4-8 uur) — site.ts, branding, content, schema, llms.txt
+
+8. **Testen voor DNS-cutover** (1 uur) — op staging URL (klantnaam.pages.dev)
+   - Lighthouse 90+ / 95+ / 90+, redirects werken, schema valide
+
+9. **DNS-cutover** (30 min)
+   - 24u vooraf: TTL verlagen naar 300 sec
+   - CNAME naar klantnaam.pages.dev, wacht op SSL
+   - Na cutover: TTL verhogen, oude hosting pas na 48u uit
+
+10. **Na-live checks** (1 uur, week 1) — GSC crawl errors, redirects, rankings monitoren
+
+11. **Rapportage** (30 min) — Lighthouse voor/na, schema overzicht, CMS handleiding
+
+12. **Oude hosting opzeggen** (na 2-4 weken) — backup, bevestig geen 404's
+
+### Top 10 migratiefouten
+
+1. Geen URL-mapping → broken backlinks, rankings kelderen
+2. Trailing slashes inconsistent → duplicate URLs voor Google
+3. Afbeeldingen niet gemigreerd → broken image links
+4. WordPress feeds vergeten → 404's op /feed/
+5. GBP niet bijgewerkt → belangrijkste lokale link broken
+6. Te vroeg oude hosting opzeggen → DNS propagatie duurt tot 48u
+7. Geen monitoring na migratie → 404's te laat ontdekt
+8. Schema markup niet gevalideerd → Google negeert structured data
+9. Meta Pixel/GA4 niet gemigreerd → conversie-data verloren
+10. Booking widget URL niet aangepast → externe integraties broken

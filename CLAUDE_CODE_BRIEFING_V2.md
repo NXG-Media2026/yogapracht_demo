@@ -42,13 +42,17 @@ Deze features moeten ALTIJD mee — ze zijn essentieel voor vindbaarheid:
 3. **Local SEO schemas** — LocalBusiness (juiste subtype), AggregateRating, ReviewSnippets, FAQPage, BreadcrumbList, WebSite, ProfilePage, Service
 4. **Pagina's** — Home, Over, Diensten (index + detailpagina's), Reviews, Blog, Contact, Privacy (AVG), Voorwaarden
 5. **Diensten** — /diensten overzicht + /diensten/[slug] per dienst, Service schema, links vanuit homepage
-6. **Image SEO** — Alle images via `<Image>` (auto WebP), alt-teksten met bedrijfsnaam + plaatsnaam + dienst
-7. **OG image** — Default social sharing image op alle pagina's
-8. **Keurmerk-logo's** — Branchevereniging/certificering logo's in footer
+6. **Visuele breadcrumbs** — Op ALLE subpagina's via BaseLayout `breadcrumbs` prop
+7. **Regiopagina's** — 2-3 service area pages voor nabijgelegen steden (unieke content, rijtijd, Service schema met areaServed)
+8. **Prominente masterclass/workshop** — Full-width banner op homepage met CTA + afbeelding (indien van toepassing)
+9. **Navigatie compleet** — Alle subpagina's (nichepagina, masterclass, aanbod) bereikbaar vanuit header EN footer
+10. **Image SEO** — Alle images via `<Image>` (auto WebP), alt-teksten met bedrijfsnaam + plaatsnaam + dienst
+11. **OG image** — Default social sharing image op alle pagina's
+12. **Keurmerk-logo's** — Branchevereniging/certificering logo's in footer
 
 ### Copywriting regels voor diensten en content
 
-- **Homepage** moet altijd bevatten: hero met CTA, intro-sectie, uitleg-sectie (wat is de methode), diensten-kaarten (clickable), voor-wie sectie, voordelen-lijst, founder-sectie, reviews, CTA-band, FAQ
+- **Homepage** moet altijd bevatten: hero met CTA, intro-sectie, uitleg-sectie (wat is de methode), diensten-kaarten (clickable), **prominente masterclass/workshop banner** (indien van toepassing), voor-wie sectie, voordelen-lijst, founder-sectie, reviews, CTA-band, online aanbod, FAQ
 - **Dienstenpagina's** bevatten: hero/kop, uitgebreide beschrijving, voor-wie lijst, praktische info, relevante testimonial, CTA
 - **H2 koppen** beginnen altijd met een topic noun (niet "Waarom..." of "Hoe...")
 - **Alt-teksten** bevatten bedrijfsnaam + plaatsnaam + dienst/context
@@ -125,10 +129,13 @@ Moet ALLE velden bevatten (niet optioneel):
 4. Branding: Tailwind kleuren, fonts (fontsource → public/fonts/), favicon (letter + primary kleur)
 5. Alle afbeeldingen plaatsen met GEO-geoptimaliseerde alt-teksten
 6. Content schrijven: alle pagina's, testimonials (.yaml), FAQ's, blog (min. 1 post)
-7. Privacy (AVG) en Voorwaarden pagina invullen
-8. OG image instellen (`public/images/og-default.jpg`)
-9. SEO/GEO checklist doorlopen (zie sectie hierboven): LocalBusiness compleet, meta descriptions < 160 chars + plaatsnaam, breadcrumbs, Product/Event schemas, footer met adres/telefoon, Google Maps op contact, llms.txt compleet
-10. `npm run build` → git commit → deploy
+7. Regiopagina's aanmaken (2-3 nabijgelegen steden, unieke content + rijtijd)
+8. Navigatie: alle subpagina's bereikbaar vanuit header + footer (nichepagina, masterclass, aanbod)
+9. Visuele breadcrumbs op ALLE subpagina's (`breadcrumbs` prop op BaseLayout)
+10. Privacy (AVG) en Voorwaarden pagina invullen
+11. OG image instellen (`public/images/og-default.jpg`)
+12. SEO/GEO checklist doorlopen: LocalBusiness compleet, meta descriptions < 160 chars + plaatsnaam, Product/Event schemas, footer met adres/telefoon, Google Maps op contact, llms.txt compleet
+13. `npm run build` → git commit → deploy
 
 ## Belangrijke regels
 
@@ -232,6 +239,33 @@ src/assets/
 public/images/     → profielfoto kopie (voor JSON-LD), og-default.jpg
 public/fonts/      → self-hosted woff2 bestanden
 ```
+
+## Site Migratie (bestaande klantsite overbrengen)
+
+> Bij BESTAANDE sites: altijd eerst migratietype bepalen. Bij greenfield builds (geen bestaande site) dit overslaan.
+
+### Simpel vs. serieus
+
+**Simpel** (5-7 uur): <=5 pagina's, <10 backlinks, geen rankings, geen blog.
+**Serieus** (12-20 uur): 6+ pagina's, 10+ backlinks, rankings, blog, GBP met reviews.
+
+### Serieus pad — kritieke stappen
+
+1. **SEO-inventaris** — NOOIT overslaan. Sitemap ophalen, backlinks analyseren, rankings checken, GBP noteren.
+2. **URL-mapping** — Spreadsheet: Oude URL → Nieuwe URL → Actie. URLs met backlinks zijn HEILIG (exact behouden of 301).
+3. **Redirects** — `_redirects` bestand in `public/`. Cloudflare Pages max 2000 regels. WordPress-URLs opruimen (/author/, /category/, /tag/, /feed/).
+4. **DNS-cutover** — TTL 24u vooraf verlagen naar 300s. Oude hosting pas na 48u deactiveren.
+5. **Na-live monitoring** — Week 1: GSC crawl errors, `site:domein.nl`, rankings vergelijken.
+
+### Top 5 migratiefouten
+
+1. Geen URL-mapping → broken backlinks, rankings kelderen
+2. GBP niet bijgewerkt → belangrijkste lokale link broken
+3. Te vroeg oude hosting opzeggen → DNS propagatie duurt tot 48u
+4. WordPress feeds/author pages vergeten → 404's
+5. Geen monitoring na migratie → 404's te laat ontdekt
+
+Volledige checklist: zie `NOTION_BRIEFING_V2.md` → "Site Migratie Checklist" sectie.
 
 ## Referentie
 
