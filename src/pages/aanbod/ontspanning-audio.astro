@@ -2,8 +2,12 @@
 import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { siteConfig } from '../../data/site';
+import { getEntry } from 'astro:content';
 import { generateBreadcrumbs, generateProduct } from '../../data/schema';
 import yogaAttributes from '../../assets/marielle/marielle_yogapose_attributes.jpg';
+
+const product = await getEntry('producten', 'ontspanning-audio');
+const p = product?.data ?? {};
 ---
 
 <BaseLayout
@@ -55,7 +59,7 @@ import yogaAttributes from '../../assets/marielle/marielle_yogapose_attributes.j
 
           <div class="flex items-end gap-4 mb-6">
             <div>
-              <span class="text-3xl font-heading text-primary">€9</span>
+              <span class="text-3xl font-heading text-primary">&euro;{p.price ?? '9'}</span>
               <span class="text-text-muted ml-1">eenmalig</span>
             </div>
           </div>
@@ -63,7 +67,7 @@ import yogaAttributes from '../../assets/marielle/marielle_yogapose_attributes.j
             href="#bestellen"
             class="inline-flex items-center px-8 py-4 text-base font-medium text-text-inverse bg-accent hover:bg-accent-dark transition-colors rounded-button shadow-lg"
           >
-            Direct bestellen
+            {p.ctaText ?? 'Direct bestellen'}
           </a>
         </div>
 

@@ -1,8 +1,15 @@
 import { config, fields, collection, singleton } from '@keystatic/core'
 
+// Lokaal werken: kind: 'local'. Keystatic Cloud voor klant: kind: 'cloud'.
+// In dev-mode altijd lokaal, in productie (Keystatic Cloud) altijd cloud.
+const isLocal = typeof process !== 'undefined' && process.env.NODE_ENV !== 'production';
+
 export default config({
   storage: {
-    kind: 'local',
+    kind: isLocal ? 'local' : 'cloud',
+  },
+  cloud: {
+    project: 'nxg-media2026/yogapracht-demo',
   },
 
   collections: {
@@ -86,6 +93,70 @@ export default config({
         }),
       },
     }),
+
+    diensten: collection({
+      label: 'Diensten',
+      slugField: 'title',
+      path: 'src/content/diensten/*',
+      schema: {
+        title: fields.slug({ name: { label: 'Titel' } }),
+        subtitle: fields.text({
+          label: 'Korte beschrijving',
+          description: 'Wordt getoond op de dienstenkaart op de homepage (1-2 zinnen)',
+        }),
+        description: fields.text({
+          label: 'Volledige beschrijving',
+          multiline: true,
+          description: 'De hoofdtekst op de dienstenpagina',
+        }),
+        voorWie: fields.text({
+          label: 'Voor wie geschikt',
+          multiline: true,
+          description: 'Eén doelgroep per regel',
+        }),
+        praktisch: fields.text({
+          label: 'Praktische info',
+          multiline: true,
+          description: 'Tijden, duur, locatie, groepsgrootte etc.',
+        }),
+        prijs: fields.text({
+          label: 'Prijs',
+          description: 'Bijv. "€15 per les" of "Op aanvraag"',
+        }),
+      },
+    }),
+
+    producten: collection({
+      label: 'Online producten',
+      slugField: 'name',
+      path: 'src/content/producten/*',
+      schema: {
+        name: fields.slug({ name: { label: 'Productnaam' } }),
+        price: fields.text({
+          label: 'Prijs',
+          description: 'Bijv. "27" (alleen het getal, zonder €)',
+        }),
+        description: fields.text({
+          label: 'Korte beschrijving',
+          description: 'Wordt getoond in zoekresultaten en op cards',
+        }),
+        longDescription: fields.text({
+          label: 'Uitgebreide beschrijving',
+          multiline: true,
+          description: 'De volledige tekst op de productpagina',
+        }),
+        features: fields.text({
+          label: 'Wat je krijgt',
+          multiline: true,
+          description: 'Eén item per regel (bijv. "Videoles van 45 minuten")',
+        }),
+        ctaText: fields.text({
+          label: 'Knoptekst',
+          description: 'Tekst op de bestelknop (bijv. "Nu bestellen")',
+          defaultValue: 'Nu bestellen',
+        }),
+      },
+    }),
   },
 
   singletons: {
@@ -117,6 +188,75 @@ export default config({
           label: 'Profielfoto',
           directory: 'src/assets/images',
           publicPath: '@assets/images/',
+        }),
+      },
+    }),
+
+    homepage: singleton({
+      label: 'Homepage',
+      path: 'src/content/settings/homepage',
+      schema: {
+        heroTitel: fields.text({
+          label: 'Hero titel',
+          description: 'De grote koptekst bovenaan de homepage',
+        }),
+        heroSubtekst: fields.text({
+          label: 'Hero subtekst',
+          multiline: true,
+          description: 'Tekst onder de hero titel',
+        }),
+        heroCtaPrimary: fields.text({
+          label: 'Primaire knop (hero)',
+          defaultValue: 'Gratis proefles aanvragen',
+        }),
+        heroCtaSecondary: fields.text({
+          label: 'Secundaire knop (hero)',
+          defaultValue: 'Bekijk de mogelijkheden',
+        }),
+        introTitel: fields.text({
+          label: 'Intro sectie titel',
+        }),
+        introTekst: fields.text({
+          label: 'Intro sectie tekst',
+          multiline: true,
+        }),
+        ctaBandTitel: fields.text({
+          label: 'CTA-band titel',
+          description: 'De koptekst in de brede call-to-action band',
+        }),
+        ctaBandTekst: fields.text({
+          label: 'CTA-band tekst',
+          multiline: true,
+        }),
+        ctaBandKnop: fields.text({
+          label: 'CTA-band knoptekst',
+          defaultValue: 'Gratis proefles aanvragen',
+        }),
+      },
+    }),
+
+    masterclass: singleton({
+      label: 'Masterclass',
+      path: 'src/content/settings/masterclass',
+      schema: {
+        title: fields.text({ label: 'Titel' }),
+        description: fields.text({
+          label: 'Beschrijving',
+          multiline: true,
+        }),
+        forWho: fields.text({
+          label: 'Voor wie',
+          multiline: true,
+          description: 'Eén doelgroep per regel',
+        }),
+        learningGoals: fields.text({
+          label: 'Wat je leert',
+          multiline: true,
+          description: 'Eén leerdoel per regel',
+        }),
+        ctaText: fields.text({
+          label: 'Aanmeldknop tekst',
+          defaultValue: 'Gratis aanmelden',
         }),
       },
     }),

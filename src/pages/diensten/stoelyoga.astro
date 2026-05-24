@@ -2,8 +2,12 @@
 import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { siteConfig } from '../../data/site';
+import { getEntry } from 'astro:content';
 import { generateBreadcrumbs, generateService } from '../../data/schema';
 import yogaAttributes from '../../assets/marielle/marielle_yogapose_attributes.jpg';
+
+const dienst = await getEntry('diensten', 'stoelyoga');
+const d = dienst?.data ?? {};
 ---
 
 <BaseLayout
@@ -33,7 +37,7 @@ import yogaAttributes from '../../assets/marielle/marielle_yogapose_attributes.j
         Stoelyoga
       </h1>
       <p class="text-lg text-text-muted leading-relaxed max-w-xl">
-        Alle voordelen van yoga, zittend op een stoel. Toegankelijk, veilig en verrassend effectief — voor iedereen die yoga wil beoefenen zonder op de grond te hoeven.
+        {d.subtitle ?? 'Alle voordelen van yoga, zittend op een stoel. Toegankelijk, veilig en verrassend effectief — voor iedereen die yoga wil beoefenen zonder op de grond te hoeven.'}
       </p>
     </div>
   </section>

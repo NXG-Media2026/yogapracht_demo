@@ -4,11 +4,13 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import TestimonialCard from '../../components/TestimonialCard.astro';
 import { siteConfig } from '../../data/site';
 import { generateBreadcrumbs, generateService } from '../../data/schema';
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 import heroImage from '../../assets/marielle/backgroundimage_marielle.jpg';
 import yogaPose from '../../assets/marielle/marielle_yogapose_sideways.jpg';
 
 const testimonials = await getCollection('testimonials');
+const dienst = await getEntry('diensten', 'groepslessen');
+const d = dienst?.data ?? {};
 const groepsReview = testimonials.find(t => t.data.name === 'Jolanda');
 ---
 
@@ -51,7 +53,7 @@ const groepsReview = testimonials.find(t => t.data.name === 'Jolanda');
           Groepslessen
         </h1>
         <p class="text-lg text-white/80 max-w-xl">
-          Wekelijkse hatha-rajayoga in een kleine, vertrouwde groep. Ruimte om in je eigen tempo te oefenen, met persoonlijke begeleiding.
+          {d.subtitle ?? 'Wekelijkse hatha-rajayoga in een kleine, vertrouwde groep. Ruimte om in je eigen tempo te oefenen, met persoonlijke begeleiding.'}
         </p>
       </div>
     </div>
@@ -113,6 +115,7 @@ const groepsReview = testimonials.find(t => t.data.name === 'Jolanda');
           <li><strong>Locatie:</strong> {siteConfig.contact.address.street}, {siteConfig.contact.address.city}</li>
           <li><strong>Ervaring:</strong> Niet nodig — geschikt voor beginners en gevorderden</li>
           <li><strong>Proefles:</strong> Gratis en vrijblijvend</li>
+          {d.prijs && <li><strong>Prijs:</strong> {d.prijs}</li>}
         </ul>
         <p>
           Neem je eigen matje mee als je dat hebt, maar het is geen vereiste. Draag comfortabele kleding waarin je vrij kunt bewegen.

@@ -4,7 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import FAQAccordion from '../components/FAQAccordion.astro';
 import TestimonialCard from '../components/TestimonialCard.astro';
 import { siteConfig } from '../data/site';
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 import { generateLocalBusiness, generateWebSite, generateAggregateRating, generateFAQPage, generateFounderPerson, generateReviewSnippets } from '../data/schema';
 import heroImage from '../assets/marielle/backgroundimage_marielle.jpg';
 import profileImage from '../assets/marielle/marielle_profile_image.jpg';
@@ -13,25 +13,18 @@ import yogaPoseSideways from '../assets/marielle/marielle_yogapose_sideways.jpg'
 import bulletIcon from '../assets/marielle/bullet-logo-groen.png';
 
 const testimonials = await getCollection('testimonials');
+const homepage = await getEntry('settings', 'homepage');
+const hp = homepage?.data ?? {};
 
-const homepageFaq = [
-  {
-    q: 'Wat is hatha-rajayoga precies?',
-    a: 'Hatha-rajayoga is een vorm van yoga gericht op bewustzijnsontwikkeling. Hathayoga richt zich op het fysieke aspect, terwijl rajayoga zich richt op de geest. De lessen zijn gebaseerd op de wetenschap van de Indiase filosoof Patanjali.',
-  },
-  {
-    q: 'Heb ik ervaring nodig om te beginnen?',
-    a: 'Helemaal niet. De lessen zijn geschikt voor iedereen, ongeacht leeftijd of ervaring. Je kunt altijd een gratis proefles volgen om kennis te maken met yoga bij Yogapracht.',
-  },
-  {
-    q: 'Wat kan ik verwachten tijdens een les?',
-    a: 'Een les bestaat uit houdingen (asana\'s), ademhalingsoefeningen en meditatie. Elke les wordt afgesloten met een diepe ontspanning (shavasana). De lessen duren ongeveer 75 minuten.',
-  },
-  {
-    q: 'Worden de lessen ook in het Engels gegeven?',
-    a: 'De lessen kunnen zowel in het Nederlands als in het Engels gegeven worden. Bij privélessen wordt de taal afgestemd op jouw voorkeur.',
-  },
-];
+const allFaqs = await getCollection('faqs');
+const homepageFaqs = allFaqs
+  .filter(f => f.data.page === 'home')
+  .sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
+
+const homepageFaq = homepageFaqs.map(f => ({
+  q: f.data.question,
+  a: f.data.answer,
+}));
 ---
 
 <BaseLayout
@@ -63,23 +56,23 @@ const homepageFaq = [
     <div class="relative py-24 md:py-32 lg:py-40">
       <div class="max-w-4xl mx-auto px-4 md:px-6">
         <h1 class="font-heading text-4xl md:text-5xl lg:text-6xl text-white mb-6 leading-tight max-w-2xl">
-          Yogapracht Hilvarenbeek — rust en balans door hatha-rajayoga
+          {hp.heroTitel ?? 'Yogapracht Hilvarenbeek — rust en balans door hatha-rajayoga'}
         </h1>
         <p class="text-lg md:text-xl text-white/80 leading-relaxed mb-10 max-w-xl">
-          In een wereld van drukte en hectiek bied ik je een veilige omgeving om even stil te staan en jezelf een cadeau te geven door middel van yoga.
+          {hp.heroSubtekst ?? 'In een wereld van drukte en hectiek bied ik je een veilige omgeving om even stil te staan en jezelf een cadeau te geven door middel van yoga.'}
         </p>
         <div class="flex flex-col sm:flex-row items-start gap-4">
           <a
             href="/contact"
             class="inline-flex items-center px-8 py-4 text-base font-medium text-text-inverse bg-accent hover:bg-accent-dark transition-colors rounded-button shadow-lg"
           >
-            Gratis proefles aanvragen
+            {hp.heroCtaPrimary ?? 'Gratis proefles aanvragen'}
           </a>
           <a
             href="/diensten"
             class="inline-flex items-center px-8 py-4 text-base font-medium text-white border-2 border-white/60 hover:bg-white/10 transition-colors rounded-button"
           >
-            Bekijk de mogelijkheden
+            {hp.heroCtaSecondary ?? 'Bekijk de mogelijkheden'}
           </a>
         </div>
       </div>
@@ -90,12 +83,9 @@ const homepageFaq = [
   <section class="py-16 md:py-20">
     <div class="max-w-4xl mx-auto px-4 md:px-6">
       <div class="max-w-2xl mx-auto text-center">
-        <h2 class="font-heading text-2xl md:text-3xl text-text mb-6">Yoga in Hilvarenbeek</h2>
+        <h2 class="font-heading text-2xl md:text-3xl text-text mb-6">{hp.introTitel ?? 'Yoga in Hilvarenbeek'}</h2>
         <p class="text-lg text-text-muted leading-relaxed mb-4">
-          Yogapracht is de yogapraktijk van Mariëlle van der Geest in Hilvarenbeek. Als gediplomeerd hatha-rajayoga docent begeleidt zij mensen die meer rust, balans en bewustzijn zoeken in hun leven.
-        </p>
-        <p class="text-text-muted leading-relaxed mb-4">
-          De lessen zijn gebaseerd op de yogasutra's van Patanjali — een tijdloze filosofie die lichaam en geest met elkaar verbindt. Of je nu voor het eerst op een matje stapt of al jaren oefent: bij Yogapracht is er een vorm die bij jou past.
+          {hp.introTekst ?? 'Yogapracht is de yogapraktijk van Mariëlle van der Geest in Hilvarenbeek. Als gediplomeerd hatha-rajayoga docent begeleidt zij mensen die meer rust, balans en bewustzijn zoeken in hun leven. De lessen zijn gebaseerd op de yogasutra\'s van Patanjali — een tijdloze filosofie die lichaam en geest met elkaar verbindt. Of je nu voor het eerst op een matje stapt of al jaren oefent: bij Yogapracht is er een vorm die bij jou past.'}
         </p>
       </div>
     </div>
@@ -338,16 +328,16 @@ const homepageFaq = [
     <div class="relative py-20 md:py-28">
       <div class="max-w-4xl mx-auto px-4 md:px-6 text-center">
         <h2 class="font-heading text-3xl md:text-4xl text-white mb-4">
-          Ervaar zelf de kracht van yoga
+          {hp.ctaBandTitel ?? 'Ervaar zelf de kracht van yoga'}
         </h2>
         <p class="text-lg text-white/80 mb-8 max-w-2xl mx-auto">
-          Boek een gratis en vrijblijvende proefles en ontdek wat hatha-rajayoga voor jou kan betekenen. Geen ervaring nodig — alleen de wil om het te proberen.
+          {hp.ctaBandTekst ?? 'Boek een gratis en vrijblijvende proefles en ontdek wat hatha-rajayoga voor jou kan betekenen. Geen ervaring nodig — alleen de wil om het te proberen.'}
         </p>
         <a
           href="/contact"
           class="inline-flex items-center px-8 py-4 text-base font-medium bg-accent hover:bg-accent-dark text-white transition-colors rounded-button shadow-lg"
         >
-          Gratis proefles aanvragen
+          {hp.ctaBandKnop ?? 'Gratis proefles aanvragen'}
           <svg class="ml-2 w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>

@@ -31,8 +31,32 @@ const testimonials = defineCollection({
   }),
 });
 
+const diensten = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: 'src/content/diensten' }),
+  schema: z.object({
+    title: z.string(),
+    subtitle: z.string().optional(),
+    description: z.string().optional(),
+    voorWie: z.string().optional(),
+    praktisch: z.string().optional(),
+    prijs: z.string().optional(),
+  }),
+});
+
+const producten = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: 'src/content/producten' }),
+  schema: z.object({
+    name: z.string(),
+    price: z.string(),
+    description: z.string().optional(),
+    longDescription: z.string().optional(),
+    features: z.string().optional(),
+    ctaText: z.string().optional(),
+  }),
+});
+
 const settings = defineCollection({
   loader: glob({ pattern: '**/*.{yaml,md,mdx}', base: 'src/content/settings' }),
 });
 
-export const collections = { blog, faqs, testimonials, settings };
+export const collections = { blog, faqs, testimonials, diensten, producten, settings };

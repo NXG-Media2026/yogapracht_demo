@@ -2,9 +2,13 @@
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { siteConfig } from '../data/site';
+import { getEntry } from 'astro:content';
 import { generateBreadcrumbs, generateEvent } from '../data/schema';
 import heroImage from '../assets/marielle/backgroundimage_marielle.jpg';
 import profileImage from '../assets/marielle/marielle_profile_image.jpg';
+
+const masterclass = await getEntry('settings', 'masterclass');
+const mc = masterclass?.data ?? {};
 ---
 
 <BaseLayout
@@ -37,16 +41,16 @@ import profileImage from '../assets/marielle/marielle_profile_image.jpg';
       <div class="max-w-4xl mx-auto px-4 md:px-6 text-center">
         <p class="text-accent text-sm font-medium uppercase tracking-wider mb-4">Gratis live masterclass</p>
         <h1 class="font-heading text-4xl md:text-5xl lg:text-6xl text-white mb-6 leading-tight max-w-3xl mx-auto">
-          Yoga bij overprikkeling
+          {mc.title ?? 'Yoga bij overprikkeling'}
         </h1>
         <p class="text-lg md:text-xl text-white/80 leading-relaxed mb-10 max-w-2xl mx-auto">
-          Ontdek in deze gratis live masterclass hoe je met zachte yoga je zenuwstelsel leert kalmeren. Van innerlijke onrust naar rustig aanwezig zijn bij jezelf.
+          {mc.description ?? 'Ontdek in deze gratis live masterclass hoe je met zachte yoga je zenuwstelsel leert kalmeren. Van innerlijke onrust naar rustig aanwezig zijn bij jezelf.'}
         </p>
         <a
           href="#aanmelden"
           class="inline-flex items-center px-8 py-4 text-base font-medium text-text-inverse bg-accent hover:bg-accent-dark transition-colors rounded-button shadow-lg"
         >
-          Gratis aanmelden
+          {mc.ctaText ?? 'Gratis aanmelden'}
           <svg class="ml-2 w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>
@@ -155,7 +159,7 @@ import profileImage from '../assets/marielle/marielle_profile_image.jpg';
   {/* ── Aanmelden CTA ── */}
   <section id="aanmelden" class="py-16 md:py-20 bg-bg-alt">
     <div class="max-w-xl mx-auto px-4 md:px-6 text-center">
-      <h2 class="font-heading text-3xl md:text-4xl text-text mb-4">Gratis aanmelden</h2>
+      <h2 class="font-heading text-3xl md:text-4xl text-text mb-4">{mc.ctaText ?? 'Gratis aanmelden'}</h2>
       <p class="text-text-muted mb-8">
         Vul je e-mailadres in en je ontvangt een uitnodiging zodra de datum bekend is. Geen spam, alleen relevante informatie over de masterclass.
       </p>

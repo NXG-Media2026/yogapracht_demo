@@ -4,10 +4,12 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import TestimonialCard from '../../components/TestimonialCard.astro';
 import { siteConfig } from '../../data/site';
 import { generateBreadcrumbs, generateService } from '../../data/schema';
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 import profileImage from '../../assets/marielle/marielle_profile_image.jpg';
 
 const testimonials = await getCollection('testimonials');
+const dienst = await getEntry('diensten', 'privelessen');
+const d = dienst?.data ?? {};
 const priveReview = testimonials.find(t => t.data.name === 'Ann');
 ---
 
@@ -38,7 +40,7 @@ const priveReview = testimonials.find(t => t.data.name === 'Ann');
         Privélessen
       </h1>
       <p class="text-lg text-text-muted leading-relaxed max-w-xl">
-        Persoonlijke yogabegeleiding volledig afgestemd op jouw lichaam, wensen en tempo. In de studio, bij jou thuis of op een locatie naar keuze.
+        {d.subtitle ?? 'Persoonlijke yogabegeleiding volledig afgestemd op jouw lichaam, wensen en tempo. In de studio, bij jou thuis of op een locatie naar keuze.'}
       </p>
     </div>
   </section>
