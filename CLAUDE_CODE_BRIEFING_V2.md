@@ -22,10 +22,11 @@ Per nieuwe klant: clone de template, vul klantgegevens in, pas branding aan, sch
 
 | Component | Keuze | Let op |
 |---|---|---|
-| Framework | Astro 6.x | `output: 'static'` voor build, `'hybrid'` bij dev (Keystatic) |
-| Adapter | `@astrojs/node@9` (alleen dev) | Geen adapter nodig voor Cloudflare Pages static deploy |
+| Framework | Astro 6.x | `output: 'static'` (ondersteunt per-page SSR met adapter) |
+| Adapter dev | `@astrojs/node@9` | Voor lokale Keystatic admin UI |
+| Adapter prod | `@astrojs/cloudflare@13` | Vereist voor Keystatic Cloud `/keystatic` SSR routes |
 | CSS | Tailwind 3.4 + `@tailwindcss/typography` | Semantische kleurnamen (primary, accent, bg, etc.) |
-| CMS | Keystatic | `storage: { kind: 'local' }` voor dev |
+| CMS | Keystatic + Keystatic Cloud | `storage: { kind: 'local' }` dev, `{ kind: 'cloud' }` prod |
 | Blog content | `@astrojs/mdx@5` | **NIET markdoc** — incompatibel met Astro |
 | Content | Astro Content Collections | ALLE collections gebruiken `glob` loader uit `astro/loaders` (geen `type: 'data'`) |
 | Fonts | Self-hosted via fontsource | woff2 in `public/fonts/` |
@@ -147,9 +148,8 @@ Moet ALLE velden bevatten (niet optioneel):
 ### Nooit doen
 - `npm audit fix` of `npm audit fix --force` — **NOOIT**, breekt Astro
 - `fields.markdoc()` in Keystatic — **incompatibel met Astro**, altijd `fields.mdx()` (ook voor singletons met content veld)
-- `output: 'hybrid'` hardcoded — **alleen bij dev** via `isDev` check, build is altijd `'static'`
+- `output: 'hybrid'` — **verwijderd in Astro 6**, gebruik altijd `output: 'static'` (ondersteunt per-page SSR met adapter)
 - `type: 'data'` in content collections — **verouderd in Astro 6**, gebruik altijd `glob` loader
-- `@astrojs/cloudflare` adapter — **niet nodig** voor Cloudflare Pages static deploy
 - Afbeeldingen als `<img>` tag — **altijd `<Image>` uit `astro:assets`**
 - `.mdoc` bestanden gebruiken — **niet supported zonder markdoc**, gebruik `.md`, `.mdx` of `.yaml`
 - Trailing slashes in links — `trailingSlash: 'never'` staat in de config
@@ -174,29 +174,35 @@ Moet ALLE velden bevatten (niet optioneel):
 
 ## astro.config.mjs patroon
 
-Keystatic vereist `hybrid` output + node adapter (SSR voor admin routes). Maar Cloudflare Pages is static. Daarom is de config conditioneel:
+Keystatic Cloud vereist dat de `/keystatic` SSR route ook in productie beschikbaar is. Daarom:
+- **Dev:** `@astrojs/node` adapter (lokale Keystatic admin)
+- **Productie:** `@astrojs/cloudflare` adapter (Keystatic Cloud SSR routes)
+- **Keystatic** altijd als integratie geladen (niet conditioneel)
+- **Output** altijd `'static'` — Astro 6 ondersteunt per-page SSR met adapter
 
 ```javascript
+import keystatic from '@keystatic/astro';
+
 const isDev = process.argv.includes('dev');
 
-// Keystatic + node adapter alleen laden bij dev
-let keystatic, nodeAdapter;
+let adapter;
 if (isDev) {
-  keystatic = (await import('@keystatic/astro')).default;
-  nodeAdapter = (await import('@astrojs/node')).default;
+  adapter = (await import('@astrojs/node')).default({ mode: 'standalone' });
+} else {
+  adapter = (await import('@astrojs/cloudflare')).default();
 }
 
 export default defineConfig({
-  output: isDev ? 'hybrid' : 'static',   // hybrid voor dev, static voor build
-  ...(isDev ? { adapter: nodeAdapter({ mode: 'standalone' }) } : {}),
+  output: 'static',
+  adapter,
   integrations: [
-    ...(isDev ? [keystatic()] : []),      // Keystatic alleen bij dev
+    keystatic(),
     // ... overige integrations
   ],
 });
 ```
 
-**Belangrijk:** `@astrojs/node` staat als devDependency, `.npmrc` bevat `legacy-peer-deps=true`.
+**Belangrijk:** `@astrojs/node` staat als devDependency, `@astrojs/cloudflare` als dependency. `.npmrc` bevat `legacy-peer-deps=true`.
 
 ## Keystatic config structuur
 

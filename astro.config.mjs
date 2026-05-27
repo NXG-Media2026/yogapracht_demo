@@ -3,26 +3,28 @@ import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 import react from '@astrojs/react';
 import mdx from '@astrojs/mdx';
+import keystatic from '@keystatic/astro';
 
-// Keystatic CMS alleen in dev-mode (lokaal content beheren)
+// Dev: node adapter voor lokaal. Productie: cloudflare adapter voor /keystatic SSR.
 const isDev = process.argv.includes('dev');
 
-let keystatic, nodeAdapter;
+let adapter;
 if (isDev) {
-  keystatic = (await import('@keystatic/astro')).default;
-  nodeAdapter = (await import('@astrojs/node')).default;
+  adapter = (await import('@astrojs/node')).default({ mode: 'standalone' });
+} else {
+  adapter = (await import('@astrojs/cloudflare')).default();
 }
 
 export default defineConfig({
   site: 'https://www.yogapracht.com',
-  output: isDev ? 'hybrid' : 'static',
+  output: 'static',
   trailingSlash: 'never',
-  ...(isDev ? { adapter: nodeAdapter({ mode: 'standalone' }) } : {}),
+  adapter,
   integrations: [
     tailwind({ applyBaseStyles: false }),
     react(),
     mdx(),
-    ...(isDev ? [keystatic()] : []),
+    keystatic(),
     sitemap({
       filter: (page) =>
         !page.includes('/keystatic') &&

@@ -28,10 +28,11 @@
 
 | Component | Versie/keuze | Notities |
 |---|---|---|
-| Framework | Astro 6.x | `output: 'static'` voor build, `'hybrid'` bij dev (Keystatic) |
-| Adapter | `@astrojs/node@9` (alleen dev) | Geen adapter nodig voor Cloudflare Pages. Node adapter is alleen voor lokaal dev met Keystatic. |
+| Framework | Astro 6.x | `output: 'static'` (ondersteunt per-page SSR met adapter) |
+| Adapter dev | `@astrojs/node@9` | Voor lokale Keystatic admin UI |
+| Adapter prod | `@astrojs/cloudflare@13` | Vereist voor Keystatic Cloud `/keystatic` SSR routes |
 | CSS | Tailwind 3.4 + `@tailwindcss/typography` | Semantische kleurnamen |
-| CMS | Keystatic | `storage: { kind: 'local' }` voor dev |
+| CMS | Keystatic + Keystatic Cloud | `storage: { kind: 'local' }` dev, `{ kind: 'cloud' }` prod |
 | Blog | `@astrojs/mdx@5` | **NIET markdoc** — incompatibel met Astro |
 | Content | Astro Content Collections | ALLE collections gebruiken `glob` loader (geen `type: 'data'`). Settings glob: `**/*.{yaml,md,mdx}` |
 | Fonts | Self-hosted via fontsource | woff2 in `public/fonts/` |
@@ -364,8 +365,9 @@ git push -u origin main
 2. Build command: `npm run build` (automatisch ingevuld)
 3. Build output directory: `dist` (automatisch ingevuld)
 4. Root directory: leeg laten
-5. Geen adapter nodig — astro.config.mjs schakelt automatisch naar `output: 'static'` bij build
+5. `@astrojs/cloudflare` adapter wordt automatisch gebruikt bij build (voor Keystatic Cloud SSR routes)
 6. `.npmrc` met `legacy-peer-deps=true` moet in de repo staan (voor peer dep conflicts)
+7. Na eerste deploy: Keystatic Cloud project koppelen op keystatic.cloud (project key in `keystatic.config.ts`)
 
 **Custom domein:**
 1. Cloudflare Pages → Custom domains → Add
@@ -538,7 +540,7 @@ Deze features zijn verplicht bij elke klant-build. Ze zijn essentieel voor vindb
 |---|---|---|
 | `npm audit fix --force` | Breekt Astro volledig | **Nooit doen** |
 | `fields.markdoc()` in Keystatic | Incompatibel met Astro, ook in singletons | Altijd `fields.mdx()`, ook voor about-bio |
-| `output: 'hybrid'` hardcoded | Build faalt op Cloudflare | Alleen bij dev via `isDev` check, build is `'static'` |
+| `output: 'hybrid'` | Verwijderd in Astro 6 | Altijd `output: 'static'` (ondersteunt per-page SSR met adapter) |
 | Afbeeldingen als `<img>` tag | Geen WebP conversie, geen optimalisatie | Altijd `<Image>` uit `astro:assets` |
 | Alt-tekst zonder plaatsnaam | Mist GEO-signaal voor local SEO | Altijd bedrijfsnaam + plaatsnaam in alt |
 | Testimonial veld `quote:` | Schema verwacht `text:` | Veldnaam is **altijd** `text:` |
