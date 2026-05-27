@@ -12,7 +12,9 @@ let adapter;
 if (isDev) {
   adapter = (await import('@astrojs/node')).default({ mode: 'standalone' });
 } else {
-  adapter = (await import('@astrojs/cloudflare')).default();
+  adapter = (await import('@astrojs/cloudflare')).default({
+    configPath: './wrangler.build.toml',
+  });
 }
 
 export default defineConfig({
