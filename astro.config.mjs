@@ -12,7 +12,9 @@ let adapter;
 if (isDev) {
   adapter = (await import('@astrojs/node')).default({ mode: 'standalone' });
 } else {
-  adapter = (await import('@astrojs/cloudflare')).default();
+  adapter = (await import('@astrojs/cloudflare')).default({
+    imageService: 'compile',
+  });
 }
 
 export default defineConfig({
