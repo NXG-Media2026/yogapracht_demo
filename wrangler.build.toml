@@ -1,5 +1,0 @@
-# Build-time config voor @astrojs/cloudflare adapter.
-# Zonder pages_build_output_dir zodat ASSETS binding niet conflicteert.
-# Cloudflare Pages leest wrangler.toml (root) voor deployment.
-name = "yogapracht-demo"
-compatibility_date = "2026-04-15"
