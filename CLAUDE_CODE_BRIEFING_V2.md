@@ -141,7 +141,8 @@ Moet ALLE velden bevatten (niet optioneel):
 12. Privacy (AVG) en Voorwaarden pagina invullen
 13. OG image instellen (`public/images/og-default.jpg`)
 14. SEO/GEO checklist doorlopen: LocalBusiness compleet, meta descriptions < 160 chars + plaatsnaam, Product/Event schemas, footer met adres/telefoon, Google Maps op contact, llms.txt compleet (incl. regiopagina's)
-15. `npm run build` → git commit → deploy
+15. Keystatic UI: `ui.brand` met klantnaam, `ui.navigation` groepen, `columns` in lijstweergaves, duidelijke Nederlandse descriptions
+16. `npm run build` → git commit → deploy (Cloudflare Pages: preset "None", output `dist/client`)
 
 ## Belangrijke regels
 
@@ -151,8 +152,12 @@ Moet ALLE velden bevatten (niet optioneel):
 - `output: 'hybrid'` — **verwijderd in Astro 6**, gebruik altijd `output: 'static'` (ondersteunt per-page SSR met adapter)
 - `type: 'data'` in content collections — **verouderd in Astro 6**, gebruik altijd `glob` loader
 - Afbeeldingen als `<img>` tag — **altijd `<Image>` uit `astro:assets`**
-- `.mdoc` bestanden gebruiken — **niet supported zonder markdoc**, gebruik `.md`, `.mdx` of `.yaml`
+- `.mdoc` bestanden gebruiken — **niet supported zonder markdoc**, gebruik `.mdx` of `.yaml`
 - Trailing slashes in links — `trailingSlash: 'never'` staat in de config
+- `wrangler.toml` in de project root — **breekt Cloudflare Pages deployment**, zet Pages in beta Wrangler-modus
+- Cloudflare adapter zonder `imageService: 'compile'` — **breekt alle afbeeldingen**, routeert ze via /_image runtime
+- Blog bestanden als `.md` — **Keystatic Cloud herkent ze niet**, gebruik altijd `.mdx`
+- Framework preset "Astro" in Cloudflare Pages — **veroorzaakt 404's**, gebruik "None" + `dist/client` als output
 
 ### Altijd doen
 - `--legacy-peer-deps` bij npm install (staat ook in `.npmrc` voor Cloudflare builds)
@@ -161,6 +166,7 @@ Moet ALLE velden bevatten (niet optioneel):
 - Alt-teksten: bevatten bedrijfsnaam + plaatsnaam + beroep/dienst
 - Testimonial veldnaam is `text:` in YAML, **niet** `quote:`
 - ALLE collections gebruiken `glob` loader, bijv: `loader: glob({ pattern: '**/*.yaml', base: 'src/content/testimonials' })`
+- Blog collection glob: `**/*.{md,mdx}` — Keystatic maakt `.mdx` bestanden
 - Settings collection glob: `**/*.{yaml,md,mdx}` — moet `.mdx` bevatten voor singletons met `fields.mdx()` content
 - Keystatic blog: `format: { contentField: 'content', data: 'yaml' }` + `entryLayout: 'content'`
 - Test altijd met `npm run build` voordat je iets als klaar beschouwt
@@ -171,12 +177,15 @@ Moet ALLE velden bevatten (niet optioneel):
 - Blogposts bevatten interne links naar relevante diensten en producten
 - Regiopagina's hebben quotable openingsalinea (60-80 woorden, feitelijk, standalone als AI-antwoord)
 - llms.txt bijwerken bij ELKE nieuwe pagina (ook regiopagina's)
+- `.wrangler/` in `.gitignore` — lokale Wrangler state mag nooit in git
+- Cloudflare Pages: build output directory `dist/client`, framework preset "None"
+- Post-build script `scripts/prepare-pages.mjs` genereert `_worker.js` + `_routes.json`
 
 ## astro.config.mjs patroon
 
 Keystatic Cloud vereist dat de `/keystatic` SSR route ook in productie beschikbaar is. Daarom:
 - **Dev:** `@astrojs/node` adapter (lokale Keystatic admin)
-- **Productie:** `@astrojs/cloudflare` adapter (Keystatic Cloud SSR routes)
+- **Productie:** `@astrojs/cloudflare` adapter met `imageService: 'compile'`
 - **Keystatic** altijd als integratie geladen (niet conditioneel)
 - **Output** altijd `'static'` — Astro 6 ondersteunt per-page SSR met adapter
 
@@ -189,7 +198,9 @@ let adapter;
 if (isDev) {
   adapter = (await import('@astrojs/node')).default({ mode: 'standalone' });
 } else {
-  adapter = (await import('@astrojs/cloudflare')).default();
+  adapter = (await import('@astrojs/cloudflare')).default({
+    imageService: 'compile',  // VERPLICHT — zonder dit worden images via /_image gerouteerd en breken ze
+  });
 }
 
 export default defineConfig({
@@ -204,30 +215,88 @@ export default defineConfig({
 
 **Belangrijk:** `@astrojs/node` staat als devDependency, `@astrojs/cloudflare` als dependency. `.npmrc` bevat `legacy-peer-deps=true`.
 
+## Cloudflare Pages deployment
+
+De `@astrojs/cloudflare` adapter v13 genereert een Workers-structuur (`dist/server/` + `dist/client/`), maar Cloudflare Pages herkent dit NIET automatisch. Vereiste setup:
+
+### Post-build script (`scripts/prepare-pages.mjs`)
+
+Bundelt `dist/server/entry.mjs` tot `dist/client/_worker.js` + maakt `_routes.json`:
+
+```javascript
+import { execSync } from 'node:child_process';
+import { writeFileSync } from 'node:fs';
+
+// Bundle server entry for Cloudflare Pages Advanced Mode
+execSync('npx esbuild dist/server/entry.mjs --bundle --outfile=dist/client/_worker.js --format=esm --target=es2022 --external:cloudflare:* --external:node:*', { stdio: 'inherit' });
+
+// Routes: alleen /keystatic en /_image naar de Worker, rest is static
+writeFileSync('dist/client/_routes.json', JSON.stringify({
+  version: 1,
+  include: ['/keystatic', '/keystatic/*', '/_image'],
+  exclude: [],
+}, null, 2));
+```
+
+**Build command in package.json:** `"build": "astro build && node scripts/prepare-pages.mjs"`
+
+### Cloudflare Pages dashboard instellingen
+
+| Instelling | Waarde | Waarom |
+|---|---|---|
+| Framework preset | **None** | "Astro" preset veroorzaakt conflicten met adapter v13 |
+| Build command | `npm run build` | Draait astro build + post-build script |
+| Build output directory | **`dist/client`** | Adapter zet static files in `dist/client/`, niet `dist/` |
+
+### Valkuilen (geleerd uit productie)
+
+- **GEEN `wrangler.toml` in de root** — zet Pages in beta "Wrangler configuration mode" waardoor `_worker.js` niet wordt herkend
+- **`imageService: 'compile'` is VERPLICHT** — zonder dit routeert de adapter alle images via `/_image` runtime endpoint die een IMAGES binding nodig heeft. Met `'compile'` worden images bij build geoptimaliseerd als statische WebP bestanden
+- **`.wrangler/` in `.gitignore`** — lokale Wrangler state mag NOOIT in git (veroorzaakt deploy errors)
+- **Blog bestanden moeten `.mdx` zijn** — Keystatic met `fields.mdx()` herkent GEEN `.md` bestanden
+
 ## Keystatic config structuur
 
 ```typescript
+// UI: brand naam + navigatie-groepen voor overzichtelijk CMS
+ui: {
+  brand: { name: 'Klantnaam' },
+  navigation: {
+    'Website': ['homepage', 'about', 'contact', 'masterclass'],
+    'Content': ['blogposts', 'testimonials', 'faqs'],
+    'Aanbod': ['diensten', 'producten'],
+  },
+},
+
 collections: {
   blogposts: collection({
     // slugField: 'title', path: 'src/content/blog/*'
     // format: { contentField: 'content', data: 'yaml' }, entryLayout: 'content'
+    // columns: ['publishDate', 'summary']  ← extra kolommen in lijstweergave
     // schema: title (slug), summary (text max 160), publishDate (date),
     //         coverImage (image), content (fields.mdx())
+    // BESTANDEN MOETEN .mdx ZIJN — Keystatic Cloud herkent geen .md
   }),
   faqs: collection({
     // slugField: 'question', path: 'src/content/faqs/*'
+    // columns: ['page']
     // schema: question (slug), answer (text multiline),
     //         order (integer), page (select: home/about/services)
   }),
   testimonials: collection({
     // slugField: 'name', path: 'src/content/testimonials/*'
+    // columns: ['role', 'rating']
     // schema: name (slug), role (text), text (text multiline),
     //         rating (integer 1-5)
   }),
+  diensten: collection({ /* title, subtitle, description, voorWie, praktisch, prijs */ }),
+  producten: collection({ /* name, price, description, longDescription, features, ctaText */ }),
 }
 singletons: {
-  contact: singleton({ /* businessName, phone, email, address, openingHours */ }),
+  homepage: singleton({ /* heroTitel, heroSubtekst, heroCtaPrimary/Secondary, introTitel/Tekst, ctaBand */ }),
   about: singleton({ /* headline, subheadline, bio (fields.mdx), profileImage */ }),
+  contact: singleton({ /* businessName, phone, email, address, openingHours */ }),
+  masterclass: singleton({ /* title, description, forWho, learningGoals, ctaText */ }),
 }
 ```
 

@@ -361,13 +361,20 @@ git push -u origin main
 ### Stap 11: Deploy (15 min)
 
 **Cloudflare Pages:**
-1. Framework preset: `Astro`
-2. Build command: `npm run build` (automatisch ingevuld)
-3. Build output directory: `dist` (automatisch ingevuld)
+1. Framework preset: **`None`** (NIET "Astro" — veroorzaakt conflicten met adapter v13)
+2. Build command: `npm run build` (draait astro build + post-build script)
+3. Build output directory: **`dist/client`** (NIET `dist` — adapter zet static files in `dist/client/`)
 4. Root directory: leeg laten
-5. `@astrojs/cloudflare` adapter wordt automatisch gebruikt bij build (voor Keystatic Cloud SSR routes)
-6. `.npmrc` met `legacy-peer-deps=true` moet in de repo staan (voor peer dep conflicts)
-7. Na eerste deploy: Keystatic Cloud project koppelen op keystatic.cloud (project key in `keystatic.config.ts`)
+5. `.npmrc` met `legacy-peer-deps=true` moet in de repo staan
+6. **GEEN `wrangler.toml` in de repo** — breekt Pages deployment
+7. `.wrangler/` moet in `.gitignore` staan
+8. Na eerste deploy: Keystatic Cloud project koppelen op keystatic.cloud (project key in `keystatic.config.ts`)
+
+**Hoe SSR werkt op Cloudflare Pages:**
+- `@astrojs/cloudflare` adapter genereert `dist/server/entry.mjs` (Worker) + `dist/client/` (static)
+- Post-build script (`scripts/prepare-pages.mjs`) bundelt de Worker tot `dist/client/_worker.js`
+- `_routes.json` stuurt alleen `/keystatic/*` en `/_image` naar de Worker, rest is static
+- Dit heet "Cloudflare Pages Advanced Mode" — Pages herkent `_worker.js` automatisch
 
 **Custom domein:**
 1. Cloudflare Pages → Custom domains → Add
@@ -545,11 +552,17 @@ Deze features zijn verplicht bij elke klant-build. Ze zijn essentieel voor vindb
 | Alt-tekst zonder plaatsnaam | Mist GEO-signaal voor local SEO | Altijd bedrijfsnaam + plaatsnaam in alt |
 | Testimonial veld `quote:` | Schema verwacht `text:` | Veldnaam is **altijd** `text:` |
 | FAQ antwoord begint met "Ja"/"Nee" | AI kan het niet standalone citeren | Eerste zin moet op zichzelf staan |
-| `.mdoc` bestanden gebruiken | Niet supported zonder markdoc | Gebruik .md, .mdx of .yaml |
+| `.mdoc` bestanden gebruiken | Niet supported zonder markdoc | Gebruik .mdx of .yaml |
+| Blog bestanden als `.md` | Keystatic Cloud ziet ze niet | Altijd `.mdx` voor blog content (Keystatic `fields.mdx()`) |
 | Content direct pushen zonder build | Broken deploy | Altijd eerst `npm run build` lokaal |
 | Geen `--legacy-peer-deps` bij install | npm install faalt met peer conflicts | Altijd `--legacy-peer-deps` meegeven |
 | Favicon niet aangepast | Oude template letter/kleur zichtbaar | Update letter + primary kleur in favicon.svg |
 | Geen OG image | Social shares tonen geen afbeelding | Kopieer foto naar `public/images/og-default.jpg` |
+| `wrangler.toml` in project root | Pages gaat in beta Wrangler-modus, `_worker.js` wordt genegeerd | Nooit `wrangler.toml` toevoegen, deployment config via dashboard |
+| Cloudflare adapter zonder `imageService: 'compile'` | Alle afbeeldingen broken (404 op `/_image`) | Altijd `imageService: 'compile'` meegeven aan adapter |
+| Framework preset "Astro" in Pages | Hele site geeft 404 | Gebruik preset "None" + output `dist/client` |
+| `.wrangler/` in git | Deploy error: "redirected configuration path does not exist" | `.wrangler/` toevoegen aan `.gitignore` |
+| Build output directory `dist` i.p.v. `dist/client` | Static files niet gevonden | Adapter zet files in `dist/client/`, dashboard moet daarop wijzen |
 | Meta description zonder plaatsnaam | Mist local SEO signaal | Altijd plaatsnaam in description |
 | Meta description boven 160 chars | Wordt afgeknipt in Google | Altijd tellen, max 155-160 chars |
 | H1 homepage zonder bedrijfsnaam/stad | Mist primair ranking signaal | H1 bevat altijd bedrijfsnaam + plaatsnaam |
